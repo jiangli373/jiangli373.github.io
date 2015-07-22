@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用nodejs解析优酷，奇艺视频源地址 | jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  <meta name="description" content="项目地址
+这个项目通过一个优酷或者爱奇艺的视频地址，最终可以得到视频的下载地址
+这个项目的想法是来源：https://github.com/keygle/parseVideo
+因为自己要用到优酷和奇艺，所以就测试了这两个，测试结果是优酷的可以使用，爱奇艺的已经失效。
+经过研究爱奇艺的视频页面的htt">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="使用nodejs解析优酷，奇艺视频源地址"/>
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<div style="display:none">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1253342057'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1253342057%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于我</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2015-03-17T08:51:40.000Z"><a href="/2015/03/17/使用nodejs解析优酷，奇艺视频源地址/">Tue, Mar 17 2015, 4:51:40 pm</a></time>
+
+  
+    <h1 class="title">使用nodejs解析优酷，奇艺视频源地址</h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/nodejs/">nodejs</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p><a href="https://github.com/jiangli373/nodeParseVideo" target="_blank" rel="external">项目地址</a></p>
+<p>这个项目通过一个优酷或者爱奇艺的视频地址，最终可以得到视频的下载地址</p>
+<p>这个项目的想法是来源：<a href="https://github.com/keygle/parseVideo" target="_blank" rel="external">https://github.com/keygle/parseVideo</a></p>
+<p>因为自己要用到优酷和奇艺，所以就测试了这两个，测试结果是优酷的可以使用，爱奇艺的已经失效。</p>
+<p>经过研究爱奇艺的视频页面的http请求，以及反编译视频播放器，找到它的下载地址，自己做了一个pr，现在该项目作者已经merge了。</p>
+<p>这是一个php工程，所以自己用node把这个工程里面解析优酷和爱奇艺的方法重写了下</p>
+<p>说明：</p>
+<pre><code><span class="keyword">var</span> video = <span class="built_in">require</span>(<span class="string">'./index'</span>);
+
+video(<span class="string">'http://www.iqiyi.com/v_19rrnbyreg.html'</span>,<span class="string">'MP4'</span>,<span class="function"><span class="keyword">function</span><span class="params">(err,data)</span></span>{
+    <span class="built_in">console</span>.log(data);
+});
+</code></pre><p>第一个参数是视频地址（必填），第二参数是返回的视频格式（选填，只针对爱奇艺），第三个参数回掉函数（必填）</p>
+<p>最终取到的爱奇艺的flv格式地址如下：</p>
+<pre><code>http://data.video.qiyi.com/f3060e76a71fedac773d327734e723f2/videos/v0/<span class="number">20141023</span>/<span class="number">7</span>b/b5/<span class="number">96</span>c5fa7650168e97c445f976b0b5b68f.f4v?<span class="variable">ran=</span><span class="number">1000</span>&amp;<span class="variable">qyid=</span><span class="number">08</span>ca8cb480c0384cb5d3db068161f44f&amp;<span class="variable">qypid=</span><span class="number">321778500</span>_11&amp;<span class="variable">retry=</span><span class="number">1</span>
+</code></pre><p>是这样的，下载地址需要请求上面这个地址得到：</p>
+<pre><code>{
+    "<span class="attribute">t</span>": <span class="value"><span class="string">"CT|ShangHai-101.81.48.14"</span></span>,
+    "<span class="attribute">s</span>": <span class="value"><span class="string">"1"</span></span>,
+    "<span class="attribute">z</span>": <span class="value"><span class="string">"hengyang3_ct"</span></span>,
+    "<span class="attribute">h</span>": <span class="value"><span class="string">"0"</span></span>,
+    "<span class="attribute">l</span>": <span class="value"><span class="string">"http://220.170.79.37/videos/v0/20141221/38/e6/4be4e1cad4374d3447be144397366ff8.f4v?key=8f5bdcd17a8765c&amp;ran=1000&amp;qyid=08ca8cb480c0384cb5d3db068161f44f&amp;qypid=335764500_11&amp;retry=1&amp;uuid=6551300e-5497c256-36"</span></span>,
+    "<span class="attribute">e</span>": <span class="value"><span class="string">"0"</span>
+</span>}
+</code></pre><p>返回结果中的l是真正的下载地址，而这个地址失效时间非常短，故返回的是上面的地址，如果最终取到的下载地址失效，再次请求返回的这个地址即可.</p>
+<p>ps:爱奇艺的结果不是很稳定，有时解析出来的地址无法播放，解决办法只能多解析几次，测试发现有时取到的视频的ip地址是不通了，估计是奇艺的服务器的问题</p>
+<p>分析优酷的下载地址可以参考<a href="http://www.cnblogs.com/keygle/p/3829653.html" target="_blank" rel="external">这篇文章</a></p>
+<p>这里说下分析爱奇艺的思路：</p>
+<p>1.分析mp4或者m3u8，方法都一样，只是有一个参数不一样</p>
+<p>  因为pc上播放的视频都是flv格式的，所以你只能用移动设备做这个工作了，用iphone真机或者模拟器，配合safari使用，可以在safari上面调试页面，随便选一个视频页面，找到页面上的</p>
+<pre><code><span class="xml"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span></span>eval(function(p,a,c,k,e,d){e=function(c){return(c<span class="xml"><span class="tag">&lt;<span class="title">a?"":e(parseInt(c</span>/<span class="attribute">a</span>)))+((<span class="attribute">c</span>=<span class="value">c%a)</span>&gt;</span></span>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[<span class="link_label">e(c)</span>]=k[<span class="link_label">c</span>]||e(c);k=[<span class="link_label">function(e){return d[e</span>]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[<span class="link_label">c</span>])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[<span class="link_label">c</span>]);return p;}('z 1h(e,n,t,a,r,o){z i(e,n){F((e&gt;&gt;1)+(n&gt;&gt;1)<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">1</span>)+(<span class="attribute">1</span>&amp;<span class="attribute">e</span>)+(<span class="attribute">1</span>&amp;<span class="attribute">n</span>)}<span class="attribute">z</span> <span class="attribute">c</span>(<span class="attribute">e</span>,<span class="attribute">n</span>,<span class="attribute">t</span>,<span class="attribute">a</span>){<span class="attribute">e</span>&gt;</span></span>0&amp;&amp;5&gt;e?t&gt;=0?p<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">6</span>&gt;</span></span>n?(a=[<span class="link_label">a[3</span>],i(a[<span class="link_label">1</span>],(x=i(i(a[<span class="link_label">0</span>],[<span class="link_label">a[1</span>]&amp;a[<span class="link_label">2</span>]|~a[<span class="link_label">1</span>]&amp;a[<span class="link_label">3</span>],a[<span class="link_label">3</span>]&amp;a[<span class="link_label">1</span>]|~a[<span class="link_label">3</span>]&amp;a[<span class="link_label">2</span>],a[<span class="link_label">1</span>]^a[<span class="link_label">2</span>]^a[<span class="link_label">3</span>],a[<span class="link_label">2</span>]^(a[<span class="link_label">1</span>]|~a[<span class="link_label">3</span>])][<span class="link_label">y=t&gt;&gt;4</span>]),i(j(m(t+1))<span class="emphasis">*N|0,B[[t,5*</span>t+1,3<span class="emphasis">*t+5,7*</span>t][<span class="link_label">y</span>]%16+(n++&gt;&gt;&gt;6)])))<span class="xml"><span class="tag">&lt;&lt;(<span class="attribute">y</span>=<span class="value">[7,12,17,22,5,9,14,20,4,11,16,23,6,10,15,21][4*y+t%4])|x</span>&gt;</span></span>&gt;&gt;1f-y),a[1],a[2]],P&amp;n?c(e,n,P&amp;n,a):(A=[i(a[0],A[0]),i(a[1],A[1]),i(a[2],A[2]),i(a[3],A[3])],c(e,n+1U,P&amp;n,A))):(B=[],p=""):C?c(12,n,0,"1X"):c(13,n,0,"24"):e&gt;6&amp;&amp;10&gt;e?(e=X(1c(a)),t<span class="xml"><span class="tag">&lt;<span class="title">e.K?(B[n</span>&gt;</span></span>&gt;2]|=e.19(t++)<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">8</span>*(<span class="attribute">n</span>%<span class="attribute">4</span>),<span class="attribute">c</span>(<span class="attribute">9</span>,++<span class="attribute">n</span>,<span class="attribute">t</span>,<span class="attribute">M</span>))<span class="attribute">:</span>(<span class="attribute">d</span>(<span class="attribute">1Y.2a</span>(<span class="attribute">26</span>))&amp;&amp;(<span class="attribute">B</span>[<span class="attribute">n</span>&gt;</span></span>&gt;2]|=1<span class="xml"><span class="tag">&lt;&lt;(<span class="attribute">n</span>%<span class="attribute">4</span>&lt;&lt;<span class="attribute">3</span>)+<span class="attribute">7</span>),<span class="attribute">B</span>[<span class="attribute">p</span>=<span class="value">(n+8</span>&gt;</span></span>&gt;6<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">4</span>)+<span class="attribute">14</span>]=<span class="value">n&lt;&lt;3,c(3,0,0,A))):e</span>&gt;</span></span>11&amp;&amp;15&gt;e&amp;&amp;(t<span class="xml"><span class="tag">&lt;<span class="title">(a.K</span>&lt;&lt;<span class="attribute">1</span>)/<span class="attribute">5</span>?(<span class="attribute">B</span>[<span class="attribute">n</span>&gt;</span></span>&gt;2]|=(2n(a.2m(10<span class="emphasis">*(t&gt;&gt;2),10),10)&gt;&gt;(3-(3&amp;t)&lt;&lt;3)&amp;1r^(a.K&lt;&lt;1)/5-t++)&lt;&lt;((3&amp;n++)&lt;&lt;3),c(14,n,t,a)):c(7,n,0,M))}z d(e){F"1o"!=1k G[e]}q u=18.1j,h=18.1w,s=G.1F;(1b===s||-1b===s)&amp;&amp;(u=u&gt;h?h:u);q f=G.1d;u=H.V(u/f);q w=H.V(G.1G/f),b=H.V(G.1J/f),v=u-b-w,g=L(w+"N"+v),l="",N=1n,j=H.1l,m=H.1m,p="";d("1H")&amp;&amp;(p=Q.1I,p&amp;&amp;p.1L("1M.1K")&gt;=0||(l+=L("1z"))),l+=d("1A")?(l?"N":"")+L("1x"):"";q C=n,M=e,T=7,k={},R=(1C 1B).1E();k.J=(n?o+""+r:R-T)+"",M=O(L(M)),k.J=O(L(C?k.J+a+""+t:k.J));q x,y,A=[x=1D,y=-1y,~x,~y],B=[],D=z(){1a(p=X(1c(k.J)),y=0;y&lt;p.K;)B[y&gt;&gt;2]|=p.19(y)&lt;&lt;8*</span>(y++%4);1a(c(1,y,-1,B),x=0;1f&gt;x;)p+=(A[x&gt;&gt;3]&gt;&gt;4<span class="emphasis">*(1^7&amp;x++)&amp;15).Y(16);F p},E=z(){q e="z%1t%28%29%20%1v%20%1s%1p%1q%20%1u",n="1N";F"2c"2f Q.2g.2h&amp;&amp;(n=O(2e.2b.Y())===e?"2j":"2d"),n};Z(n){q I={};F I.1g=D,I.1i=E,I.d=R,I}q S=D();Z(S.K&gt;4){q U="";U+=Q.2i+";"+G.1d+";&amp;2o="+R,U=2l(U);q W={};F W.1T="1S",W.1V=S,W.1P=U,l&amp;&amp;(W.1W=l),g&amp;&amp;(W.25=g),W.t=R-7,W.1e=E(),W}}z 1Z(e,n,t,a){q r=1h("",!0,a,t,n,e),o="27",i={};F i.1Q="1R",i.1O=r.1g(o,!0),i.2k=r.d-7,i.1e=r.1i(),i}',62,149,'||||||||||||||||||||||||||var|||||||||function||||||return|window|Math||cache|length|btoa||_|escape|63|document|||||round||atob|toString|if|||||||||screen|charCodeAt|for|90|unescape|devicePixelRatio|__jsT|32|md|weorjjigh|jc|height|typeof|abs|sin|4294967296|undefined|20code|5D|255|5Bnative|20javaEnabled|7D|7B|width|BOL|271733879|UCW|_0|Date|new|1732584193|getTime|orientation|screenTop|ucweb|referrer|outerHeight|com|indexOf|baidu|null|__sigC|__refI|__cliT|h5|d846d0c32d664d32b6b54ea48997a589|src|960|sc|qd_jsin|1330848328159996040014666388890612187513113019274921193194001265062984|String|weorjjighly|||||03603482862038069294069554231005389970290678182205184924421910467011111731869494|qd_wsz|81|jfakmkafklw23321f4ea32459|||fromCharCode|javaEnabled|WebkitAppearance|sijsc|navigator|in|documentElement|style|URL|sgve|__ctmM|encodeURIComponent|substr|parseInt|tim'.split('|'),0,{}));/*</span>v20150304*/<span class="xml"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span>
+</code></pre><p>这段js是客户端加密的一个方法，它的作用是生成请求视频信息的参数，虽然它是结果混淆了，我们可以反混淆把这段js解析出来，整个解析的过程，这个函数很重要，其余只要监视网络请求，就可以获得最终的视频请求url。具体可以查看我的github</p>
+<p>2.分析flv</p>
+<p>  我的做法是反编译爱奇艺的flash播放器，然后配合http请求，分析反编译后的代码，找到加密方法。</p>
+
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+  
+    <a href="/2015/03/17/What-Mongoose-Never-Explain-to-You-on-Case-Sentivity/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2015/03/17/使用nodejs解析优酷，奇艺视频源地址/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2015 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="external">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="external">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js" type="text/javascript"></script>
+<script src="/js/gallery.js" type="text/javascript"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

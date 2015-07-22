@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[jiangli's blog]]></title>
+  
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://www.nuonuo.me/"/>
+  <updated>2015-03-17T09:15:34.000Z</updated>
+  <id>http://www.nuonuo.me/</id>
+  
+  <author>
+    <name><![CDATA[jiangli]]></name>
+    <email><![CDATA[715015723@qq.com]]></email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[使用nodejs解析优酷，奇艺视频源地址]]></title>
+    <link href="http://www.nuonuo.me/2015/03/17/%E4%BD%BF%E7%94%A8nodejs%E8%A7%A3%E6%9E%90%E4%BC%98%E9%85%B7%EF%BC%8C%E5%A5%87%E8%89%BA%E8%A7%86%E9%A2%91%E6%BA%90%E5%9C%B0%E5%9D%80/"/>
+    <id>http://www.nuonuo.me/2015/03/17/使用nodejs解析优酷，奇艺视频源地址/</id>
+    <published>2015-03-17T08:51:40.000Z</published>
+    <updated>2015-03-17T09:15:34.000Z</updated>
+    <content type="html"><![CDATA[<p><a href="https://github.com/jiangli373/nodeParseVideo" target="_blank" rel="external">项目地址</a></p>
+<p>这个项目通过一个优酷或者爱奇艺的视频地址，最终可以得到视频的下载地址</p>
+<p>这个项目的想法是来源：<a href="https://github.com/keygle/parseVideo" target="_blank" rel="external">https://github.com/keygle/parseVideo</a></p>
+<p>因为自己要用到优酷和奇艺，所以就测试了这两个，测试结果是优酷的可以使用，爱奇艺的已经失效。</p>
+<p>经过研究爱奇艺的视频页面的http请求，以及反编译视频播放器，找到它的下载地址，自己做了一个pr，现在该项目作者已经merge了。</p>
+<p>这是一个php工程，所以自己用node把这个工程里面解析优酷和爱奇艺的方法重写了下</p>
+<p>说明：</p>
+<pre><code><span class="keyword">var</span> video = <span class="built_in">require</span>(<span class="string">'./index'</span>);
+
+video(<span class="string">'http://www.iqiyi.com/v_19rrnbyreg.html'</span>,<span class="string">'MP4'</span>,<span class="function"><span class="keyword">function</span><span class="params">(err,data)</span></span>{
+    <span class="built_in">console</span>.log(data);
+});
+</code></pre><p>第一个参数是视频地址（必填），第二参数是返回的视频格式（选填，只针对爱奇艺），第三个参数回掉函数（必填）</p>
+<p>最终取到的爱奇艺的flv格式地址如下：</p>
+<pre><code>http://data.video.qiyi.com/f3060e76a71fedac773d327734e723f2/videos/v0/<span class="number">20141023</span>/<span class="number">7</span>b/b5/<span class="number">96</span>c5fa7650168e97c445f976b0b5b68f.f4v?<span class="variable">ran=</span><span class="number">1000</span>&amp;<span class="variable">qyid=</span><span class="number">08</span>ca8cb480c0384cb5d3db068161f44f&amp;<span class="variable">qypid=</span><span class="number">321778500</span>_11&amp;<span class="variable">retry=</span><span class="number">1</span>
+</code></pre><p>是这样的，下载地址需要请求上面这个地址得到：</p>
+<pre><code>{
+    "<span class="attribute">t</span>": <span class="value"><span class="string">"CT|ShangHai-101.81.48.14"</span></span>,
+    "<span class="attribute">s</span>": <span class="value"><span class="string">"1"</span></span>,
+    "<span class="attribute">z</span>": <span class="value"><span class="string">"hengyang3_ct"</span></span>,
+    "<span class="attribute">h</span>": <span class="value"><span class="string">"0"</span></span>,
+    "<span class="attribute">l</span>": <span class="value"><span class="string">"http://220.170.79.37/videos/v0/20141221/38/e6/4be4e1cad4374d3447be144397366ff8.f4v?key=8f5bdcd17a8765c&amp;ran=1000&amp;qyid=08ca8cb480c0384cb5d3db068161f44f&amp;qypid=335764500_11&amp;retry=1&amp;uuid=6551300e-5497c256-36"</span></span>,
+    "<span class="attribute">e</span>": <span class="value"><span class="string">"0"</span>
+</span>}
+</code></pre><p>返回结果中的l是真正的下载地址，而这个地址失效时间非常短，故返回的是上面的地址，如果最终取到的下载地址失效，再次请求返回的这个地址即可.</p>
+<p>ps:爱奇艺的结果不是很稳定，有时解析出来的地址无法播放，解决办法只能多解析几次，测试发现有时取到的视频的ip地址是不通了，估计是奇艺的服务器的问题</p>
+<p>分析优酷的下载地址可以参考<a href="http://www.cnblogs.com/keygle/p/3829653.html" target="_blank" rel="external">这篇文章</a></p>
+<p>这里说下分析爱奇艺的思路：</p>
+<p>1.分析mp4或者m3u8，方法都一样，只是有一个参数不一样</p>
+<p>  因为pc上播放的视频都是flv格式的，所以你只能用移动设备做这个工作了，用iphone真机或者模拟器，配合safari使用，可以在safari上面调试页面，随便选一个视频页面，找到页面上的</p>
+<pre><code><span class="xml"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span></span>eval(function(p,a,c,k,e,d){e=function(c){return(c<span class="xml"><span class="tag">&lt;<span class="title">a?"":e(parseInt(c</span>/<span class="attribute">a</span>)))+((<span class="attribute">c</span>=<span class="value">c%a)</span>&gt;</span></span>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[<span class="link_label">e(c)</span>]=k[<span class="link_label">c</span>]||e(c);k=[<span class="link_label">function(e){return d[e</span>]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[<span class="link_label">c</span>])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[<span class="link_label">c</span>]);return p;}('z 1h(e,n,t,a,r,o){z i(e,n){F((e&gt;&gt;1)+(n&gt;&gt;1)<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">1</span>)+(<span class="attribute">1</span>&amp;<span class="attribute">e</span>)+(<span class="attribute">1</span>&amp;<span class="attribute">n</span>)}<span class="attribute">z</span> <span class="attribute">c</span>(<span class="attribute">e</span>,<span class="attribute">n</span>,<span class="attribute">t</span>,<span class="attribute">a</span>){<span class="attribute">e</span>&gt;</span></span>0&amp;&amp;5&gt;e?t&gt;=0?p<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">6</span>&gt;</span></span>n?(a=[<span class="link_label">a[3</span>],i(a[<span class="link_label">1</span>],(x=i(i(a[<span class="link_label">0</span>],[<span class="link_label">a[1</span>]&amp;a[<span class="link_label">2</span>]|~a[<span class="link_label">1</span>]&amp;a[<span class="link_label">3</span>],a[<span class="link_label">3</span>]&amp;a[<span class="link_label">1</span>]|~a[<span class="link_label">3</span>]&amp;a[<span class="link_label">2</span>],a[<span class="link_label">1</span>]^a[<span class="link_label">2</span>]^a[<span class="link_label">3</span>],a[<span class="link_label">2</span>]^(a[<span class="link_label">1</span>]|~a[<span class="link_label">3</span>])][<span class="link_label">y=t&gt;&gt;4</span>]),i(j(m(t+1))<span class="emphasis">*N|0,B[[t,5*</span>t+1,3<span class="emphasis">*t+5,7*</span>t][<span class="link_label">y</span>]%16+(n++&gt;&gt;&gt;6)])))<span class="xml"><span class="tag">&lt;&lt;(<span class="attribute">y</span>=<span class="value">[7,12,17,22,5,9,14,20,4,11,16,23,6,10,15,21][4*y+t%4])|x</span>&gt;</span></span>&gt;&gt;1f-y),a[1],a[2]],P&amp;n?c(e,n,P&amp;n,a):(A=[i(a[0],A[0]),i(a[1],A[1]),i(a[2],A[2]),i(a[3],A[3])],c(e,n+1U,P&amp;n,A))):(B=[],p=""):C?c(12,n,0,"1X"):c(13,n,0,"24"):e&gt;6&amp;&amp;10&gt;e?(e=X(1c(a)),t<span class="xml"><span class="tag">&lt;<span class="title">e.K?(B[n</span>&gt;</span></span>&gt;2]|=e.19(t++)<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">8</span>*(<span class="attribute">n</span>%<span class="attribute">4</span>),<span class="attribute">c</span>(<span class="attribute">9</span>,++<span class="attribute">n</span>,<span class="attribute">t</span>,<span class="attribute">M</span>))<span class="attribute">:</span>(<span class="attribute">d</span>(<span class="attribute">1Y.2a</span>(<span class="attribute">26</span>))&amp;&amp;(<span class="attribute">B</span>[<span class="attribute">n</span>&gt;</span></span>&gt;2]|=1<span class="xml"><span class="tag">&lt;&lt;(<span class="attribute">n</span>%<span class="attribute">4</span>&lt;&lt;<span class="attribute">3</span>)+<span class="attribute">7</span>),<span class="attribute">B</span>[<span class="attribute">p</span>=<span class="value">(n+8</span>&gt;</span></span>&gt;6<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">4</span>)+<span class="attribute">14</span>]=<span class="value">n&lt;&lt;3,c(3,0,0,A))):e</span>&gt;</span></span>11&amp;&amp;15&gt;e&amp;&amp;(t<span class="xml"><span class="tag">&lt;<span class="title">(a.K</span>&lt;&lt;<span class="attribute">1</span>)/<span class="attribute">5</span>?(<span class="attribute">B</span>[<span class="attribute">n</span>&gt;</span></span>&gt;2]|=(2n(a.2m(10<span class="emphasis">*(t&gt;&gt;2),10),10)&gt;&gt;(3-(3&amp;t)&lt;&lt;3)&amp;1r^(a.K&lt;&lt;1)/5-t++)&lt;&lt;((3&amp;n++)&lt;&lt;3),c(14,n,t,a)):c(7,n,0,M))}z d(e){F"1o"!=1k G[e]}q u=18.1j,h=18.1w,s=G.1F;(1b===s||-1b===s)&amp;&amp;(u=u&gt;h?h:u);q f=G.1d;u=H.V(u/f);q w=H.V(G.1G/f),b=H.V(G.1J/f),v=u-b-w,g=L(w+"N"+v),l="",N=1n,j=H.1l,m=H.1m,p="";d("1H")&amp;&amp;(p=Q.1I,p&amp;&amp;p.1L("1M.1K")&gt;=0||(l+=L("1z"))),l+=d("1A")?(l?"N":"")+L("1x"):"";q C=n,M=e,T=7,k={},R=(1C 1B).1E();k.J=(n?o+""+r:R-T)+"",M=O(L(M)),k.J=O(L(C?k.J+a+""+t:k.J));q x,y,A=[x=1D,y=-1y,~x,~y],B=[],D=z(){1a(p=X(1c(k.J)),y=0;y&lt;p.K;)B[y&gt;&gt;2]|=p.19(y)&lt;&lt;8*</span>(y++%4);1a(c(1,y,-1,B),x=0;1f&gt;x;)p+=(A[x&gt;&gt;3]&gt;&gt;4<span class="emphasis">*(1^7&amp;x++)&amp;15).Y(16);F p},E=z(){q e="z%1t%28%29%20%1v%20%1s%1p%1q%20%1u",n="1N";F"2c"2f Q.2g.2h&amp;&amp;(n=O(2e.2b.Y())===e?"2j":"2d"),n};Z(n){q I={};F I.1g=D,I.1i=E,I.d=R,I}q S=D();Z(S.K&gt;4){q U="";U+=Q.2i+";"+G.1d+";&amp;2o="+R,U=2l(U);q W={};F W.1T="1S",W.1V=S,W.1P=U,l&amp;&amp;(W.1W=l),g&amp;&amp;(W.25=g),W.t=R-7,W.1e=E(),W}}z 1Z(e,n,t,a){q r=1h("",!0,a,t,n,e),o="27",i={};F i.1Q="1R",i.1O=r.1g(o,!0),i.2k=r.d-7,i.1e=r.1i(),i}',62,149,'||||||||||||||||||||||||||var|||||||||function||||||return|window|Math||cache|length|btoa||_|escape|63|document|||||round||atob|toString|if|||||||||screen|charCodeAt|for|90|unescape|devicePixelRatio|__jsT|32|md|weorjjigh|jc|height|typeof|abs|sin|4294967296|undefined|20code|5D|255|5Bnative|20javaEnabled|7D|7B|width|BOL|271733879|UCW|_0|Date|new|1732584193|getTime|orientation|screenTop|ucweb|referrer|outerHeight|com|indexOf|baidu|null|__sigC|__refI|__cliT|h5|d846d0c32d664d32b6b54ea48997a589|src|960|sc|qd_jsin|1330848328159996040014666388890612187513113019274921193194001265062984|String|weorjjighly|||||03603482862038069294069554231005389970290678182205184924421910467011111731869494|qd_wsz|81|jfakmkafklw23321f4ea32459|||fromCharCode|javaEnabled|WebkitAppearance|sijsc|navigator|in|documentElement|style|URL|sgve|__ctmM|encodeURIComponent|substr|parseInt|tim'.split('|'),0,{}));/*</span>v20150304*/<span class="xml"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span>
+</code></pre><p>这段js是客户端加密的一个方法，它的作用是生成请求视频信息的参数，虽然它是结果混淆了，我们可以反混淆把这段js解析出来，整个解析的过程，这个函数很重要，其余只要监视网络请求，就可以获得最终的视频请求url。具体可以查看我的github</p>
+<p>2.分析flv</p>
+<p>  我的做法是反编译爱奇艺的flash播放器，然后配合http请求，分析反编译后的代码，找到加密方法。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><a href="https://github.com/jiangli373/nodeParseVideo" target="_blank" rel="external">项目地址</a></p>
+<p>这个项目通过一个优酷或者爱奇艺的视频地址，最终可以得到视频的下载地址<]]>
+    </summary>
+    
+      <category term="nodejs" scheme="http://www.nuonuo.me/tags/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[What Mongoose Never Explain to You (on Case Sentivity)]]></title>
+    <link href="http://www.nuonuo.me/2015/03/17/What-Mongoose-Never-Explain-to-You-on-Case-Sentivity/"/>
+    <id>http://www.nuonuo.me/2015/03/17/What-Mongoose-Never-Explain-to-You-on-Case-Sentivity/</id>
+    <published>2015-03-17T08:08:38.000Z</published>
+    <updated>2015-03-17T08:10:19.000Z</updated>
+    <content type="html"><![CDATA[<p>原文地址:<a href="http://samwize.com/2014/03/07/what-mongoose-never-explain-to-you-on-case-sentivity/" target="_blank" rel="external">http://samwize.com/2014/03/07/what-mongoose-never-explain-to-you-on-case-sentivity/</a></p>
+<p>Mongoose is the most popular library for using Mongodb on Node.js.</p>
+<p>I took some time to learn about the case sentivity and model name renaming it does behind the curtain.</p>
+<p>Let’s assume the model I have is ‘Campaign’.</p>
+<ul>
+<li>mongodb collection name is case sensitive (‘Campaigns’ is different from ‘campaigns’)</li>
+<li>mongodb best practises is to have all lower case for collection name (‘campaigns’ is preferred)</li>
+<li>mongoose model name should be singular and upper case (‘Campaign’)</li>
+<li>mongoose will lowercase and pluralize with an ’s’ so that it can access the collection (‘Campaign’ &gt;&gt; ‘campaigns’)</li>
+</ul>
+<p>Knowing this is especially useful if you are dealing with existing collections.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>原文地址:<a href="http://samwize.com/2014/03/07/what-mongoose-never-explain-to-you-on-case-sentivity/" target="_blank" rel="external">http://]]>
+    </summary>
+    
+      <category term="mongodb" scheme="http://www.nuonuo.me/tags/mongodb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[mongoose的lean的用法]]></title>
+    <link href="http://www.nuonuo.me/2014/11/21/mongoose%E7%9A%84lean%E7%9A%84%E7%94%A8%E6%B3%95/"/>
+    <id>http://www.nuonuo.me/2014/11/21/mongoose的lean的用法/</id>
+    <published>2014-11-21T03:42:09.000Z</published>
+    <updated>2015-03-17T08:25:48.000Z</updated>
+    <content type="html"><![CDATA[<p>项目中遇到一个问题，我使用find方法查询出来的结果，想通过JSON.stringify()将其序列化，发现没法操作，然后在stackoverflow找到了一个答案：</p>
+<pre><code><span class="keyword">http</span>://stackoverflow.com/questions/<span class="number">9952649</span>/<span class="built_in">convert</span>-mongoose-docs-<span class="built_in">to</span>-json
+</code></pre><p>这里使用到了lean方法</p>
+<p>官方解释：</p>
+<pre><code><span class="type">Documents</span> returned <span class="keyword">from</span> queries <span class="keyword">with</span> the lean option enabled are plain javascript objects,
+<span class="keyword">not</span> <span class="type">MongooseDocuments</span>. <span class="type">They</span> have no save <span class="keyword">method</span>, getters/setters <span class="keyword">or</span> other <span class="type">Mongoose</span> magic applied.
+</code></pre><p>使用该方法，查询出来的数据是一个javascript对象，不是一个mongoose文档，不再具有save，getters/setters和其它mongoose提供的方法。</p>
+<p>Example:</p>
+<pre><code><span class="keyword">new</span> Query().lean() <span class="comment">// true</span>
+<span class="keyword">new</span> Query().lean(<span class="literal">true</span>)
+<span class="keyword">new</span> Query().lean(<span class="literal">false</span>)
+
+Model.find().lean().exec(<span class="function"><span class="keyword">function</span> <span class="params">(err, docs)</span> </span>{
+  docs[<span class="number">0</span>] <span class="keyword">instanceof</span> mongoose.Document <span class="comment">// false</span>
+});
+
+
+http:<span class="comment">//mongoosejs.com/docs/api.html#query_Query-lean</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>项目中遇到一个问题，我使用find方法查询出来的结果，想通过JSON.stringify()将其序列化，发现没法操作，然后在stackoverflow找到了一个答案：</p>
+<pre><code><span class="keyword">http</span>://st]]>
+    </summary>
+    
+      <category term="mongodb" scheme="http://www.nuonuo.me/tags/mongodb/"/>
+    
+      <category term="mongoose" scheme="http://www.nuonuo.me/tags/mongoose/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Centos安装网络配置问题]]></title>
+    <link href="http://www.nuonuo.me/2014/10/31/Centos%E5%AE%89%E8%A3%85%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/"/>
+    <id>http://www.nuonuo.me/2014/10/31/Centos安装网络配置问题/</id>
+    <published>2014-10-31T05:09:13.000Z</published>
+    <updated>2015-03-17T08:26:42.000Z</updated>
+    <content type="html"><![CDATA[<p>今天装了下centos，以前安装的都是ubuntu，安装完成以后，网络没有问题，但是今天装完centos以后，发现没<br>有办法上网</p>
+<p>命令    ifconfig</p>
+<p><img src="/img/9BB2257E-B81D-447A-867D-32E2F60612B5.png" alt=""></p>
+<p>发现没有eth0，网上收了下，找到解决办法，这里记录下：</p>
+<p>解决方案：</p>
+<p> 修改下列文件 </p>
+<pre><code>vi /etc/rc.d/rc<span class="class">.loacl</span>
+
+最后加入
+
+ifup eth0
+</code></pre><p>重启电脑后执行命令ifconfig这时候就会显示出eth0和lo共2部分信息，再次ping就可以ping通了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>今天装了下centos，以前安装的都是ubuntu，安装完成以后，网络没有问题，但是今天装完centos以后，发现没<br>有办法上网</p>
+<p>命令    ifconfig</p>
+<p><img src="/img/9BB2257E-B81D-447A-867D-3]]>
+    </summary>
+    
+      <category term="Centos" scheme="http://www.nuonuo.me/tags/Centos/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[How to get array of json objects rather than mongoose documents]]></title>
+    <link href="http://www.nuonuo.me/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/"/>
+    <id>http://www.nuonuo.me/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/</id>
+    <published>2014-10-17T08:50:04.000Z</published>
+    <updated>2015-03-17T08:28:45.000Z</updated>
+    <content type="html"><![CDATA[<p>stackoverflow：<a href="http://stackoverflow.com/questions/12210870/how-to-get-array-of-json-objects-rather-than-mongoose-documents" target="_blank" rel="external">How to get array of json objects rather than mongoose documents</a></p>
+<p>项目使用的是mongoose3.x版本，我查询直接用的是</p>
+<pre><code>model.findOne(query,fields,opt,<span class="function"><span class="keyword">function</span><span class="params">(err,doc)</span>);</span>
+</code></pre><p>每次需要给查询出来的结果，给客户端返回结果需要添加新的字段，有两个办法：</p>
+<p>1.使用mongoose的toObject()方法：</p>
+<p>官方解释：Converts this document into a plain javascript object, ready for storage in MongoDB.</p>
+<pre><code><span class="built_in">var</span> mo <span class="subst">=</span> doc<span class="built_in">.</span>toObject();
+mo<span class="built_in">.</span><span class="built_in">tag</span> <span class="subst">=</span> sex;
+</code></pre><p>2.使用set方法：</p>
+<p>对于mongoose 3.x  在新建Schema的时候需要显示指定strict的值为false，例如：</p>
+<pre><code><span class="keyword">var</span> model = new <span class="type">Schema</span>(<span class="decorator">{..}</span>, { strict: <span class="literal">false</span> });
+</code></pre><p>如果你使用的是mongoose 2.x，则在新建Schema的时候不需要显示指定strict的值，因为默认值是false</p>
+<pre><code>model.findOne(query,fields,opt,<span class="function"><span class="keyword">function</span><span class="params">(err,doc)</span>);</span>
+doc.<span class="keyword">set</span>(<span class="string">'tag'</span>,<span class="string">'sex'</span>);
+</code></pre><p>ps:mongoose 2.x 升级到3.x的坑比较大，升级需谨慎!!!</p>
+<p>看下set方法的api：Document#set(path, val, [type], [options])</p>
+<p>最后有个参数options,这里设置{ strict: false },可以改变model的模式</p>
+<pre><code><span class="comment">// changing strict mode behavior</span>
+<span class="tag">doc</span><span class="class">.set</span>(path, value, { <span class="attribute">strict</span>: false });
+</code></pre><p>关于option: strict解释，看下官方原话：</p>
+<p>option: strict</p>
+<p>The strict option, (enabled by default), ensures that values passed to<br>our model constructor that were not specified in our schema do not get saved to the db.</p>
+<p>如果strict为treu保证不在schema定义的field不会被写进库里。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>stackoverflow：<a href="http://stackoverflow.com/questions/12210870/how-to-get-array-of-json-objects-rather-than-mongoose-documents" targe]]>
+    </summary>
+    
+      <category term="mongodb" scheme="http://www.nuonuo.me/tags/mongodb/"/>
+    
+      <category term="mongoose" scheme="http://www.nuonuo.me/tags/mongoose/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[使用WebVirtMgr搭建虚拟机管理工具]]></title>
+    <link href="http://www.nuonuo.me/2014/10/16/%E4%BD%BF%E7%94%A8WebVirtMgr%E6%90%AD%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
+    <id>http://www.nuonuo.me/2014/10/16/使用WebVirtMgr搭建虚拟机管理工具/</id>
+    <published>2014-10-16T07:47:50.000Z</published>
+    <updated>2015-03-17T08:32:39.000Z</updated>
+    <content type="html"><![CDATA[<p>以前使用过kvm在linux系统上安装过虚拟机，原来的博客已经挂掉，可以参考下同事写的<a href="http://blog.csdn.net/marujunyy/article/details/8466286" target="_blank" rel="external">博客</a></p>
+<p>这种方式得人工敲命令，然后安装的时候再通过vnc执行安装步骤，这个过程就不再说明了。能不能换一种方式，类似现在的<br>各种虚拟主机，只需要在页面上点击一些按钮，就安装出来一个台云主机。</p>
+<p>网上搜了下，找到了一个<a href="https://github.com/retspen/webvirtmgr" target="_blank" rel="external">WebVirtMgr</a>,可以实现类似的功能，通过按钮配置一台虚拟机，但是虚拟机的<br>系统安装还得自己操作，不过比以前的安装方式省心了不少。</p>
+<p>具体的安装过程就不赘述了，文档里面说的很清楚了。</p>
+<h5 id="Installation_(Only_web_panel)">Installation (Only web panel)</h5><p><a href="https://github.com/retspen/webvirtmgr/wiki/Install-WebVirtMgr" target="_blank" rel="external">Install WebVirtMgr</a></p>
+<h5 id="Setup_host_server_(Server_for_VM’s)">Setup host server (Server for VM’s)</h5><p><a href="https://github.com/retspen/webvirtmgr/wiki/Setup-Host-Server" target="_blank" rel="external">Setup Host Server</a></p>
+<p>我就说下，我安装过程中遇到的各种坑</p>
+<h6 id="1-程序没法启动">1.程序没法启动</h6><p>我是按照文档上的安装的，宿主机是centos,最后程序的安装位置是在/var/www目录下，程序是通过supervisor来启动的，我已开始是在自己的home目录下，</p>
+<pre><code>sudo /etc/init.d/supervisord <span class="built_in">start</span>
+</code></pre><p>然后通过浏览器访问，页面显示502，看日志，</p>
+<pre><code><span class="keyword">cat</span> /<span class="keyword">var</span>/<span class="keyword">log</span>/webvirtmgr.<span class="literal">log</span>
+</code></pre><p>以下是部分错误提示：</p>
+<pre><code>OSError: [Errno <span class="number">13</span>] Permission denied: <span class="string">'/home/jiangli'</span>
+ERROR:gunicorn<span class="class">.error</span>:Exception <span class="keyword">in</span> worker process:
+Traceback (most recent call last):
+  File <span class="string">"/usr/lib/python2.6/site-packages/gunicorn/arbiter.py"</span>, line <span class="number">495</span>, <span class="keyword">in</span> spawn_worker
+    worker.<span class="function"><span class="title">init_process</span><span class="params">()</span></span>
+  File <span class="string">"/usr/lib/python2.6/site-packages/gunicorn/workers/base.py"</span>, line <span class="number">106</span>, <span class="keyword">in</span> init_process
+    self<span class="class">.wsgi</span> = self<span class="class">.app</span><span class="class">.wsgi</span>()
+  File <span class="string">"/usr/lib/python2.6/site-packages/gunicorn/app/base.py"</span>, line <span class="number">114</span>, <span class="keyword">in</span> wsgi
+    self<span class="class">.callable</span> = self.<span class="function"><span class="title">load</span><span class="params">()</span></span>
+  File <span class="string">"/usr/lib/python2.6/site-packages/gunicorn/app/djangoapp.py"</span>, line <span class="number">135</span>, <span class="keyword">in</span> load
+    os.<span class="function"><span class="title">chdir</span><span class="params">(self.cfg.chdir)</span></span>
+</code></pre><p>权限不正确,解决办法：</p>
+<pre><code><span class="keyword">cd</span> /<span class="keyword">var</span>/www/webvirtmgr
+</code></pre><p>再执行</p>
+<pre><code>sudo /etc/init.d/supervisord <span class="built_in">start</span>
+</code></pre><p>浏览器再次访问，ok，可以访问到了。</p>
+<h6 id="2-页面上的控制台打开无法连接服务器">2.页面上的控制台打开无法连接服务器</h6><p>这个问题弄了一上午，才终于搞定。原来的安装方式是客户端需要安装vncviewer，才能看到安装页面，<br>    webvirtmgr使用了novnc，页面通过websocket进行通信，页面效果如下：</p>
+<p><img src="/img/62FD16AC-4F5E-4F94-A78A-2874B289C6DE.png" alt=""></p>
+<p>刚开始这个页面一直就是连接不上服务器，看console，显示ws不能正常连接，网上查了一遍又一遍还是没有结果，最后在一片文章上找了解决办法：</p>
+<p><a href="https://www.bountysource.com/issues/1336736-server-disconnected-code-1006" target="_blank" rel="external">https://www.bountysource.com/issues/1336736-server-disconnected-code-1006</a></p>
+<p>1.首先需要安装novnc</p>
+<pre><code>yum <span class="keyword">install</span> novnc
+</code></pre><p>坑爹，安装文档里面竟然没有让安装这个软件</p>
+<p>2.打开6080防火墙</p>
+<pre><code><span class="title">iptables</span> -I INPUT -p tcp --dport <span class="number">6080</span> -j ACCEPT; <span class="title">iptables</span> -I OUTPUT -p tcp --dport <span class="number">6080</span> -j ACCEPT; <span class="title">service</span> iptables save
+</code></pre><p>最后再重启服务</p>
+<pre><code>sudo /etc/init.d/supervisord <span class="built_in">start</span>
+</code></pre><p>浏览器再次访问，这下ok了。</p>
+<p>上面就是安装过程遇到的大坑。下面就体验下效果了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>以前使用过kvm在linux系统上安装过虚拟机，原来的博客已经挂掉，可以参考下同事写的<a href="http://blog.csdn.net/marujunyy/article/details/8466286" target="_blank" rel="external]]>
+    </summary>
+    
+      <category term="WebVirtMgr" scheme="http://www.nuonuo.me/tags/WebVirtMgr/"/>
+    
+      <category term="centos" scheme="http://www.nuonuo.me/tags/centos/"/>
+    
+      <category term="linux" scheme="http://www.nuonuo.me/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ubuntu server下配置UTF8中文的步骤]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/ubuntu-server%E4%B8%8B%E9%85%8D%E7%BD%AEUTF8%E4%B8%AD%E6%96%87%E7%9A%84%E6%AD%A5%E9%AA%A4/"/>
+    <id>http://www.nuonuo.me/2014/10/08/ubuntu-server下配置UTF8中文的步骤/</id>
+    <published>2014-10-08T08:25:05.000Z</published>
+    <updated>2015-03-17T08:34:14.000Z</updated>
+    <content type="html"><![CDATA[<p>第一步，安装中文包：  </p>
+<pre><code>sudo apt-<span class="keyword">get</span> install language-pack-zh-hant-<span class="keyword">base</span> language-pack-zh-hans-<span class="keyword">base</span>
+</code></pre><p>第二步，配置相关环境变量：</p>
+<pre><code>sudo vi /etc/environment
+
+<span class="variable">LANG=</span><span class="string">"zh_CN.UTF-8"</span>
+<span class="variable">LANGUAGE=</span><span class="string">"zh_CN:zh:en_US:en"</span>
+</code></pre><p>第三步，重新配置本地配置</p>
+<pre><code><span class="title">sudo</span> dpkg-reconfigure locales
+</code></pre><p><img src="/img/a1ef5986d8f139c455081c4debad6c85.png" alt="">    </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>第一步，安装中文包：  </p>
+<pre><code>sudo apt-<span class="keyword">get</span> install language-pack-zh-hant-<span class="keyword">base</span> lan]]>
+    </summary>
+    
+      <category term="ubuntu" scheme="http://www.nuonuo.me/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[eclipse 配置 resin]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/eclipse-%E9%85%8D%E7%BD%AE-resin/"/>
+    <id>http://www.nuonuo.me/2014/10/08/eclipse-配置-resin/</id>
+    <published>2014-10-08T08:23:11.000Z</published>
+    <updated>2015-03-17T08:21:08.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="/img/ada15855603b4a29a86ab1d21f2bf4a3.png" alt=""></p>
+<p><img src="/img/4d938ed2fbb59cacdf0997dbe33ea326.png" alt=""></p>
+<p><img src="/img/a4316595ef8d2d4bc90d8c014d3ec5fc.png" alt=""></p>
+<pre><code>--root-directory D:<span class="command">\ylb</span>_pro<span class="command">\xjb</span>_web_1-5.git<span class="command">\web</span>
+-conf D:<span class="command">\ylb</span>_pro<span class="command">\xjb</span>_web_1-5.git<span class="command">\web</span><span class="command">\resin</span>.xml
+-Xss1m -Xmx256m
+</code></pre><p><img src="/img/7af9be138d8615976c952ebf63a8f438.png" alt=""></p>
+<p><img src="/img/183560d224f24335ba1d1b5223418b5a.png" alt=""></p>
+<p><img src="/img/7cbf3701f9e58de929aeb707d3d79afe.png" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><img src="/img/ada15855603b4a29a86ab1d21f2bf4a3.png" alt=""></p>
+<p><img src="/img/4d938ed2fbb59cacdf0997dbe33ea326.png" alt=""></p>
+<p><]]>
+    </summary>
+    
+      <category term="eclipse" scheme="http://www.nuonuo.me/tags/eclipse/"/>
+    
+      <category term="resin" scheme="http://www.nuonuo.me/tags/resin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ubuntu server设置静态ip]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/ubuntu-server%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/"/>
+    <id>http://www.nuonuo.me/2014/10/08/ubuntu-server设置静态ip/</id>
+    <published>2014-10-08T08:18:36.000Z</published>
+    <updated>2015-03-17T08:36:05.000Z</updated>
+    <content type="html"><![CDATA[<p>ubuntu的网络配置信息放在/etc/network/interfaces 中</p>
+<pre><code>sudo vi <span class="regexp">/etc/</span>network<span class="regexp">/interfaces</span>
+</code></pre><p>如果配置动态获取ip，则在上述文件中加入以下内容：(注：服务器通常不用动态IP)</p>
+<pre><code><span class="keyword">auto</span> eth0
+iface eth0 inet dhcp
+</code></pre><p>如果配置静态ip，则添加如下内容：</p>
+<pre><code><span class="title">auto</span> eth0
+iface eth0 inet static
+address <span class="number">192.168.1.150</span>
+netmask <span class="number">255.255.255.0</span>
+gateway <span class="number">192.168.1.1</span>
+</code></pre><p>修改完成后，需要重新启动网络</p>
+<pre><code>sudo <span class="regexp">/etc/i</span>nit.d<span class="regexp">/networking restart</span>
+</code></pre><ul>
+<li>Running /etc/init.d/networking restart is deprecated because it may not enable again some interfaces</li>
+<li>Reconfiguring network interfaces… </li>
+</ul>
+<p>然后需要重新登录服务器。 </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>ubuntu的网络配置信息放在/etc/network/interfaces 中</p>
+<pre><code>sudo vi <span class="regexp">/etc/</span>network<span class="regexp">/interfaces<]]>
+    </summary>
+    
+      <category term="ubuntu" scheme="http://www.nuonuo.me/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ubuntu server安装mongodb]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/ubuntu-server%E5%AE%89%E8%A3%85mongodb/"/>
+    <id>http://www.nuonuo.me/2014/10/08/ubuntu-server安装mongodb/</id>
+    <published>2014-10-08T08:17:28.000Z</published>
+    <updated>2015-03-17T08:37:40.000Z</updated>
+    <content type="html"><![CDATA[<p>1.配置Package Management System</p>
+<pre><code><span class="comment">sudo</span> <span class="comment">apt</span><span class="literal">-</span><span class="comment">key</span> <span class="comment">adv</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">keyserver</span> <span class="comment">hkp://keyserver</span><span class="string">.</span><span class="comment">ubuntu</span><span class="string">.</span><span class="comment">com:80</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">recv</span> <span class="comment">7F0CEB10</span>
+</code></pre><p>2.使用下面的命令创建mongodb的源</p>
+<pre><code><span class="keyword">echo</span> <span class="string">'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen'</span> | sudo tee /etc/apt/sources.<span class="keyword">list</span>.d/mongodb.<span class="keyword">list</span>
+</code></pre><p>3.更新ubuntu的版本库</p>
+<pre><code>sudo apt-<span class="built_in">get</span> <span class="keyword">update</span>
+</code></pre><p>4.安装mongodb</p>
+<pre><code>sudo apt-<span class="keyword">get</span> install mongodb-<span class="number">10</span>gen
+</code></pre><p>5.启动mongodb</p>
+<pre><code>sudo <span class="keyword">service</span> mongodb <span class="literal">start</span>
+</code></pre><p>6.停止mongodb</p>
+<pre><code>sudo <span class="keyword">service</span> mongodb <span class="literal">stop</span>
+</code></pre><p>7.重启mongodb</p>
+<pre><code>sudo <span class="keyword">service</span> mongodb <span class="literal">restart</span>
+</code></pre><p>附：官方安装地址：<a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="external">http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>1.配置Package Management System</p>
+<pre><code><span class="comment">sudo</span> <span class="comment">apt</span><span class="literal">-</s]]>
+    </summary>
+    
+      <category term="mongodb" scheme="http://www.nuonuo.me/tags/mongodb/"/>
+    
+      <category term="ubuntu" scheme="http://www.nuonuo.me/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ubuntu server安装node.js]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/ubuntu-server%E5%AE%89%E8%A3%85node-js/"/>
+    <id>http://www.nuonuo.me/2014/10/08/ubuntu-server安装node-js/</id>
+    <published>2014-10-08T08:16:22.000Z</published>
+    <updated>2015-03-17T08:39:33.000Z</updated>
+    <content type="html"><![CDATA[<p>1.安装node.js环境  </p>
+<pre><code>sudo apt-<span class="built_in">get</span> install g++ curl libssl-<span class="built_in">dev</span> apache2-utils
+
+要确保安装了git  
+
+sudo apt-<span class="built_in">get</span> -y install git-core
+</code></pre><p>2.通过git下载源代码：</p>
+<pre><code>git clone <span class="string">git:</span><span class="comment">//github.com/joyent/node.git</span>
+</code></pre><p>3.进入到node目录下，编译安装</p>
+<pre><code>./configure
+<span class="built_in">make</span>
+sudo <span class="built_in">make</span> install
+</code></pre><p>注：如果没有安装make的话，需要先安装make sudo apt-get install make</p>
+<p>4.编译成功后，可以通过node -v查看当前版本号</p>
+<p>5.安装npm</p>
+<pre><code>curl -<span class="keyword">k</span> http<span class="variable">s:</span>//npmjs.org/install.<span class="keyword">sh</span> | sudo <span class="keyword">sh</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>1.安装node.js环境  </p>
+<pre><code>sudo apt-<span class="built_in">get</span> install g++ curl libssl-<span class="built_in">dev</span> apach]]>
+    </summary>
+    
+      <category term="node.js" scheme="http://www.nuonuo.me/tags/node-js/"/>
+    
+      <category term="ubuntu" scheme="http://www.nuonuo.me/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ubuntu安装logwacth]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/ubuntu%E5%AE%89%E8%A3%85logwacth/"/>
+    <id>http://www.nuonuo.me/2014/10/08/ubuntu安装logwacth/</id>
+    <published>2014-10-08T08:14:36.000Z</published>
+    <updated>2015-03-17T08:41:03.000Z</updated>
+    <content type="html"><![CDATA[<p>安装logwatch的前提条件：</p>
+<p>Prerequisites  </p>
+<p> Ensure email is working. Instructions for doing so may be found in MailServer.</p>
+<p> Turn on universe repository. Instructions for doing so may be found in Repositories.</p>
+<p>1.首先安装MailServer</p>
+<p>我安装的是Postfix</p>
+<pre><code>sudo apt-<span class="keyword">get</span> install <span class="keyword">postfix</span>
+</code></pre><p>安装的时候会出现配置，默认选项就可以。</p>
+<p>如果安装完成后，你想修改配置文件，可以使用如下命令：</p>
+<pre><code><span class="title">sudo</span> dpkg-reconfigure postfix
+</code></pre><p>2.MailServer安装完成后，就是安装logwatch。方法很简单</p>
+<pre><code>sudo apt-<span class="keyword">get</span> install logwatch
+</code></pre><p>3.安装后一般可配置为使用邮件方式通知，需要修改配置文件：</p>
+<pre><code>sudo vi <span class="regexp">/usr/</span>share<span class="regexp">/logwatch/</span><span class="keyword">default</span>.conf/logwatch.conf
+
+修改如下参数
+Output = mail
+
+Format = html
+
+MailTo = somebody<span class="annotation">@qq</span>.com
+</code></pre><p>4.logwatch安装时会设置cron定时任务，配置文件在：</p>
+<pre><code>sudo vi /etc/cron.daily/<span class="number">00l</span>ogwatch
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>安装logwatch的前提条件：</p>
+<p>Prerequisites  </p>
+<p> Ensure email is working. Instructions for doing so may be found in MailServer.</p>
+<p> Tu]]>
+    </summary>
+    
+      <category term="ubuntu" scheme="http://www.nuonuo.me/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[mongodb备份和修复]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/mongodb%E5%A4%87%E4%BB%BD%E5%92%8C%E4%BF%AE%E5%A4%8D/"/>
+    <id>http://www.nuonuo.me/2014/10/08/mongodb备份和修复/</id>
+    <published>2014-10-08T08:00:45.000Z</published>
+    <updated>2015-03-17T08:41:55.000Z</updated>
+    <content type="html"><![CDATA[<p>mongodb备份</p>
+<p>1.执行如下命令</p>
+<pre><code>mongodump  <span class="operator">-d</span> spy  -o new_back
+
+<span class="operator">-d</span>指定了要备份的数据库，-o指定要将备份的数据库存放位置
+</code></pre><p><img src="/img/149160bd67e03669f65bc1d2ec57d74a.png" alt=""></p>
+<p>完成以后，可以在new_back目录下找到刚才备份玩的数据</p>
+<p>mongodb恢复</p>
+<p>1.执行下面的命令</p>
+<pre><code>mongorestore -<span class="keyword">d</span> spy --<span class="keyword">drop</span> new_back/spy/
+
+-<span class="keyword">d</span>制定要恢复的数据库，--<span class="keyword">drop</span>代表在恢复之前删除集合，否则数据就会与现有的数据库合并。backup/myDemo/制定备份的数据库位置。
+</code></pre><p><img src="/img/d029442130bf04f8210e51734b5e17d0.png" alt="">     </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>mongodb备份</p>
+<p>1.执行如下命令</p>
+<pre><code>mongodump  <span class="operator">-d</span> spy  -o new_back
+
+<span class="operator">-d</span>指定]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ubuntu 使用iptables创建防火墙]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/ubuntu-%E4%BD%BF%E7%94%A8iptables%E5%88%9B%E5%BB%BA%E9%98%B2%E7%81%AB%E5%A2%99/"/>
+    <id>http://www.nuonuo.me/2014/10/08/ubuntu-使用iptables创建防火墙/</id>
+    <published>2014-10-08T07:56:44.000Z</published>
+    <updated>2015-03-17T08:44:12.000Z</updated>
+    <content type="html"><![CDATA[<p>iptables是Linux上常用的防火墙软件，下面就介绍下怎么通过iptables创建防火墙</p>
+<p>1.检查下你的服务器是否有了默认的防火墙设置</p>
+<pre><code><span class="title">sudo</span> iptables -L
+</code></pre><p>如果没有设置话，会输出空白的结果，如下所示：</p>
+<pre><code><span class="constant">Chain</span> <span class="constant">I</span>NPUT (policy <span class="constant">A</span>CCEPT)
+<span class="literal">target</span>     prot opt <span class="literal">source</span>               destination
+
+<span class="constant">Chain</span> <span class="constant">F</span>ORWARD (policy <span class="constant">A</span>CCEPT)
+<span class="literal">target</span>     prot opt <span class="literal">source</span>               destination
+
+<span class="constant">Chain</span> <span class="constant">O</span>UTPUT (policy <span class="constant">A</span>CCEPT)
+<span class="literal">target</span>     prot opt <span class="literal">source</span>               destination
+</code></pre><p>2.可以使用下面的命令创建防火墙规则：</p>
+<pre><code>sudo vi /etc/iptables<span class="class">.firewall</span><span class="class">.rules</span>
+</code></pre><p>一个简单的例子如下所示：</p>
+<pre><code><span class="comment">*filter</span>
+
+#  Allow all loopback (lo0) traffic and <span class="keyword">drop</span> all traffic to 127/8 that doesn't <span class="keyword">use</span> lo0
+-A <span class="keyword">INPUT</span> -i lo -j ACCEPT
+-A <span class="keyword">INPUT</span> -<span class="keyword">d</span> 127.0.0.0/8 -j REJECT
+
+#  允许已建立的或相关连的通行
+-A <span class="keyword">INPUT</span> -<span class="keyword">m</span> state --state ESTABLISHED,RELATED -j ACCEPT
+
+#  允许所有本机向外的访问
+-A OUTPUT -j ACCEPT
+
+# 开发80和443端口
+-A <span class="keyword">INPUT</span> -p tcp --dport 80 -j ACCEPT
+-A <span class="keyword">INPUT</span> -p tcp --dport 443 -j ACCEPT
+
+#允许ssh登录，这里的dport需要和你再sshd_config里面配置的一致
+-A <span class="keyword">INPUT</span> -p tcp -<span class="keyword">m</span> state --state NEW --dport 22 -j ACCEPT
+
+#  是否允许ping，注释掉则不允许
+-A <span class="keyword">INPUT</span> -p icmp -j ACCEPT
+
+#  <span class="keyword">Log</span> iptables denied calls
+# --limit 对由此规则引发的记录事件的频率进行限制
+# --<span class="keyword">log</span>-prefix 在每条记录前加上一个前缀，以便查找
+-A <span class="keyword">INPUT</span> -<span class="keyword">m</span> limit --limit 5/min -j <span class="keyword">LOG</span> --<span class="keyword">log</span>-prefix <span class="string">"iptables denied: "</span> --<span class="keyword">log</span>-level 7
+
+#  <span class="keyword">Drop</span> all other inbound - default deny unless explicitly allowed policy去掉上面规则外
+-A <span class="keyword">INPUT</span> -j <span class="keyword">DROP</span>
+-A FORWARD -j <span class="keyword">DROP</span>
+
+COMMIT
+</code></pre><p>保存，退出</p>
+<p>3.上面的规则，开放了80，443，22端口，其它的端口被屏蔽掉了，而且不允许ping</p>
+<p>4.激活防火墙使用下面的命令：</p>
+<pre><code>sudo iptables-restore &lt; /etc/iptables<span class="class">.firewall</span><span class="class">.rules</span>
+</code></pre><p>再次使用sudo iptables -L 查看</p>
+<p>5.可以测试下ping这个服务器：现在是ping不通的。</p>
+<p>6.为了保证你每次重启你的服务器你的防火墙规则是有效的，需要创建一个脚本：</p>
+<pre><code>sudo vi /etc/network/<span class="keyword">if</span>-pre-up.d/firewall
+
+<span class="shebang">#!/bin/sh</span>
+/sbin/iptables-restore &lt; /etc/iptables.firewall.rules
+</code></pre><p>7.改变这个脚本的读写权限：</p>
+<pre><code>sudo chmod +<span class="keyword">x</span> /etc/network/<span class="keyword">if</span>-<span class="keyword">pre</span>-<span class="keyword">up</span>.<span class="keyword">d</span>/firewall
+</code></pre><p>上面就是一个简单的配置。</p>
+<p>8.如果我们想指定某个ip通过ssh访问的话，可以这样</p>
+<pre><code>-A INPUT -s <span class="number">192.168</span>.<span class="number">0.3</span> -<span class="tag">p</span> tcp --dport <span class="number">22</span> -j ACCEPT
+</code></pre><p><img src="/img/d57eb34086a06b5b3e69be7b0808a0f5.png" alt=""></p>
+<p>从150ssh登录110则超时</p>
+<p><img src="/img/89182a7251d88b51f0148b03c63fac8e.png" alt=""></p>
+<p>如果要允许,或限制一段IP地址可用 192.168.0.0/24 表示192.168.0.1-255端的所有IP</p>
+<p>可以通过查看/var/log/syslog看到拒绝的日志：</p>
+<p><img src="/img/2b9c4389905ecdd985aa091a44765154.png" alt=""></p>
+<p>ps:</p>
+<pre><code>sudo   iptables -F        清除预设表<span class="built_in">filter</span>中的所有规则链的规则
+
+sudo   iptables -X        清除预设表<span class="built_in">filter</span>中使用者自定链中的规则
+
+iptables <span class="comment">--help            查看帮助</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>iptables是Linux上常用的防火墙软件，下面就介绍下怎么通过iptables创建防火墙</p>
+<p>1.检查下你的服务器是否有了默认的防火墙设置</p>
+<pre><code><span class="title">sudo</span> iptables -L
+]]>
+    </summary>
+    
+      <category term="iptables" scheme="http://www.nuonuo.me/tags/iptables/"/>
+    
+      <category term="ubuntu" scheme="http://www.nuonuo.me/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ubuntu系统启动运行时间]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/ubuntu%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/"/>
+    <id>http://www.nuonuo.me/2014/10/08/ubuntu系统启动运行时间/</id>
+    <published>2014-10-08T07:50:04.000Z</published>
+    <updated>2015-03-17T08:45:19.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="第一个数字代表已经运行的时间">第一个数字代表已经运行的时间</h3><pre><code>$cat /<span class="keyword">proc</span>/uptime
+
+<span class="number">31341</span>.<span class="number">94</span>
+</code></pre><h3 id="可以用date命令来计算出系统的启动时间">可以用date命令来计算出系统的启动时间</h3><pre><code><span class="variable">$date</span> -d <span class="string">"<span class="variable">$(</span>awk -F. '{print <span class="variable">$1</span>}' /proc/uptime) second ago"</span> +<span class="string">"<span class="variable">%Y</span>-<span class="variable">%m</span>-<span class="variable">%d</span> <span class="variable">%H</span>:<span class="variable">%M</span>:<span class="variable">%S</span>"</span>
+
+<span class="number">2011</span>-<span class="number">03</span>-<span class="number">17</span> <span class="number">00</span>:<span class="number">50</span>:<span class="number">51</span>
+</code></pre><h3 id="使用date命令计算系统的运行时间">使用date命令计算系统的运行时间</h3><pre><code>$ cat /<span class="keyword">proc</span>/uptime| awk -F. '{run_days=$<span class="number">1</span> / <span class="number">86400</span>;run_hour=($<span class="number">1</span> % <span class="number">86400</span>)/<span class="number">3600</span>;run_minute=($<span class="number">1</span> % <span class="number">3600</span>)/<span class="number">60</span>;run_second=$<span class="number">1</span> % <span class="number">60</span>;printf(<span class="string">"系统已运行：%d天%d时%d分%d秒\n"</span>,run_days,run_hour,run_minute,run_second)}'
+
+系统已运行：<span class="number">0</span>天<span class="number">8</span>时<span class="number">45</span>分<span class="number">27</span>秒
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="第一个数字代表已经运行的时间">第一个数字代表已经运行的时间</h3><pre><code>$cat /<span class="keyword">proc</span>/uptime
+
+<span class="number">31341</span>.<spa]]>
+    </summary>
+    
+      <category term="ubuntu" scheme="http://www.nuonuo.me/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ubuntu server多用户共享版本库]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/ubuntu-server%E5%A4%9A%E7%94%A8%E6%88%B7%E5%85%B1%E4%BA%AB%E7%89%88%E6%9C%AC%E5%BA%93/"/>
+    <id>http://www.nuonuo.me/2014/10/08/ubuntu-server多用户共享版本库/</id>
+    <published>2014-10-08T07:47:24.000Z</published>
+    <updated>2015-03-17T08:46:21.000Z</updated>
+    <content type="html"><![CDATA[<p>问题：远程版本库使用gitolite，客户端需要克隆版本库，<br>需要把客户的公钥放入到gitolite上面去，可以算是一个萝卜一个坑，<br>其实就是通过密钥对来控制对远程版本库的访问。现在的问题是，<br>一个服务器上有个用户克隆下来了远程的版本库，如果远程版本库有更新，服务器需要同步更新，<br>这时就有问题出来了，每次更新都得这个用户才能更新，如果这个用户不在的话，岂不是更新不了了？</p>
+<p>解决方法：</p>
+<p>下面以git用户为例，git用户有访问远程版本库的权限，jiangli是待授权用户  </p>
+<p>1.首先需要把git用户的私钥给各个用户发一下</p>
+<p>git用户密钥位置：/home/git/.ssh/</p>
+<p>如果生成密钥的时候用的是默认值的话，私钥的名字是id_rsa，把这个用户给各个用户，得到私钥的用户jiangli，需要把改密钥放在自己用户目录下的.ssh目录下</p>
+<pre><code><span class="regexp">/home/</span>jiangli<span class="regexp">/.ssh/</span>
+
+sudo chown <span class="string">jiangli:</span>jiang id_rsa
+
+sudo chmod <span class="number">400</span> id_rsa
+</code></pre><hr>
+<p>ps:如果jiangli这个用户已经有了别的版本库的读写权限，该怎么办呢？</p>
+<p>1.首先给.ssh/目录下的密钥改下名字，例如这样：</p>
+<p><img src="/img/2c705cb8eb4842db8eacdbdf56ae7d2f.png" alt=""></p>
+<p>然后新建一个config文件</p>
+<pre><code>vi config
+
+<span class="keyword">host</span> gitolite
+     <span class="keyword">user</span> git
+     <span class="built_in">hostname</span> 域名或者<span class="literal">ip</span>
+     port <span class="number">10080</span>
+     identityfile ~/.ssh/id_rsa
+<span class="keyword">host</span> devwitmob
+     <span class="keyword">user</span> git
+     <span class="built_in">hostname</span> 域名或者<span class="literal">ip</span>
+     port <span class="number">22</span>
+    identityfile ~/.ssh/devwitmob
+</code></pre><hr>
+<p>2.例如git用户把项目克隆到/srv/test目录下，项目名称SpySprite,我们需要改变这个目录的读写权限</p>
+<pre><code>sudo chmod <span class="number">777</span> -R /srv/<span class="built_in">test</span>/SpySprite
+</code></pre><p><img src="/img/9f8fa22d3749526a9fb35372b70f1d60.png" alt=""></p>
+<p>3.上面两步完成以后，有私钥的用户就可以执行git pull命令执行更新了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>问题：远程版本库使用gitolite，客户端需要克隆版本库，<br>需要把客户的公钥放入到gitolite上面去，可以算是一个萝卜一个坑，<br>其实就是通过密钥对来控制对远程版本库的访问。现在的问题是，<br>一个服务器上有个用户克隆下来了远程的版本库，如果远程版本库有更]]>
+    </summary>
+    
+      <category term="git" scheme="http://www.nuonuo.me/tags/git/"/>
+    
+      <category term="ubuntu server" scheme="http://www.nuonuo.me/tags/ubuntu-server/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[gitolite 导入gitlab]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/gitolite-%E5%AF%BC%E5%85%A5gitlab/"/>
+    <id>http://www.nuonuo.me/2014/10/08/gitolite-导入gitlab/</id>
+    <published>2014-10-08T07:06:47.000Z</published>
+    <updated>2015-03-17T08:47:14.000Z</updated>
+    <content type="html"><![CDATA[<p>很久以前项目是用gitolite做为远程版本库管理的工具，后来发现了gitlab，一款类似github的工具，很不赖，<br>所以决定以后都用gitlab了，需要把以前gitolite的项目搞过来。</p>
+<p>参考：<a href="https://github.com/gitlabhq/gitlabhq/blob/master/doc/raketasks/maintenance.md" target="_blank" rel="external">https://github.com/gitlabhq/gitlabhq/blob/master/doc/raketasks/maintenance.md</a></p>
+<p>目前gitlab的repositories与gitolite的在同一个目录下  </p>
+<p>1.把gitolite中的repositories  cp到gitlab的repository/root里面去</p>
+<p>2.在gitlab目录下执行  </p>
+<pre><code>bundle exec rake <span class="string">gitlab:</span><span class="string">import:</span>repos RAILS_ENV=production
+
+bundle exec rake <span class="string">gitlab:</span><span class="string">satellites:</span>create RAILS_ENV=production
+</code></pre><p>注：gitlab的版本库目录权限   后面目录根据实际情况改变</p>
+<pre><code>sudo chmod -R ug+rwX,o-rwx <span class="regexp">/home/gi</span>t<span class="regexp">/repositories/</span>
+sudo chmod -R ug-s <span class="regexp">/home/gi</span>t<span class="regexp">/repositories/</span>
+<span class="keyword">find</span> <span class="regexp">/home/gi</span>t<span class="regexp">/repositories/</span> -type d -print0 | sudo xargs -<span class="number">0</span> chmod g+s
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>很久以前项目是用gitolite做为远程版本库管理的工具，后来发现了gitlab，一款类似github的工具，很不赖，<br>所以决定以后都用gitlab了，需要把以前gitolite的项目搞过来。</p>
+<p>参考：<a href="https://github.com]]>
+    </summary>
+    
+      <category term="gitlab" scheme="http://www.nuonuo.me/tags/gitlab/"/>
+    
+      <category term="gitolite" scheme="http://www.nuonuo.me/tags/gitolite/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[nginx直接返回json]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/nginx%E7%9B%B4%E6%8E%A5%E8%BF%94%E5%9B%9Ejson/"/>
+    <id>http://www.nuonuo.me/2014/10/08/nginx直接返回json/</id>
+    <published>2014-10-08T07:02:18.000Z</published>
+    <updated>2015-03-17T08:47:49.000Z</updated>
+    <content type="html"><![CDATA[<p>nginx [engine x]是Igor Sysoev编写的一个HTTP和反向代理服务器，另外它也可以作为邮件代理服务器。 它已经在众多流量很大的俄罗斯网站上使用了很长时间，这些网站包括Yandex、Mail.Ru、VKontakte，以及Rambler。</p>
+<p>—摘自<a href="http://nginx.org/cn/" target="_blank" rel="external">nginx官网</a></p>
+<p>项目使用nginx做代理，如果遇到项目升级，我们要告知手机客户端当前服务不可用，我们又不想专门起一个项目来做这件事，<br>这里可以使用nginx的配置来解决这件事。</p>
+<pre><code>location ^~/api/ {
+    default_type <span class="type">application</span>/json;
+<span class="command">    return</span> <span class="number">200</span> '{<span class="string">"ret"</span>:<span class="string">"-11"</span>,<span class="string">"msg"</span>:<span class="string">"尊敬的客户：由于后台系统升级维护，给您带来不便请见谅。"</span>}';
+}
+</code></pre><p>当请求的路径是以/api 开头的话，都会由这个处理。</p>
+<p>可能返回的json中，中文会有乱码问题：参考下面的地址：  </p>
+<p><a href="http://serverfault.com/questions/312177/how-to-enable-correct-charset-http-header-in-nginx" target="_blank" rel="external">http://serverfault.com/questions/312177/how-to-enable-correct-charset-http-header-in-nginx</a>  </p>
+<p><a href="http://nginx.org/en/docs/http/ngx_http_charset_module.html#charset_types" target="_blank" rel="external">http://nginx.org/en/docs/http/ngx_http_charset_module.html#charset_types</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>nginx [engine x]是Igor Sysoev编写的一个HTTP和反向代理服务器，另外它也可以作为邮件代理服务器。 它已经在众多流量很大的俄罗斯网站上使用了很长时间，这些网站包括Yandex、Mail.Ru、VKontakte，以及Rambler。</p>
+<p>]]>
+    </summary>
+    
+      <category term="nginx" scheme="http://www.nuonuo.me/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ubuntu server使用logrotate切割日志]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/ubuntu-server%E4%BD%BF%E7%94%A8logrotate%E5%88%87%E5%89%B2%E6%97%A5%E5%BF%97/"/>
+    <id>http://www.nuonuo.me/2014/10/08/ubuntu-server使用logrotate切割日志/</id>
+    <published>2014-10-08T06:49:32.000Z</published>
+    <updated>2015-03-17T08:49:07.000Z</updated>
+    <content type="html"><![CDATA[<p>logrotate 程序是一个日志文件管理工具。用来把旧的日志文件删除，并创建新的日志文件，我们把它叫做“转储”。<br>我们可以根据日志文件的大小，也可以根据其天数来转储，这个过程一般通过 cron 程序来执行。</p>
+<p>ubuntu server默认已经安装了logrotate</p>
+<p>1.在/etc/logrotate.d目录下新建一个文件：</p>
+<pre><code>sudo vi foreverout 
+
+/opt/work/<span class="keyword">log</span>/wodi/<span class="keyword">out</span>.<span class="keyword">log</span> {
+<span class="literal">daily</span>
+<span class="keyword">rotate</span> 5
+missingok
+size 1M
+notifempty
+copytruncate
+}
+
+/opt/work/<span class="keyword">log</span>/wodi/<span class="keyword">out</span>.<span class="keyword">log</span>  是你的日志目录
+</code></pre><p>ps:logrotate 的主要参数如下表：</p>
+<pre><code>参数                         功能
+   compress                     通过gzip 压缩转储以后的日志
+   nocompress                   不需要压缩时，用这个参数
+   copytruncate                 用于还在打开中的日志文件，把当前日志备份并截断
+   nocopytruncate               备份日志文件但是不截断
+   <span class="operator"><span class="keyword">create</span> <span class="keyword">mode</span> owner <span class="keyword">group</span>      转储文件，使用指定的文件模式创建新的日志文件
+   nocreate                     不建立新的日志文件
+   delaycompress 和 <span class="keyword">compress</span> 一起使用时，转储的日志文件到下一次转储时才压缩
+   nodelaycompress              覆盖 delaycompress 选项，转储同时压缩。
+   <span class="keyword">errors</span> address               专储时的错误信息发送到指定的Email 地址
+   ifempty                      即使是空文件也转储，这个是 logrotate 的缺省选项。
+   notifempty                   如果是空文件的话，不转储
+   mail address                 把转储的日志文件发送到指定的E-mail 地址
+   nomail                       转储时不发送日志文件
+   olddir directory             转储后的日志文件放入指定的目录，必须和当前日志文件在同一个文件系统
+   noolddir                     转储后的日志文件和当前日志文件放在同一个目录下
+   prerotate/endscript          在转储以前需要执行的命令可以放入这个对，这两个关键字必须单独成行
+   postrotate/endscript         在转储以后需要执行的命令可以放入这个对，这两个关键字必须单独成行
+   daily                        指定转储周期为每天
+   weekly                       指定转储周期为每周
+   monthly                      指定转储周期为每月
+   rotate <span class="keyword">count</span>                 指定日志文件删除之前转储的次数，<span class="number">0</span> 指没有备份，<span class="number">5</span> 指保留<span class="number">5</span> 个备份
+   tabootext [+] list           让logrotate 不转储指定扩展名的文件，缺省的扩展名是：.rpm-orig, .rpmsave, v, 和 ~
+   <span class="keyword">size</span> <span class="keyword">size</span>                    当日志文件到达指定的大小时才转储，<span class="keyword">Size</span> 可以指定 bytes (缺省)以及KB (sizek)或者MB (sizem).</span>
+</code></pre><p>2.可以通过下面的命令来测试上面的文件是否正确：</p>
+<pre><code>sudo logrotate <span class="operator">-f</span> /etc/logrotate.d/foreverout
+</code></pre><p>在 /opt/work/log/wodi/out.log会产生</p>
+<pre><code><span class="keyword">out</span>.<span class="built_in">log</span>
+<span class="keyword">out</span>.<span class="built_in">log</span><span class="number">.1</span>
+</code></pre><p>3.让logrotate每天进行一次滚动,在crontab中添加一行定时脚本</p>
+<pre><code>sudo crontab -e
+
+<span class="number">59</span> <span class="number">23</span>  * * *   <span class="regexp">/usr/sbin</span><span class="regexp">/logrotate -f /etc</span><span class="regexp">/logrotate.d/foreverout</span>
+</code></pre><p>每天23时59分执行这个命令</p>
+<p>写好计划任务后，还需要重启cron来应用这个计划任务</p>
+<pre><code>sudo <span class="keyword">service</span> <span class="keyword">cron</span> <span class="literal">restart</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>logrotate 程序是一个日志文件管理工具。用来把旧的日志文件删除，并创建新的日志文件，我们把它叫做“转储”。<br>我们可以根据日志文件的大小，也可以根据其天数来转储，这个过程一般通过 cron 程序来执行。</p>
+<p>ubuntu server默认已经安装了lo]]>
+    </summary>
+    
+      <category term="linux" scheme="http://www.nuonuo.me/tags/linux/"/>
+    
+      <category term="logrotate" scheme="http://www.nuonuo.me/tags/logrotate/"/>
+    
+      <category term="ubuntu server" scheme="http://www.nuonuo.me/tags/ubuntu-server/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Get the text after span element using jquery]]></title>
+    <link href="http://www.nuonuo.me/2014/10/08/Get-the-text-after-span-element-using-jquery/"/>
+    <id>http://www.nuonuo.me/2014/10/08/Get-the-text-after-span-element-using-jquery/</id>
+    <published>2014-10-08T06:43:18.000Z</published>
+    <updated>2015-03-17T08:23:21.000Z</updated>
+    <content type="html"><![CDATA[<p>Get the text after span element using jquery</p>
+<pre><code>&lt;<span class="operator">div</span> id=<span class="string">"mydiv"</span>&gt;
+    &lt;<span class="operator">div</span>&gt;
+        &lt;span&gt;Text inside span&lt;/span&gt;
+        Text next <span class="built_in">to</span> span
+    &lt;/<span class="operator">div</span>&gt;
+    &lt;<span class="operator">div</span>&gt;
+        Contents inside <span class="operator">the</span> <span class="number">2</span>nd <span class="operator">div</span> <span class="keyword">element</span>...
+    &lt;/<span class="operator">div</span>&gt;
+&lt;/<span class="operator">div</span>&gt;
+</code></pre><p>如果想取得上面html代码中的”Text next to span”，使用下面的方法即可：</p>
+<pre><code><span class="keyword">var</span> a = $(<span class="string">'#mydiv div'</span>).first().contents().filter(<span class="function"><span class="keyword">function</span><span class="params">()</span><span class="comment">{
+    returnthis.nodeType ==3;
+}</span>).<span class="title">text</span><span class="params">()</span>;</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>Get the text after span element using jquery</p>
+<pre><code>&lt;<span class="operator">div</span> id=<span class="string">"mydiv"</span>&]]>
+    </summary>
+    
+      <category term="jquery" scheme="http://www.nuonuo.me/tags/jquery/"/>
+    
+  </entry>
+  
+</feed>

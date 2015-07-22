@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ubuntu 使用iptables创建防火墙 | jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  <meta name="description" content="iptables是Linux上常用的防火墙软件，下面就介绍下怎么通过iptables创建防火墙
+1.检查下你的服务器是否有了默认的防火墙设置
+sudo iptables -L
+如果没有设置话，会输出空白的结果，如下所示：
+Chain INPUT (policy ACCEPT)
+target     ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="ubuntu 使用iptables创建防火墙"/>
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<div style="display:none">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1253342057'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1253342057%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于我</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-10-08T07:56:44.000Z"><a href="/2014/10/08/ubuntu-使用iptables创建防火墙/">Wed, Oct 8 2014, 3:56:44 pm</a></time>
+
+  
+    <h1 class="title">ubuntu 使用iptables创建防火墙</h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/iptables/">iptables</a>, <a href="/tags/ubuntu/">ubuntu</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>iptables是Linux上常用的防火墙软件，下面就介绍下怎么通过iptables创建防火墙</p>
+<p>1.检查下你的服务器是否有了默认的防火墙设置</p>
+<pre><code><span class="title">sudo</span> iptables -L
+</code></pre><p>如果没有设置话，会输出空白的结果，如下所示：</p>
+<pre><code><span class="constant">Chain</span> <span class="constant">I</span>NPUT (policy <span class="constant">A</span>CCEPT)
+<span class="literal">target</span>     prot opt <span class="literal">source</span>               destination
+
+<span class="constant">Chain</span> <span class="constant">F</span>ORWARD (policy <span class="constant">A</span>CCEPT)
+<span class="literal">target</span>     prot opt <span class="literal">source</span>               destination
+
+<span class="constant">Chain</span> <span class="constant">O</span>UTPUT (policy <span class="constant">A</span>CCEPT)
+<span class="literal">target</span>     prot opt <span class="literal">source</span>               destination
+</code></pre><p>2.可以使用下面的命令创建防火墙规则：</p>
+<pre><code>sudo vi /etc/iptables<span class="class">.firewall</span><span class="class">.rules</span>
+</code></pre><p>一个简单的例子如下所示：</p>
+<pre><code><span class="comment">*filter</span>
+
+#  Allow all loopback (lo0) traffic and <span class="keyword">drop</span> all traffic to 127/8 that doesn't <span class="keyword">use</span> lo0
+-A <span class="keyword">INPUT</span> -i lo -j ACCEPT
+-A <span class="keyword">INPUT</span> -<span class="keyword">d</span> 127.0.0.0/8 -j REJECT
+
+#  允许已建立的或相关连的通行
+-A <span class="keyword">INPUT</span> -<span class="keyword">m</span> state --state ESTABLISHED,RELATED -j ACCEPT
+
+#  允许所有本机向外的访问
+-A OUTPUT -j ACCEPT
+
+# 开发80和443端口
+-A <span class="keyword">INPUT</span> -p tcp --dport 80 -j ACCEPT
+-A <span class="keyword">INPUT</span> -p tcp --dport 443 -j ACCEPT
+
+#允许ssh登录，这里的dport需要和你再sshd_config里面配置的一致
+-A <span class="keyword">INPUT</span> -p tcp -<span class="keyword">m</span> state --state NEW --dport 22 -j ACCEPT
+
+#  是否允许ping，注释掉则不允许
+-A <span class="keyword">INPUT</span> -p icmp -j ACCEPT
+
+#  <span class="keyword">Log</span> iptables denied calls
+# --limit 对由此规则引发的记录事件的频率进行限制
+# --<span class="keyword">log</span>-prefix 在每条记录前加上一个前缀，以便查找
+-A <span class="keyword">INPUT</span> -<span class="keyword">m</span> limit --limit 5/min -j <span class="keyword">LOG</span> --<span class="keyword">log</span>-prefix <span class="string">"iptables denied: "</span> --<span class="keyword">log</span>-level 7
+
+#  <span class="keyword">Drop</span> all other inbound - default deny unless explicitly allowed policy去掉上面规则外
+-A <span class="keyword">INPUT</span> -j <span class="keyword">DROP</span>
+-A FORWARD -j <span class="keyword">DROP</span>
+
+COMMIT
+</code></pre><p>保存，退出</p>
+<p>3.上面的规则，开放了80，443，22端口，其它的端口被屏蔽掉了，而且不允许ping</p>
+<p>4.激活防火墙使用下面的命令：</p>
+<pre><code>sudo iptables-restore &lt; /etc/iptables<span class="class">.firewall</span><span class="class">.rules</span>
+</code></pre><p>再次使用sudo iptables -L 查看</p>
+<p>5.可以测试下ping这个服务器：现在是ping不通的。</p>
+<p>6.为了保证你每次重启你的服务器你的防火墙规则是有效的，需要创建一个脚本：</p>
+<pre><code>sudo vi /etc/network/<span class="keyword">if</span>-pre-up.d/firewall
+
+<span class="shebang">#!/bin/sh</span>
+/sbin/iptables-restore &lt; /etc/iptables.firewall.rules
+</code></pre><p>7.改变这个脚本的读写权限：</p>
+<pre><code>sudo chmod +<span class="keyword">x</span> /etc/network/<span class="keyword">if</span>-<span class="keyword">pre</span>-<span class="keyword">up</span>.<span class="keyword">d</span>/firewall
+</code></pre><p>上面就是一个简单的配置。</p>
+<p>8.如果我们想指定某个ip通过ssh访问的话，可以这样</p>
+<pre><code>-A INPUT -s <span class="number">192.168</span>.<span class="number">0.3</span> -<span class="tag">p</span> tcp --dport <span class="number">22</span> -j ACCEPT
+</code></pre><p><img src="/img/d57eb34086a06b5b3e69be7b0808a0f5.png" alt=""></p>
+<p>从150ssh登录110则超时</p>
+<p><img src="/img/89182a7251d88b51f0148b03c63fac8e.png" alt=""></p>
+<p>如果要允许,或限制一段IP地址可用 192.168.0.0/24 表示192.168.0.1-255端的所有IP</p>
+<p>可以通过查看/var/log/syslog看到拒绝的日志：</p>
+<p><img src="/img/2b9c4389905ecdd985aa091a44765154.png" alt=""></p>
+<p>ps:</p>
+<pre><code>sudo   iptables -F        清除预设表<span class="built_in">filter</span>中的所有规则链的规则
+
+sudo   iptables -X        清除预设表<span class="built_in">filter</span>中使用者自定链中的规则
+
+iptables <span class="comment">--help            查看帮助</span>
+</code></pre>
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+    <a href="/2014/10/08/mongodb备份和修复/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+  
+  
+    <a href="/2014/10/08/ubuntu系统启动运行时间/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2014/10/08/ubuntu-使用iptables创建防火墙/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2015 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="external">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="external">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js" type="text/javascript"></script>
+<script src="/js/gallery.js" type="text/javascript"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

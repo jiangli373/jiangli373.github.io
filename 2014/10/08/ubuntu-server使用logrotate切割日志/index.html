@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ubuntu server使用logrotate切割日志 | jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  <meta name="description" content="logrotate 程序是一个日志文件管理工具。用来把旧的日志文件删除，并创建新的日志文件，我们把它叫做“转储”。我们可以根据日志文件的大小，也可以根据其天数来转储，这个过程一般通过 cron 程序来执行。
+ubuntu server默认已经安装了logrotate
+1.在/etc/logrotat">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="ubuntu server使用logrotate切割日志"/>
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<div style="display:none">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1253342057'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1253342057%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于我</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-10-08T06:49:32.000Z"><a href="/2014/10/08/ubuntu-server使用logrotate切割日志/">Wed, Oct 8 2014, 2:49:32 pm</a></time>
+
+  
+    <h1 class="title">ubuntu server使用logrotate切割日志</h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/linux/">linux</a>, <a href="/tags/logrotate/">logrotate</a>, <a href="/tags/ubuntu-server/">ubuntu server</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>logrotate 程序是一个日志文件管理工具。用来把旧的日志文件删除，并创建新的日志文件，我们把它叫做“转储”。<br>我们可以根据日志文件的大小，也可以根据其天数来转储，这个过程一般通过 cron 程序来执行。</p>
+<p>ubuntu server默认已经安装了logrotate</p>
+<p>1.在/etc/logrotate.d目录下新建一个文件：</p>
+<pre><code>sudo vi foreverout 
+
+/opt/work/<span class="keyword">log</span>/wodi/<span class="keyword">out</span>.<span class="keyword">log</span> {
+<span class="literal">daily</span>
+<span class="keyword">rotate</span> 5
+missingok
+size 1M
+notifempty
+copytruncate
+}
+
+/opt/work/<span class="keyword">log</span>/wodi/<span class="keyword">out</span>.<span class="keyword">log</span>  是你的日志目录
+</code></pre><p>ps:logrotate 的主要参数如下表：</p>
+<pre><code>参数                         功能
+   compress                     通过gzip 压缩转储以后的日志
+   nocompress                   不需要压缩时，用这个参数
+   copytruncate                 用于还在打开中的日志文件，把当前日志备份并截断
+   nocopytruncate               备份日志文件但是不截断
+   <span class="operator"><span class="keyword">create</span> <span class="keyword">mode</span> owner <span class="keyword">group</span>      转储文件，使用指定的文件模式创建新的日志文件
+   nocreate                     不建立新的日志文件
+   delaycompress 和 <span class="keyword">compress</span> 一起使用时，转储的日志文件到下一次转储时才压缩
+   nodelaycompress              覆盖 delaycompress 选项，转储同时压缩。
+   <span class="keyword">errors</span> address               专储时的错误信息发送到指定的Email 地址
+   ifempty                      即使是空文件也转储，这个是 logrotate 的缺省选项。
+   notifempty                   如果是空文件的话，不转储
+   mail address                 把转储的日志文件发送到指定的E-mail 地址
+   nomail                       转储时不发送日志文件
+   olddir directory             转储后的日志文件放入指定的目录，必须和当前日志文件在同一个文件系统
+   noolddir                     转储后的日志文件和当前日志文件放在同一个目录下
+   prerotate/endscript          在转储以前需要执行的命令可以放入这个对，这两个关键字必须单独成行
+   postrotate/endscript         在转储以后需要执行的命令可以放入这个对，这两个关键字必须单独成行
+   daily                        指定转储周期为每天
+   weekly                       指定转储周期为每周
+   monthly                      指定转储周期为每月
+   rotate <span class="keyword">count</span>                 指定日志文件删除之前转储的次数，<span class="number">0</span> 指没有备份，<span class="number">5</span> 指保留<span class="number">5</span> 个备份
+   tabootext [+] list           让logrotate 不转储指定扩展名的文件，缺省的扩展名是：.rpm-orig, .rpmsave, v, 和 ~
+   <span class="keyword">size</span> <span class="keyword">size</span>                    当日志文件到达指定的大小时才转储，<span class="keyword">Size</span> 可以指定 bytes (缺省)以及KB (sizek)或者MB (sizem).</span>
+</code></pre><p>2.可以通过下面的命令来测试上面的文件是否正确：</p>
+<pre><code>sudo logrotate <span class="operator">-f</span> /etc/logrotate.d/foreverout
+</code></pre><p>在 /opt/work/log/wodi/out.log会产生</p>
+<pre><code><span class="keyword">out</span>.<span class="built_in">log</span>
+<span class="keyword">out</span>.<span class="built_in">log</span><span class="number">.1</span>
+</code></pre><p>3.让logrotate每天进行一次滚动,在crontab中添加一行定时脚本</p>
+<pre><code>sudo crontab -e
+
+<span class="number">59</span> <span class="number">23</span>  * * *   <span class="regexp">/usr/sbin</span><span class="regexp">/logrotate -f /etc</span><span class="regexp">/logrotate.d/foreverout</span>
+</code></pre><p>每天23时59分执行这个命令</p>
+<p>写好计划任务后，还需要重启cron来应用这个计划任务</p>
+<pre><code>sudo <span class="keyword">service</span> <span class="keyword">cron</span> <span class="literal">restart</span>
+</code></pre>
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+    <a href="/2014/10/08/nginx直接返回json/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+  
+  
+    <a href="/2014/10/08/Get-the-text-after-span-element-using-jquery/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2014/10/08/ubuntu-server使用logrotate切割日志/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2015 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="external">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="external">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js" type="text/javascript"></script>
+<script src="/js/gallery.js" type="text/javascript"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

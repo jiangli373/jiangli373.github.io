@@ -1,0 +1,1000 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<div style="display:none">
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1253342057'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1253342057%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</div>
+
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于我</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <div id="cover">
+	<div id="profile" alt="http://7xi45j.com1.z0.glb.clouddn.com/background-cover.jpg">
+		<a href="/">
+			<div class="logo">
+				<img src="/logo.png" alt="Profile Picture">
+			</div>
+			<div id="title">jiangli's blog</div>
+		</a>
+
+		
+		 <ul class="my-socials">
+  
+  <li>
+  	<a href="hhttps://github.com/jiangli373" class="github" target="_blank">
+  		<i class="fa fa-github"></i>
+  	</a>
+  </li>
+  
+  <li>
+  	<a href="http://weibo.com/2460847854/profile?topnav=1&wvr=6" class="weibo" target="_blank">
+  		<i class="fa fa-weibo"></i>
+  	</a>
+  </li>
+  
+ 
+ <li>
+   	<a href="mailto:715015723@qq.com" class="email" target="_blank" title="Email Me">
+  		<i class="fa fa-envelope"></i>
+  	</a>
+ </li>
+ 
+  
+  <li>
+   <a href="/atom.xml" class="email" target="_blank" title="订阅">
+    <i class="fa fa-rss"></i>
+   </a>
+  </li>
+  
+</ul>
+	</div>
+</div>
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2015-03-17T08:51:40.000Z"><a href="/2015/03/17/使用nodejs解析优酷，奇艺视频源地址/">Tue, Mar 17 2015, 4:51:40 pm</a></time>
+
+  
+    <h1 class="title"><a href="/2015/03/17/使用nodejs解析优酷，奇艺视频源地址/">使用nodejs解析优酷，奇艺视频源地址</a></h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/nodejs/">nodejs</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p><a href="https://github.com/jiangli373/nodeParseVideo" target="_blank" rel="external">项目地址</a></p>
+<p>这个项目通过一个优酷或者爱奇艺的视频地址，最终可以得到视频的下载地址</p>
+<p>这个项目的想法是来源：<a href="https://github.com/keygle/parseVideo" target="_blank" rel="external">https://github.com/keygle/parseVideo</a></p>
+<p>因为自己要用到优酷和奇艺，所以就测试了这两个，测试结果是优酷的可以使用，爱奇艺的已经失效。</p>
+<p>经过研究爱奇艺的视频页面的http请求，以及反编译视频播放器，找到它的下载地址，自己做了一个pr，现在该项目作者已经merge了。</p>
+<p>这是一个php工程，所以自己用node把这个工程里面解析优酷和爱奇艺的方法重写了下</p>
+<p>说明：</p>
+<pre><code><span class="keyword">var</span> video = <span class="built_in">require</span>(<span class="string">'./index'</span>);
+
+video(<span class="string">'http://www.iqiyi.com/v_19rrnbyreg.html'</span>,<span class="string">'MP4'</span>,<span class="function"><span class="keyword">function</span><span class="params">(err,data)</span></span>{
+    <span class="built_in">console</span>.log(data);
+});
+</code></pre><p>第一个参数是视频地址（必填），第二参数是返回的视频格式（选填，只针对爱奇艺），第三个参数回掉函数（必填）</p>
+<p>最终取到的爱奇艺的flv格式地址如下：</p>
+<pre><code>http://data.video.qiyi.com/f3060e76a71fedac773d327734e723f2/videos/v0/<span class="number">20141023</span>/<span class="number">7</span>b/b5/<span class="number">96</span>c5fa7650168e97c445f976b0b5b68f.f4v?<span class="variable">ran=</span><span class="number">1000</span>&amp;<span class="variable">qyid=</span><span class="number">08</span>ca8cb480c0384cb5d3db068161f44f&amp;<span class="variable">qypid=</span><span class="number">321778500</span>_11&amp;<span class="variable">retry=</span><span class="number">1</span>
+</code></pre><p>是这样的，下载地址需要请求上面这个地址得到：</p>
+<pre><code>{
+    "<span class="attribute">t</span>": <span class="value"><span class="string">"CT|ShangHai-101.81.48.14"</span></span>,
+    "<span class="attribute">s</span>": <span class="value"><span class="string">"1"</span></span>,
+    "<span class="attribute">z</span>": <span class="value"><span class="string">"hengyang3_ct"</span></span>,
+    "<span class="attribute">h</span>": <span class="value"><span class="string">"0"</span></span>,
+    "<span class="attribute">l</span>": <span class="value"><span class="string">"http://220.170.79.37/videos/v0/20141221/38/e6/4be4e1cad4374d3447be144397366ff8.f4v?key=8f5bdcd17a8765c&amp;ran=1000&amp;qyid=08ca8cb480c0384cb5d3db068161f44f&amp;qypid=335764500_11&amp;retry=1&amp;uuid=6551300e-5497c256-36"</span></span>,
+    "<span class="attribute">e</span>": <span class="value"><span class="string">"0"</span>
+</span>}
+</code></pre><p>返回结果中的l是真正的下载地址，而这个地址失效时间非常短，故返回的是上面的地址，如果最终取到的下载地址失效，再次请求返回的这个地址即可.</p>
+<p>ps:爱奇艺的结果不是很稳定，有时解析出来的地址无法播放，解决办法只能多解析几次，测试发现有时取到的视频的ip地址是不通了，估计是奇艺的服务器的问题</p>
+<p>分析优酷的下载地址可以参考<a href="http://www.cnblogs.com/keygle/p/3829653.html" target="_blank" rel="external">这篇文章</a></p>
+<p>这里说下分析爱奇艺的思路：</p>
+<p>1.分析mp4或者m3u8，方法都一样，只是有一个参数不一样</p>
+<p>  因为pc上播放的视频都是flv格式的，所以你只能用移动设备做这个工作了，用iphone真机或者模拟器，配合safari使用，可以在safari上面调试页面，随便选一个视频页面，找到页面上的</p>
+<pre><code><span class="xml"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span></span>eval(function(p,a,c,k,e,d){e=function(c){return(c<span class="xml"><span class="tag">&lt;<span class="title">a?"":e(parseInt(c</span>/<span class="attribute">a</span>)))+((<span class="attribute">c</span>=<span class="value">c%a)</span>&gt;</span></span>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[<span class="link_label">e(c)</span>]=k[<span class="link_label">c</span>]||e(c);k=[<span class="link_label">function(e){return d[e</span>]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[<span class="link_label">c</span>])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[<span class="link_label">c</span>]);return p;}('z 1h(e,n,t,a,r,o){z i(e,n){F((e&gt;&gt;1)+(n&gt;&gt;1)<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">1</span>)+(<span class="attribute">1</span>&amp;<span class="attribute">e</span>)+(<span class="attribute">1</span>&amp;<span class="attribute">n</span>)}<span class="attribute">z</span> <span class="attribute">c</span>(<span class="attribute">e</span>,<span class="attribute">n</span>,<span class="attribute">t</span>,<span class="attribute">a</span>){<span class="attribute">e</span>&gt;</span></span>0&amp;&amp;5&gt;e?t&gt;=0?p<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">6</span>&gt;</span></span>n?(a=[<span class="link_label">a[3</span>],i(a[<span class="link_label">1</span>],(x=i(i(a[<span class="link_label">0</span>],[<span class="link_label">a[1</span>]&amp;a[<span class="link_label">2</span>]|~a[<span class="link_label">1</span>]&amp;a[<span class="link_label">3</span>],a[<span class="link_label">3</span>]&amp;a[<span class="link_label">1</span>]|~a[<span class="link_label">3</span>]&amp;a[<span class="link_label">2</span>],a[<span class="link_label">1</span>]^a[<span class="link_label">2</span>]^a[<span class="link_label">3</span>],a[<span class="link_label">2</span>]^(a[<span class="link_label">1</span>]|~a[<span class="link_label">3</span>])][<span class="link_label">y=t&gt;&gt;4</span>]),i(j(m(t+1))<span class="emphasis">*N|0,B[[t,5*</span>t+1,3<span class="emphasis">*t+5,7*</span>t][<span class="link_label">y</span>]%16+(n++&gt;&gt;&gt;6)])))<span class="xml"><span class="tag">&lt;&lt;(<span class="attribute">y</span>=<span class="value">[7,12,17,22,5,9,14,20,4,11,16,23,6,10,15,21][4*y+t%4])|x</span>&gt;</span></span>&gt;&gt;1f-y),a[1],a[2]],P&amp;n?c(e,n,P&amp;n,a):(A=[i(a[0],A[0]),i(a[1],A[1]),i(a[2],A[2]),i(a[3],A[3])],c(e,n+1U,P&amp;n,A))):(B=[],p=""):C?c(12,n,0,"1X"):c(13,n,0,"24"):e&gt;6&amp;&amp;10&gt;e?(e=X(1c(a)),t<span class="xml"><span class="tag">&lt;<span class="title">e.K?(B[n</span>&gt;</span></span>&gt;2]|=e.19(t++)<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">8</span>*(<span class="attribute">n</span>%<span class="attribute">4</span>),<span class="attribute">c</span>(<span class="attribute">9</span>,++<span class="attribute">n</span>,<span class="attribute">t</span>,<span class="attribute">M</span>))<span class="attribute">:</span>(<span class="attribute">d</span>(<span class="attribute">1Y.2a</span>(<span class="attribute">26</span>))&amp;&amp;(<span class="attribute">B</span>[<span class="attribute">n</span>&gt;</span></span>&gt;2]|=1<span class="xml"><span class="tag">&lt;&lt;(<span class="attribute">n</span>%<span class="attribute">4</span>&lt;&lt;<span class="attribute">3</span>)+<span class="attribute">7</span>),<span class="attribute">B</span>[<span class="attribute">p</span>=<span class="value">(n+8</span>&gt;</span></span>&gt;6<span class="xml"><span class="tag">&lt;&lt;<span class="attribute">4</span>)+<span class="attribute">14</span>]=<span class="value">n&lt;&lt;3,c(3,0,0,A))):e</span>&gt;</span></span>11&amp;&amp;15&gt;e&amp;&amp;(t<span class="xml"><span class="tag">&lt;<span class="title">(a.K</span>&lt;&lt;<span class="attribute">1</span>)/<span class="attribute">5</span>?(<span class="attribute">B</span>[<span class="attribute">n</span>&gt;</span></span>&gt;2]|=(2n(a.2m(10<span class="emphasis">*(t&gt;&gt;2),10),10)&gt;&gt;(3-(3&amp;t)&lt;&lt;3)&amp;1r^(a.K&lt;&lt;1)/5-t++)&lt;&lt;((3&amp;n++)&lt;&lt;3),c(14,n,t,a)):c(7,n,0,M))}z d(e){F"1o"!=1k G[e]}q u=18.1j,h=18.1w,s=G.1F;(1b===s||-1b===s)&amp;&amp;(u=u&gt;h?h:u);q f=G.1d;u=H.V(u/f);q w=H.V(G.1G/f),b=H.V(G.1J/f),v=u-b-w,g=L(w+"N"+v),l="",N=1n,j=H.1l,m=H.1m,p="";d("1H")&amp;&amp;(p=Q.1I,p&amp;&amp;p.1L("1M.1K")&gt;=0||(l+=L("1z"))),l+=d("1A")?(l?"N":"")+L("1x"):"";q C=n,M=e,T=7,k={},R=(1C 1B).1E();k.J=(n?o+""+r:R-T)+"",M=O(L(M)),k.J=O(L(C?k.J+a+""+t:k.J));q x,y,A=[x=1D,y=-1y,~x,~y],B=[],D=z(){1a(p=X(1c(k.J)),y=0;y&lt;p.K;)B[y&gt;&gt;2]|=p.19(y)&lt;&lt;8*</span>(y++%4);1a(c(1,y,-1,B),x=0;1f&gt;x;)p+=(A[x&gt;&gt;3]&gt;&gt;4<span class="emphasis">*(1^7&amp;x++)&amp;15).Y(16);F p},E=z(){q e="z%1t%28%29%20%1v%20%1s%1p%1q%20%1u",n="1N";F"2c"2f Q.2g.2h&amp;&amp;(n=O(2e.2b.Y())===e?"2j":"2d"),n};Z(n){q I={};F I.1g=D,I.1i=E,I.d=R,I}q S=D();Z(S.K&gt;4){q U="";U+=Q.2i+";"+G.1d+";&amp;2o="+R,U=2l(U);q W={};F W.1T="1S",W.1V=S,W.1P=U,l&amp;&amp;(W.1W=l),g&amp;&amp;(W.25=g),W.t=R-7,W.1e=E(),W}}z 1Z(e,n,t,a){q r=1h("",!0,a,t,n,e),o="27",i={};F i.1Q="1R",i.1O=r.1g(o,!0),i.2k=r.d-7,i.1e=r.1i(),i}',62,149,'||||||||||||||||||||||||||var|||||||||function||||||return|window|Math||cache|length|btoa||_|escape|63|document|||||round||atob|toString|if|||||||||screen|charCodeAt|for|90|unescape|devicePixelRatio|__jsT|32|md|weorjjigh|jc|height|typeof|abs|sin|4294967296|undefined|20code|5D|255|5Bnative|20javaEnabled|7D|7B|width|BOL|271733879|UCW|_0|Date|new|1732584193|getTime|orientation|screenTop|ucweb|referrer|outerHeight|com|indexOf|baidu|null|__sigC|__refI|__cliT|h5|d846d0c32d664d32b6b54ea48997a589|src|960|sc|qd_jsin|1330848328159996040014666388890612187513113019274921193194001265062984|String|weorjjighly|||||03603482862038069294069554231005389970290678182205184924421910467011111731869494|qd_wsz|81|jfakmkafklw23321f4ea32459|||fromCharCode|javaEnabled|WebkitAppearance|sijsc|navigator|in|documentElement|style|URL|sgve|__ctmM|encodeURIComponent|substr|parseInt|tim'.split('|'),0,{}));/*</span>v20150304*/<span class="xml"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span>
+</code></pre><p>这段js是客户端加密的一个方法，它的作用是生成请求视频信息的参数，虽然它是结果混淆了，我们可以反混淆把这段js解析出来，整个解析的过程，这个函数很重要，其余只要监视网络请求，就可以获得最终的视频请求url。具体可以查看我的github</p>
+<p>2.分析flv</p>
+<p>  我的做法是反编译爱奇艺的flash播放器，然后配合http请求，分析反编译后的代码，找到加密方法。</p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2015/03/17/使用nodejs解析优酷，奇艺视频源地址/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://www.nuonuo.me/2015/03/17/使用nodejs解析优酷，奇艺视频源地址/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2015/03/17/使用nodejs解析优酷，奇艺视频源地址/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2015-03-17T08:08:38.000Z"><a href="/2015/03/17/What-Mongoose-Never-Explain-to-You-on-Case-Sentivity/">Tue, Mar 17 2015, 4:08:38 pm</a></time>
+
+  
+    <h1 class="title"><a href="/2015/03/17/What-Mongoose-Never-Explain-to-You-on-Case-Sentivity/">What Mongoose Never Explain to You (on Case Sentivity)</a></h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/mongodb/">mongodb</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>原文地址:<a href="http://samwize.com/2014/03/07/what-mongoose-never-explain-to-you-on-case-sentivity/" target="_blank" rel="external">http://samwize.com/2014/03/07/what-mongoose-never-explain-to-you-on-case-sentivity/</a></p>
+<p>Mongoose is the most popular library for using Mongodb on Node.js.</p>
+<p>I took some time to learn about the case sentivity and model name renaming it does behind the curtain.</p>
+<p>Let’s assume the model I have is ‘Campaign’.</p>
+<ul>
+<li>mongodb collection name is case sensitive (‘Campaigns’ is different from ‘campaigns’)</li>
+<li>mongodb best practises is to have all lower case for collection name (‘campaigns’ is preferred)</li>
+<li>mongoose model name should be singular and upper case (‘Campaign’)</li>
+<li>mongoose will lowercase and pluralize with an ’s’ so that it can access the collection (‘Campaign’ &gt;&gt; ‘campaigns’)</li>
+</ul>
+<p>Knowing this is especially useful if you are dealing with existing collections.</p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2015/03/17/What-Mongoose-Never-Explain-to-You-on-Case-Sentivity/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://www.nuonuo.me/2015/03/17/What-Mongoose-Never-Explain-to-You-on-Case-Sentivity/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2015/03/17/What-Mongoose-Never-Explain-to-You-on-Case-Sentivity/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-11-21T03:42:09.000Z"><a href="/2014/11/21/mongoose的lean的用法/">Fri, Nov 21 2014, 11:42:09 am</a></time>
+
+  
+    <h1 class="title"><a href="/2014/11/21/mongoose的lean的用法/">mongoose的lean的用法</a></h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/mongodb/">mongodb</a>, <a href="/tags/mongoose/">mongoose</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>项目中遇到一个问题，我使用find方法查询出来的结果，想通过JSON.stringify()将其序列化，发现没法操作，然后在stackoverflow找到了一个答案：</p>
+<pre><code><span class="keyword">http</span>://stackoverflow.com/questions/<span class="number">9952649</span>/<span class="built_in">convert</span>-mongoose-docs-<span class="built_in">to</span>-json
+</code></pre><p>这里使用到了lean方法</p>
+<p>官方解释：</p>
+<pre><code><span class="type">Documents</span> returned <span class="keyword">from</span> queries <span class="keyword">with</span> the lean option enabled are plain javascript objects,
+<span class="keyword">not</span> <span class="type">MongooseDocuments</span>. <span class="type">They</span> have no save <span class="keyword">method</span>, getters/setters <span class="keyword">or</span> other <span class="type">Mongoose</span> magic applied.
+</code></pre><p>使用该方法，查询出来的数据是一个javascript对象，不是一个mongoose文档，不再具有save，getters/setters和其它mongoose提供的方法。</p>
+<p>Example:</p>
+<pre><code><span class="keyword">new</span> Query().lean() <span class="comment">// true</span>
+<span class="keyword">new</span> Query().lean(<span class="literal">true</span>)
+<span class="keyword">new</span> Query().lean(<span class="literal">false</span>)
+
+Model.find().lean().exec(<span class="function"><span class="keyword">function</span> <span class="params">(err, docs)</span> </span>{
+  docs[<span class="number">0</span>] <span class="keyword">instanceof</span> mongoose.Document <span class="comment">// false</span>
+});
+
+
+http:<span class="comment">//mongoosejs.com/docs/api.html#query_Query-lean</span>
+</code></pre>
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2014/11/21/mongoose的lean的用法/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://www.nuonuo.me/2014/11/21/mongoose的lean的用法/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2014/11/21/mongoose的lean的用法/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-10-31T05:09:13.000Z"><a href="/2014/10/31/Centos安装网络配置问题/">Fri, Oct 31 2014, 1:09:13 pm</a></time>
+
+  
+    <h1 class="title"><a href="/2014/10/31/Centos安装网络配置问题/">Centos安装网络配置问题</a></h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/Centos/">Centos</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>今天装了下centos，以前安装的都是ubuntu，安装完成以后，网络没有问题，但是今天装完centos以后，发现没<br>有办法上网</p>
+<p>命令    ifconfig</p>
+<p><img src="/img/9BB2257E-B81D-447A-867D-32E2F60612B5.png" alt=""></p>
+<p>发现没有eth0，网上收了下，找到解决办法，这里记录下：</p>
+<p>解决方案：</p>
+<p> 修改下列文件 </p>
+<pre><code>vi /etc/rc.d/rc<span class="class">.loacl</span>
+
+最后加入
+
+ifup eth0
+</code></pre><p>重启电脑后执行命令ifconfig这时候就会显示出eth0和lo共2部分信息，再次ping就可以ping通了</p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2014/10/31/Centos安装网络配置问题/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://www.nuonuo.me/2014/10/31/Centos安装网络配置问题/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2014/10/31/Centos安装网络配置问题/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-10-17T08:50:04.000Z"><a href="/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/">Fri, Oct 17 2014, 4:50:04 pm</a></time>
+
+  
+    <h1 class="title"><a href="/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/">How to get array of json objects rather than mongoose documents</a></h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/mongodb/">mongodb</a>, <a href="/tags/mongoose/">mongoose</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>stackoverflow：<a href="http://stackoverflow.com/questions/12210870/how-to-get-array-of-json-objects-rather-than-mongoose-documents" target="_blank" rel="external">How to get array of json objects rather than mongoose documents</a></p>
+<p>项目使用的是mongoose3.x版本，我查询直接用的是</p>
+<pre><code>model.findOne(query,fields,opt,<span class="function"><span class="keyword">function</span><span class="params">(err,doc)</span>);</span>
+</code></pre><p>每次需要给查询出来的结果，给客户端返回结果需要添加新的字段，有两个办法：</p>
+<p>1.使用mongoose的toObject()方法：</p>
+<p>官方解释：Converts this document into a plain javascript object, ready for storage in MongoDB.</p>
+<pre><code><span class="built_in">var</span> mo <span class="subst">=</span> doc<span class="built_in">.</span>toObject();
+mo<span class="built_in">.</span><span class="built_in">tag</span> <span class="subst">=</span> sex;
+</code></pre><p>2.使用set方法：</p>
+<p>对于mongoose 3.x  在新建Schema的时候需要显示指定strict的值为false，例如：</p>
+<pre><code><span class="keyword">var</span> model = new <span class="type">Schema</span>(<span class="decorator">{..}</span>, { strict: <span class="literal">false</span> });
+</code></pre><p>如果你使用的是mongoose 2.x，则在新建Schema的时候不需要显示指定strict的值，因为默认值是false</p>
+<pre><code>model.findOne(query,fields,opt,<span class="function"><span class="keyword">function</span><span class="params">(err,doc)</span>);</span>
+doc.<span class="keyword">set</span>(<span class="string">'tag'</span>,<span class="string">'sex'</span>);
+</code></pre><p>ps:mongoose 2.x 升级到3.x的坑比较大，升级需谨慎!!!</p>
+<p>看下set方法的api：Document#set(path, val, [type], [options])</p>
+<p>最后有个参数options,这里设置{ strict: false },可以改变model的模式</p>
+<pre><code><span class="comment">// changing strict mode behavior</span>
+<span class="tag">doc</span><span class="class">.set</span>(path, value, { <span class="attribute">strict</span>: false });
+</code></pre><p>关于option: strict解释，看下官方原话：</p>
+<p>option: strict</p>
+<p>The strict option, (enabled by default), ensures that values passed to<br>our model constructor that were not specified in our schema do not get saved to the db.</p>
+<p>如果strict为treu保证不在schema定义的field不会被写进库里。</p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://www.nuonuo.me/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-10-16T07:47:50.000Z"><a href="/2014/10/16/使用WebVirtMgr搭建虚拟机管理工具/">Thu, Oct 16 2014, 3:47:50 pm</a></time>
+
+  
+    <h1 class="title"><a href="/2014/10/16/使用WebVirtMgr搭建虚拟机管理工具/">使用WebVirtMgr搭建虚拟机管理工具</a></h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/WebVirtMgr/">WebVirtMgr</a>, <a href="/tags/centos/">centos</a>, <a href="/tags/linux/">linux</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>以前使用过kvm在linux系统上安装过虚拟机，原来的博客已经挂掉，可以参考下同事写的<a href="http://blog.csdn.net/marujunyy/article/details/8466286" target="_blank" rel="external">博客</a></p>
+<p>这种方式得人工敲命令，然后安装的时候再通过vnc执行安装步骤，这个过程就不再说明了。能不能换一种方式，类似现在的<br>各种虚拟主机，只需要在页面上点击一些按钮，就安装出来一个台云主机。</p>
+<p>网上搜了下，找到了一个<a href="https://github.com/retspen/webvirtmgr" target="_blank" rel="external">WebVirtMgr</a>,可以实现类似的功能，通过按钮配置一台虚拟机，但是虚拟机的<br>系统安装还得自己操作，不过比以前的安装方式省心了不少。</p>
+<p>具体的安装过程就不赘述了，文档里面说的很清楚了。</p>
+<h5 id="Installation_(Only_web_panel)">Installation (Only web panel)</h5><p><a href="https://github.com/retspen/webvirtmgr/wiki/Install-WebVirtMgr" target="_blank" rel="external">Install WebVirtMgr</a></p>
+<h5 id="Setup_host_server_(Server_for_VM’s)">Setup host server (Server for VM’s)</h5><p><a href="https://github.com/retspen/webvirtmgr/wiki/Setup-Host-Server" target="_blank" rel="external">Setup Host Server</a></p>
+<p>我就说下，我安装过程中遇到的各种坑</p>
+<h6 id="1-程序没法启动">1.程序没法启动</h6><p>我是按照文档上的安装的，宿主机是centos,最后程序的安装位置是在/var/www目录下，程序是通过supervisor来启动的，我已开始是在自己的home目录下，</p>
+<pre><code>sudo /etc/init.d/supervisord <span class="built_in">start</span>
+</code></pre><p>然后通过浏览器访问，页面显示502，看日志，</p>
+<pre><code><span class="keyword">cat</span> /<span class="keyword">var</span>/<span class="keyword">log</span>/webvirtmgr.<span class="literal">log</span>
+</code></pre><p>以下是部分错误提示：</p>
+<pre><code>OSError: [Errno <span class="number">13</span>] Permission denied: <span class="string">'/home/jiangli'</span>
+ERROR:gunicorn<span class="class">.error</span>:Exception <span class="keyword">in</span> worker process:
+Traceback (most recent call last):
+  File <span class="string">"/usr/lib/python2.6/site-packages/gunicorn/arbiter.py"</span>, line <span class="number">495</span>, <span class="keyword">in</span> spawn_worker
+    worker.<span class="function"><span class="title">init_process</span><span class="params">()</span></span>
+  File <span class="string">"/usr/lib/python2.6/site-packages/gunicorn/workers/base.py"</span>, line <span class="number">106</span>, <span class="keyword">in</span> init_process
+    self<span class="class">.wsgi</span> = self<span class="class">.app</span><span class="class">.wsgi</span>()
+  File <span class="string">"/usr/lib/python2.6/site-packages/gunicorn/app/base.py"</span>, line <span class="number">114</span>, <span class="keyword">in</span> wsgi
+    self<span class="class">.callable</span> = self.<span class="function"><span class="title">load</span><span class="params">()</span></span>
+  File <span class="string">"/usr/lib/python2.6/site-packages/gunicorn/app/djangoapp.py"</span>, line <span class="number">135</span>, <span class="keyword">in</span> load
+    os.<span class="function"><span class="title">chdir</span><span class="params">(self.cfg.chdir)</span></span>
+</code></pre><p>权限不正确,解决办法：</p>
+<pre><code><span class="keyword">cd</span> /<span class="keyword">var</span>/www/webvirtmgr
+</code></pre><p>再执行</p>
+<pre><code>sudo /etc/init.d/supervisord <span class="built_in">start</span>
+</code></pre><p>浏览器再次访问，ok，可以访问到了。</p>
+<h6 id="2-页面上的控制台打开无法连接服务器">2.页面上的控制台打开无法连接服务器</h6><p>这个问题弄了一上午，才终于搞定。原来的安装方式是客户端需要安装vncviewer，才能看到安装页面，<br>    webvirtmgr使用了novnc，页面通过websocket进行通信，页面效果如下：</p>
+<p><img src="/img/62FD16AC-4F5E-4F94-A78A-2874B289C6DE.png" alt=""></p>
+<p>刚开始这个页面一直就是连接不上服务器，看console，显示ws不能正常连接，网上查了一遍又一遍还是没有结果，最后在一片文章上找了解决办法：</p>
+<p><a href="https://www.bountysource.com/issues/1336736-server-disconnected-code-1006" target="_blank" rel="external">https://www.bountysource.com/issues/1336736-server-disconnected-code-1006</a></p>
+<p>1.首先需要安装novnc</p>
+<pre><code>yum <span class="keyword">install</span> novnc
+</code></pre><p>坑爹，安装文档里面竟然没有让安装这个软件</p>
+<p>2.打开6080防火墙</p>
+<pre><code><span class="title">iptables</span> -I INPUT -p tcp --dport <span class="number">6080</span> -j ACCEPT; <span class="title">iptables</span> -I OUTPUT -p tcp --dport <span class="number">6080</span> -j ACCEPT; <span class="title">service</span> iptables save
+</code></pre><p>最后再重启服务</p>
+<pre><code>sudo /etc/init.d/supervisord <span class="built_in">start</span>
+</code></pre><p>浏览器再次访问，这下ok了。</p>
+<p>上面就是安装过程遇到的大坑。下面就体验下效果了。</p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2014/10/16/使用WebVirtMgr搭建虚拟机管理工具/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://www.nuonuo.me/2014/10/16/使用WebVirtMgr搭建虚拟机管理工具/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2014/10/16/使用WebVirtMgr搭建虚拟机管理工具/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-10-08T08:25:05.000Z"><a href="/2014/10/08/ubuntu-server下配置UTF8中文的步骤/">Wed, Oct 8 2014, 4:25:05 pm</a></time>
+
+  
+    <h1 class="title"><a href="/2014/10/08/ubuntu-server下配置UTF8中文的步骤/">ubuntu server下配置UTF8中文的步骤</a></h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/ubuntu/">ubuntu</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>第一步，安装中文包：  </p>
+<pre><code>sudo apt-<span class="keyword">get</span> install language-pack-zh-hant-<span class="keyword">base</span> language-pack-zh-hans-<span class="keyword">base</span>
+</code></pre><p>第二步，配置相关环境变量：</p>
+<pre><code>sudo vi /etc/environment
+
+<span class="variable">LANG=</span><span class="string">"zh_CN.UTF-8"</span>
+<span class="variable">LANGUAGE=</span><span class="string">"zh_CN:zh:en_US:en"</span>
+</code></pre><p>第三步，重新配置本地配置</p>
+<pre><code><span class="title">sudo</span> dpkg-reconfigure locales
+</code></pre><p><img src="/img/a1ef5986d8f139c455081c4debad6c85.png" alt="">    </p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2014/10/08/ubuntu-server下配置UTF8中文的步骤/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://www.nuonuo.me/2014/10/08/ubuntu-server下配置UTF8中文的步骤/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2014/10/08/ubuntu-server下配置UTF8中文的步骤/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-10-08T08:23:11.000Z"><a href="/2014/10/08/eclipse-配置-resin/">Wed, Oct 8 2014, 4:23:11 pm</a></time>
+
+  
+    <h1 class="title"><a href="/2014/10/08/eclipse-配置-resin/">eclipse 配置 resin</a></h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/eclipse/">eclipse</a>, <a href="/tags/resin/">resin</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p><img src="/img/ada15855603b4a29a86ab1d21f2bf4a3.png" alt=""></p>
+<p><img src="/img/4d938ed2fbb59cacdf0997dbe33ea326.png" alt=""></p>
+<p><img src="/img/a4316595ef8d2d4bc90d8c014d3ec5fc.png" alt=""></p>
+<pre><code>--root-directory D:<span class="command">\ylb</span>_pro<span class="command">\xjb</span>_web_1-5.git<span class="command">\web</span>
+-conf D:<span class="command">\ylb</span>_pro<span class="command">\xjb</span>_web_1-5.git<span class="command">\web</span><span class="command">\resin</span>.xml
+-Xss1m -Xmx256m
+</code></pre><p><img src="/img/7af9be138d8615976c952ebf63a8f438.png" alt=""></p>
+<p><img src="/img/183560d224f24335ba1d1b5223418b5a.png" alt=""></p>
+<p><img src="/img/7cbf3701f9e58de929aeb707d3d79afe.png" alt=""></p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2014/10/08/eclipse-配置-resin/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://www.nuonuo.me/2014/10/08/eclipse-配置-resin/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2014/10/08/eclipse-配置-resin/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-10-08T08:18:36.000Z"><a href="/2014/10/08/ubuntu-server设置静态ip/">Wed, Oct 8 2014, 4:18:36 pm</a></time>
+
+  
+    <h1 class="title"><a href="/2014/10/08/ubuntu-server设置静态ip/">ubuntu server设置静态ip</a></h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/ubuntu/">ubuntu</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>ubuntu的网络配置信息放在/etc/network/interfaces 中</p>
+<pre><code>sudo vi <span class="regexp">/etc/</span>network<span class="regexp">/interfaces</span>
+</code></pre><p>如果配置动态获取ip，则在上述文件中加入以下内容：(注：服务器通常不用动态IP)</p>
+<pre><code><span class="keyword">auto</span> eth0
+iface eth0 inet dhcp
+</code></pre><p>如果配置静态ip，则添加如下内容：</p>
+<pre><code><span class="title">auto</span> eth0
+iface eth0 inet static
+address <span class="number">192.168.1.150</span>
+netmask <span class="number">255.255.255.0</span>
+gateway <span class="number">192.168.1.1</span>
+</code></pre><p>修改完成后，需要重新启动网络</p>
+<pre><code>sudo <span class="regexp">/etc/i</span>nit.d<span class="regexp">/networking restart</span>
+</code></pre><ul>
+<li>Running /etc/init.d/networking restart is deprecated because it may not enable again some interfaces</li>
+<li>Reconfiguring network interfaces… </li>
+</ul>
+<p>然后需要重新登录服务器。 </p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2014/10/08/ubuntu-server设置静态ip/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://www.nuonuo.me/2014/10/08/ubuntu-server设置静态ip/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2014/10/08/ubuntu-server设置静态ip/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-10-08T08:17:28.000Z"><a href="/2014/10/08/ubuntu-server安装mongodb/">Wed, Oct 8 2014, 4:17:28 pm</a></time>
+
+  
+    <h1 class="title"><a href="/2014/10/08/ubuntu-server安装mongodb/">ubuntu server安装mongodb</a></h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/mongodb/">mongodb</a>, <a href="/tags/ubuntu/">ubuntu</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>1.配置Package Management System</p>
+<pre><code><span class="comment">sudo</span> <span class="comment">apt</span><span class="literal">-</span><span class="comment">key</span> <span class="comment">adv</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">keyserver</span> <span class="comment">hkp://keyserver</span><span class="string">.</span><span class="comment">ubuntu</span><span class="string">.</span><span class="comment">com:80</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">recv</span> <span class="comment">7F0CEB10</span>
+</code></pre><p>2.使用下面的命令创建mongodb的源</p>
+<pre><code><span class="keyword">echo</span> <span class="string">'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen'</span> | sudo tee /etc/apt/sources.<span class="keyword">list</span>.d/mongodb.<span class="keyword">list</span>
+</code></pre><p>3.更新ubuntu的版本库</p>
+<pre><code>sudo apt-<span class="built_in">get</span> <span class="keyword">update</span>
+</code></pre><p>4.安装mongodb</p>
+<pre><code>sudo apt-<span class="keyword">get</span> install mongodb-<span class="number">10</span>gen
+</code></pre><p>5.启动mongodb</p>
+<pre><code>sudo <span class="keyword">service</span> mongodb <span class="literal">start</span>
+</code></pre><p>6.停止mongodb</p>
+<pre><code>sudo <span class="keyword">service</span> mongodb <span class="literal">stop</span>
+</code></pre><p>7.重启mongodb</p>
+<pre><code>sudo <span class="keyword">service</span> mongodb <span class="literal">restart</span>
+</code></pre><p>附：官方安装地址：<a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="external">http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/</a></p>
+
+      
+    </div>
+    <footer>
+      
+        <div class="alignleft">
+            <a href="/2014/10/08/ubuntu-server安装mongodb/#more" class="more-link"><i class="fa fa-chevron-right"></i>Read More</a>
+        </div>
+        
+        
+          <div class="alignright"> 
+            <a href="http://www.nuonuo.me/2014/10/08/ubuntu-server安装mongodb/#comment" class="comment-link">
+              <i class="fa fa-comments"></i><span class="ds-thread-count" data-thread-key="/2014/10/08/ubuntu-server安装mongodb/">&nbsp;
+              </span>
+            </a>
+          </div>
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+<nav id="pagination">
+  
+  
+    <a href="/page/2/" class="alignright next">下一頁<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+
+<script src="/js/jquery.anystretch.min.js" type="text/javascript"></script>
+<script src="/js/cover.js" type="text/javascript"></script>
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2015 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="external">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="external">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js" type="text/javascript"></script>
+<script src="/js/gallery.js" type="text/javascript"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>
