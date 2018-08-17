@@ -3,14 +3,10 @@
 <head>
   <meta charset="utf-8">
   
-  <title>jiangli&#39;s blog</title>
+  <title>Mongodb数据库介绍 | jiangli&#39;s blog</title>
   <meta name="author" content="jiangli">
   
-  <meta name="description" content="title: Mongodb数据库介绍date: 2018-08-17 12:53:08tags:
-
-MongoDB
-
-什么是MongoDB？官网地址：
+  <meta name="description" content="什么是MongoDB？官网地址：
 https://www.mongodb.com/
 
 MongoDB 是由C++语言编写的编写的非关系型数据库，是一个基于分布式文件存储的开源数据库系统。
@@ -28,7 +24,7 @@ MongoDB安装简单。">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Mongodb数据库介绍"/>
   <meta property="og:site_name" content="jiangli&#39;s blog"/>
 
   
@@ -79,21 +75,23 @@ MongoDB安装简单。">
       <time datetime="2018-08-17T04:53:08.000Z"><a href="/2018/08/17/Mongodb数据库介绍/">Fri, Aug 17 2018, 12:53:08 pm</a></time>
 
   
-    <h1 class="title"></h1>
+    <h1 class="title">Mongodb数据库介绍</h1>
   
 
 
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/MongoDB/">MongoDB</a>
+  </div>
 
 <div class="clear"></div>
       
     </header>
     <div class="entry">
       
-        <p>title: Mongodb数据库介绍<br>date: 2018-08-17 12:53:08<br>tags:</p>
-<ul>
-<li>MongoDB</li>
-</ul>
-<h3 id="什么是MongoDB？"><a href="#什么是MongoDB？" class="headerlink" title="什么是MongoDB？"></a>什么是MongoDB？</h3><p>官网地址：</p>
+        <h3 id="什么是MongoDB？"><a href="#什么是MongoDB？" class="headerlink" title="什么是MongoDB？"></a>什么是MongoDB？</h3><p>官网地址：</p>
 <p><a href="https://www.mongodb.com/" target="_blank" rel="noopener">https://www.mongodb.com/
 </a></p>
 <p>MongoDB 是由C++语言编写的编写的非关系型数据库，是一个基于分布式文件存储的开源数据库系统。</p>
@@ -170,7 +168,7 @@ MongoDB安装简单。">
 </tr>
 </tbody>
 </table>
-<h3 id="与关系型数据-Mysql-Oracle-对比"><a href="#与关系型数据-Mysql-Oracle-对比" class="headerlink" title="与关系型数据(Mysql,Oracle)对比"></a>与关系型数据(Mysql,Oracle)对比</h3><p><img src="../img/4807654-f1d2cdcfb07fad5a.png" alt=""></p>
+<h3 id="与关系型数据-Mysql-Oracle-对比"><a href="#与关系型数据-Mysql-Oracle-对比" class="headerlink" title="与关系型数据(Mysql,Oracle)对比"></a>与关系型数据(Mysql,Oracle)对比</h3><p><img src="/img/4807654-f1d2cdcfb07fad5a.png" alt=""></p>
 <h3 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h3><p>macOs</p>
 <p><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/</a></p>
 <p>Linux</p>
@@ -223,41 +221,41 @@ db.COLLECTION_NAME.find(query, projection)
 <table>
 <thead>
 <tr>
-<th>数据操作</th>
-<th>格式</th>
-<th>范例</th>
+<th style="text-align:center">数据操作</th>
+<th style="text-align:center">格式</th>
+<th style="text-align:center">范例</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>等于</td>
-<td>{<code>&lt;key&gt;:&lt;value&gt;</code>}</td>
-<td>db.test.find({“name”:”test”}).pretty()</td>
+<td style="text-align:center">等于</td>
+<td style="text-align:center">{<code>&lt;key&gt;:&lt;value&gt;</code>}</td>
+<td style="text-align:center">db.test.find({“name”:”test”}).pretty()</td>
 </tr>
 <tr>
-<td>小于</td>
-<td>{<code>&lt;key&gt;:{$lt:&lt;value&gt;}</code>}</td>
-<td>db.test.find({“age”:{$lt:20}}).pretty()</td>
+<td style="text-align:center">小于</td>
+<td style="text-align:center">{<code>&lt;key&gt;:{$lt:&lt;value&gt;}</code>}</td>
+<td style="text-align:center">db.test.find({“age”:{$lt:20}}).pretty()</td>
 </tr>
 <tr>
-<td>小于等于</td>
-<td>{<code>&lt;key&gt;:{$lte:&lt;value&gt;}</code>}</td>
-<td>db.test.find({“age”:{$lte:20}}).pretty()</td>
+<td style="text-align:center">小于等于</td>
+<td style="text-align:center">{<code>&lt;key&gt;:{$lte:&lt;value&gt;}</code>}</td>
+<td style="text-align:center">db.test.find({“age”:{$lte:20}}).pretty()</td>
 </tr>
 <tr>
-<td>大于</td>
-<td>{<code>&lt;key&gt;:{$gt:&lt;value&gt;}</code>}</td>
-<td>db.test.find({“age”:{$gt:20}}).pretty()</td>
+<td style="text-align:center">大于</td>
+<td style="text-align:center">{<code>&lt;key&gt;:{$gt:&lt;value&gt;}</code>}</td>
+<td style="text-align:center">db.test.find({“age”:{$gt:20}}).pretty()</td>
 </tr>
 <tr>
-<td>大于等于</td>
-<td>{<code>&lt;key&gt;:{$gte:&lt;value&gt;}</code>}</td>
-<td>db.test.find({“age”:{$gte:20}}).pretty()</td>
+<td style="text-align:center">大于等于</td>
+<td style="text-align:center">{<code>&lt;key&gt;:{$gte:&lt;value&gt;}</code>}</td>
+<td style="text-align:center">db.test.find({“age”:{$gte:20}}).pretty()</td>
 </tr>
 <tr>
-<td>不等于</td>
-<td>{<code>&lt;key&gt;:{$ne:&lt;value&gt;}</code>}</td>
-<td>db.test.find({“age”:{$ne:20}}).pretty()</td>
+<td style="text-align:center">不等于</td>
+<td style="text-align:center">{<code>&lt;key&gt;:{$ne:&lt;value&gt;}</code>}</td>
+<td style="text-align:center">db.test.find({“age”:{$ne:20}}).pretty()</td>
 </tr>
 </tbody>
 </table>
