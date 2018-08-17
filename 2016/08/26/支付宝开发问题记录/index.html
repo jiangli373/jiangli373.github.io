@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>支付宝开发问题记录 | jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  <meta name="description" content="项目中要有支付功能,所以就用到了支付宝支付,然后查看它的文档,已经迷在里面了
+我要用到即使到账,手机网站支付,快捷登录
+文档地址:
+https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.fV5JA2&amp;amp;treeId=193&amp;amp;articleId=105333&amp;amp;docType=1
+我用的是历史接口 有相应的demo">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="支付宝开发问题记录"/>
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2016-08-26T03:13:04.000Z"><a href="/2016/08/26/支付宝开发问题记录/">Fri, Aug 26 2016, 11:13:04 am</a></time>
+
+  
+    <h1 class="title">支付宝开发问题记录</h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/nodejs/">nodejs</a>, <a href="/tags/alipay/">alipay</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>项目中要有支付功能,所以就用到了支付宝支付,然后查看它的文档,已经迷在里面了</p>
+<p>我要用到即使到账,手机网站支付,快捷登录</p>
+<p>文档地址:</p>
+<p><a href="https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.fV5JA2&amp;treeId=193&amp;articleId=105333&amp;docType=1" target="_blank" rel="noopener">https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.fV5JA2&amp;treeId=193&amp;articleId=105333&amp;docType=1</a></p>
+<p>我用的是历史接口 有相应的demo</p>
+<a id="more"></a>
+<p>需要注意的是,历史接口需要用到是的合作伙伴密钥,如下图所示:</p>
+<p><img src="/img/LB1TpuAKXXXXXaMXVXXXXXXXXXX.png" alt=""></p>
+<p>现在支付宝开发者平台用的新的接口,需要使用开发平台密钥:</p>
+<p><img src="/img/WechatIMG3.jpeg" alt=""></p>
+<p>具体的关于新的接口使用已经开发平台介绍可以看下:</p>
+<p><a href="https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.Meh5T3&amp;treeId=200&amp;articleId=105304&amp;docType=1" target="_blank" rel="noopener">https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.Meh5T3&amp;treeId=200&amp;articleId=105304&amp;docType=1</a></p>
+<p>因为我用的历史接口,所以这里具体的流程也不清楚。</p>
+<p>开发的时候用到哪个服务就需要进行签约。</p>
+<p>好像是有两种方式签约,一种是自助式签约,一种是人工签约。</p>
+<p>下面这个地址是服务列表</p>
+<p><a href="https://b.alipay.com/order/productSet.htm" target="_blank" rel="noopener">https://b.alipay.com/order/productSet.htm</a></p>
+<p>从这个列表进去,进行签约,具体的签约流程比较简单,可以参考如下的地址</p>
+<p><a href="https://cshall.alipay.com/support/help_detail.htm?help_id=396831" target="_blank" rel="noopener">https://cshall.alipay.com/support/help_detail.htm?help_id=396831</a></p>
+<p>这个应该是自助式签约,比较方便。</p>
+<p>另外一个地址</p>
+<p><a href="https://b.alipay.com/signing/productSet.htm" target="_blank" rel="noopener">https://b.alipay.com/signing/productSet.htm</a></p>
+<p>这个也是服务的列表,从这个列表进去进行签约就比较蛋疼了</p>
+<p>操作步骤如下:</p>
+<p>1.</p>
+<p><img src="/img/QQ20160826-0.png" alt=""></p>
+<p>2.点击’立即签约’到下一步:</p>
+<p><img src="/img/QQ20160826-1.png" alt=""></p>
+<p>3.如果已经实名认证了,点击填写到下一步:</p>
+<p><img src="/img/QQ20160826-2.png" alt=""></p>
+<p>4.这个页面就比较头痛了,需要上传一个网络文化经营许可证,这个证貌似特别难办,我们公司至今没有办下来,所以下面的步骤我也没有办法演示了。</p>
+<p>所以从上面来看,自助式签约很方便,不用上传这个网络文化经营许可证,不知道是不是支付宝忘记了,还是怎么回事。不保证后面支付宝升级,自助式签约也需要上传这个证了。</p>
+<p>上面差不多就是使用支付宝支付需要做的准备工作了,下面开发就比较好弄了,支付宝提供了一些服务的demo,只不过只有java,php,.net版本的,因为我用的是nodejs,没办法直接使用,网上搜索了下nodejs版本</p>
+<p><a href="https://github.com/lodengo/alipay" target="_blank" rel="noopener">https://github.com/lodengo/alipay</a></p>
+<p>这个项目已经最后一次更新已经是两年前了，然后运行的时候有问题，后来就在他的基础参考支付宝提供的最新版的php版本提炼出来的，修改了一些bug</p>
+<p>自己做了一个demo</p>
+<p>地址:</p>
+<p><a href="https://github.com/jiangli373/AlipaySdk" target="_blank" rel="noopener">https://github.com/jiangli373/AlipaySdk</a></p>
+<p>项目的名字应该叫做AlipayDemo,当时想做成sdk,谁知最后做成了一个demo</p>
+<p>目前集成了</p>
+<p>1.即时到帐的接口</p>
+<p>2.支付宝快捷登录</p>
+<p>3.支付宝手机支付</p>
+<p>接入即时到帐需要先在支付宝进行签约，签约成功以后才能使用这个接口</p>
+<p>即时到账文档说明：<a href="https://doc.open.alipay.com/doc2/detail.htm?spm=a219a.7629140.0.0.6fcylX&amp;treeId=62&amp;articleId=104743&amp;docType=1" target="_blank" rel="noopener">https://doc.open.alipay.com/doc2/detail.htm?spm=a219a.7629140.0.0.6fcylX&amp;treeId=62&amp;articleId=104743&amp;docType=1</a></p>
+<p>运行步骤：</p>
+<p>1.git clone <a href="https://github.com/jiangli373/AlipaySdk" target="_blank" rel="noopener">https://github.com/jiangli373/AlipaySdk</a></p>
+<p>2.npm install </p>
+<p>3.cp alipay_config.default.js alipay_config.js</p>
+<p>4.修改alipay_config.js 添加相关信息：</p>
+<pre><code>var config = {
+    partner:&apos;&apos; //合作身份者id，以2088开头的16位纯数字
+    ,key:&apos;&apos;//安全检验码，以数字和字母组成的32位字符
+    ,seller_email:&apos;&apos; //卖家支付宝帐户 必填
+    ,host:&apos;http://localhost:3000/&apos;
+    ,cacert:&apos;cacert.pem&apos;//ca证书路径地址，用于curl中ssl校验
+    ,transport:&apos;http&apos; //访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
+    ,input_charset:&apos;utf-8&apos;//字符编码格式 目前支持 gbk 或 utf-8
+    ,is_anti_phishing_key:false //是否防止钓鱼  登录使用   如果已申请开通防钓鱼时间戳验证，这里需要设置为true
+};
+</code></pre><p>项目说明：</p>
+<p>app.js 中 require(‘./useAlipay’).route(app); # 设置了支付宝通知路由</p>
+<p>useAlipay.js包装了下Alipay对象，可以在工程中调用   </p>
+
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+    <a href="/2016/08/30/express设置跨域/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+  
+  
+    <a href="/2016/08/24/mongodb备忘/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2016/08/26/支付宝开发问题记录/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2018 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="noopener">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="noopener">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  <meta name="description" content="title: Mongodb数据库介绍date: 2018-08-17 12:53:08tags:
+
+MongoDB
+
+什么是MongoDB？官网地址：
+https://www.mongodb.com/
+
+MongoDB 是由C++语言编写的编写的非关系型数据库，是一个基于分布式文件存储的开源数据库系统。
+主要特点
+
+MongoDB 是一个面向文档存储的数据库，操作起来比较简单和容易。
+MongoDB使用了BSON存储数据和网络数据交换,BSON是一种类json的一种二进制形式的存储格式，简称Binary JSON，它和JSON一样，支持内嵌的文档对象和数组对象
+可以在MongoDB记录中设置任何属性的索引 (如：FirstName=”Sameer”,Address=”8 Gandhi Road”)来实现更快的排序。
+Mongo支持丰富的查询表达式。查询指令使用JSON形式的标记，可轻易查询文档中内嵌的对象及数组。
+MongoDb 使用update()命令可以实现替换完成的文档（数据）或者一些指定的数据字段 。
+GridFS是MongoDB中的一个内置功能，可以用于存放大量小文件。
+MongoDB支持各种编程语言:Nodejs，RUBY，PYTHON，JAVA，C++，PHP，C#等多种语言。
+MongoDB安装简单。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2018-08-17T04:53:08.000Z"><a href="/2018/08/17/Mongodb数据库介绍/">Fri, Aug 17 2018, 12:53:08 pm</a></time>
+
+  
+    <h1 class="title"></h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>title: Mongodb数据库介绍<br>date: 2018-08-17 12:53:08<br>tags:</p>
+<ul>
+<li>MongoDB</li>
+</ul>
+<h3 id="什么是MongoDB？"><a href="#什么是MongoDB？" class="headerlink" title="什么是MongoDB？"></a>什么是MongoDB？</h3><p>官网地址：</p>
+<p><a href="https://www.mongodb.com/" target="_blank" rel="noopener">https://www.mongodb.com/
+</a></p>
+<p>MongoDB 是由C++语言编写的编写的非关系型数据库，是一个基于分布式文件存储的开源数据库系统。</p>
+<p>主要特点</p>
+<ul>
+<li>MongoDB 是一个面向文档存储的数据库，操作起来比较简单和容易。</li>
+<li>MongoDB使用了BSON存储数据和网络数据交换,BSON是一种类json的一种二进制形式的存储格式，简称Binary JSON，它和JSON一样，支持内嵌的文档对象和数组对象</li>
+<li>可以在MongoDB记录中设置任何属性的索引 (如：FirstName=”Sameer”,Address=”8 Gandhi Road”)来实现更快的排序。</li>
+<li>Mongo支持丰富的查询表达式。查询指令使用JSON形式的标记，可轻易查询文档中内嵌的对象及数组。</li>
+<li>MongoDb 使用update()命令可以实现替换完成的文档（数据）或者一些指定的数据字段 。</li>
+<li>GridFS是MongoDB中的一个内置功能，可以用于存放大量小文件。</li>
+<li>MongoDB支持各种编程语言:Nodejs，RUBY，PYTHON，JAVA，C++，PHP，C#等多种语言。</li>
+<li>MongoDB安装简单。</li>
+</ul>
+<a id="more"></a>
+<h3 id="MongoDB基本概念"><a href="#MongoDB基本概念" class="headerlink" title="MongoDB基本概念"></a>MongoDB基本概念</h3><ul>
+<li>文档：是MongoDB中数据的基本单元，非常类似于关系型数据库系统中的行（但是比行要复杂很多）</li>
+<li>集合：就是一组文档，如果说MongoDB中的文档类似于关系型数据库中的行，那么集合就如同表</li>
+<li>MongoDB的单个计算机可以容纳多个独立的数据库，每一个数据库都有自己的集合和权限</li>
+<li>MongoDB自带简洁但功能强大的JavaScript shell，这个工具对于管理MongoDB实例和操作数据库作用非常大</li>
+<li>每一个文档都有一个特殊的键”_id”,它在文档所处的集合中是唯一的，相当于关系数据库中的表的主键</li>
+</ul>
+<h3 id="MOngoDB常用数据类型"><a href="#MOngoDB常用数据类型" class="headerlink" title="MOngoDB常用数据类型"></a>MOngoDB常用数据类型</h3><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>字符串。存储数据常用的数据类型</td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>整型数值。用于存储数值</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>布尔值。用于存储布尔值（真/假)</td>
+</tr>
+<tr>
+<td>Double</td>
+<td>双精度浮点值。用于存储浮点值</td>
+</tr>
+<tr>
+<td>Array</td>
+<td>用于将数组或列表或多个值存储为一个键</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>时间戳。记录文档修改或添加的具体时间</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>用于内嵌文档</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>用于创建空值</td>
+</tr>
+<tr>
+<td>Object ID</td>
+<td>对象 ID。用于创建文档的 ID</td>
+</tr>
+<tr>
+<td>Binary Data</td>
+<td>二进制数据。用于存储二进制数据</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>日期时间。用 UNIX 时间格式来存储当前日期或时间。你可以指定自己的日期时间：创建 Date 对象，传入年月日信息</td>
+</tr>
+</tbody>
+</table>
+<h3 id="与关系型数据-Mysql-Oracle-对比"><a href="#与关系型数据-Mysql-Oracle-对比" class="headerlink" title="与关系型数据(Mysql,Oracle)对比"></a>与关系型数据(Mysql,Oracle)对比</h3><p><img src="../img/4807654-f1d2cdcfb07fad5a.png" alt=""></p>
+<h3 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h3><p>macOs</p>
+<p><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/</a></p>
+<p>Linux</p>
+<p><a href="https://docs.mongodb.com/manual/administration/install-on-linux/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/administration/install-on-linux/</a></p>
+<p>windows</p>
+<p><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/</a></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>启动</p>
+<pre><code>`path to binary`/mongod --dbpath `path to data directory`/data
+</code></pre><p>如果没有配置MongoDB的环境变量，<code>path to binary</code>就是MongoDB的安装目录下的bin目录</p>
+<p>–dbpath 数据库数据存放位置</p>
+<p>数据库操作基本上就是增，删，改，查这4个操作</p>
+<p>下面分别介绍下。</p>
+<p>我们这里使用MongoDB提供的shell来操作MongoDB数据库。</p>
+<p>通过 shell 连接 MongoDB 服务：</p>
+<pre><code>$ ./mongo
+
+MongoDB shell version v3.4.5
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.4.5
+</code></pre><p>可以通过 </p>
+<pre><code>show dbs
+</code></pre><p>查看安装的全部数据列表，然后可以通过</p>
+<pre><code>use dbName
+</code></pre><p> 来切换数据库。</p>
+<p>默认使用的是test数据库，我们在这个数据上操作</p>
+<h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><pre><code>db.COLLECTION_NAME.insert(document)
+</code></pre><p>COLLECTION_NAME是集合的名称，MongoDB可以不需要先创建集合，就可以直接插入数据，</p>
+<p>document是文档内容</p>
+<pre><code>db.test.insert({name:&apos;test&apos;,&apos;age&apos;:23, &apos;tags&apos;: [&apos;mongodb&apos;, &apos;database&apos;, &apos;NoSQL&apos;], &apos;likes&apos;:{name:&apos;a&apos;,age:30}})
+</code></pre><p>插入了一个文档</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">"name"</span>:<span class="string">"test"</span>,</span><br><span class="line">	<span class="string">"age"</span>:<span class="number">23</span>, </span><br><span class="line">	<span class="string">"tags"</span>: [<span class="string">"mongodb"</span>, <span class="string">"database"</span>, <span class="string">"NoSQL"</span>], </span><br><span class="line">	<span class="string">"likes"</span>:&#123;</span><br><span class="line">		<span class="string">"name"</span>:<span class="string">"a"</span>,<span class="attr">age</span>:<span class="number">30</span></span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="查"><a href="#查" class="headerlink" title="查"></a>查</h4><p>有两种方式</p>
+<pre><code>db.COLLECTION_NAME.findOne(query, projection)
+
+db.COLLECTION_NAME.find(query, projection)
+</code></pre><ul>
+<li>query ：可选，使用查询操作符指定查询条件</li>
+<li>projection ：可选，使用投影操作符指定返回的键。查询时返回文档中所有键值， 只需省略该参数即可（默认省略）</li>
+</ul>
+<p>findOne只返回一个文档; find返回全部文档</p>
+<p>查看刚才插入的那条记录</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">db.test.findOne()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">"_id"</span> : ObjectId(<span class="string">"5b72f9069b0b40898aab3903"</span>),</span><br><span class="line">	<span class="string">"name"</span> : <span class="string">"test"</span>,</span><br><span class="line">	<span class="string">"age"</span> : <span class="number">23</span>,</span><br><span class="line">	<span class="string">"tags"</span> : [</span><br><span class="line">		<span class="string">"mongodb"</span>,</span><br><span class="line">		<span class="string">"database"</span>,</span><br><span class="line">		<span class="string">"NoSQL"</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">"likes"</span> : &#123;</span><br><span class="line">		<span class="string">"name"</span> : <span class="string">"a"</span>,</span><br><span class="line">		<span class="string">"age"</span> : <span class="number">30</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">db.test.find().pretty()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">"_id"</span> : ObjectId(<span class="string">"5b72f9069b0b40898aab3903"</span>),</span><br><span class="line">	<span class="string">"name"</span> : <span class="string">"test"</span>,</span><br><span class="line">	<span class="string">"age"</span> : <span class="number">23</span>,</span><br><span class="line">	<span class="string">"tags"</span> : [</span><br><span class="line">		<span class="string">"mongodb"</span>,</span><br><span class="line">		<span class="string">"database"</span>,</span><br><span class="line">		<span class="string">"NoSQL"</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">"likes"</span> : &#123;</span><br><span class="line">		<span class="string">"name"</span> : <span class="string">"a"</span>,</span><br><span class="line">		<span class="string">"age"</span> : <span class="number">30</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">"_id"</span> : ObjectId(<span class="string">"5b72fa959b0b40898aab3904"</span>),</span><br><span class="line">	<span class="string">"name"</span> : <span class="string">"test2"</span>,</span><br><span class="line">	<span class="string">"age"</span> : <span class="number">24</span>,</span><br><span class="line">	<span class="string">"tags"</span> : [</span><br><span class="line">		<span class="string">"mongodb"</span>,</span><br><span class="line">		<span class="string">"database"</span>,</span><br><span class="line">		<span class="string">"NoSQL"</span></span><br><span class="line">	],</span><br><span class="line">	<span class="string">"likes"</span> : &#123;</span><br><span class="line">		<span class="string">"name"</span> : <span class="string">"b"</span>,</span><br><span class="line">		<span class="string">"age"</span> : <span class="number">31</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>MongoDB AND 条件</p>
+<p>MongoDB 的 find() 方法可以传入多个键(key)，每个键(key)以逗号隔开，即常规 SQL 的 AND 条件。</p>
+<pre><code>db.test.find({key1:value1, key2:value2}).pretty()
+</code></pre><p>MongoDB OR 条件</p>
+<p>MongoDB OR 条件语句使用了关键字 $or,语法格式如下</p>
+<pre><code>db.col.find({$or: [{key1:value1}, {key2:value2}]}).pretty()
+</code></pre><p>MongoDB比较运算符</p>
+<table>
+<thead>
+<tr>
+<th>数据操作</th>
+<th>格式</th>
+<th>范例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>等于</td>
+<td>{<code>&lt;key&gt;:&lt;value&gt;</code>}</td>
+<td>db.test.find({“name”:”test”}).pretty()</td>
+</tr>
+<tr>
+<td>小于</td>
+<td>{<code>&lt;key&gt;:{$lt:&lt;value&gt;}</code>}</td>
+<td>db.test.find({“age”:{$lt:20}}).pretty()</td>
+</tr>
+<tr>
+<td>小于等于</td>
+<td>{<code>&lt;key&gt;:{$lte:&lt;value&gt;}</code>}</td>
+<td>db.test.find({“age”:{$lte:20}}).pretty()</td>
+</tr>
+<tr>
+<td>大于</td>
+<td>{<code>&lt;key&gt;:{$gt:&lt;value&gt;}</code>}</td>
+<td>db.test.find({“age”:{$gt:20}}).pretty()</td>
+</tr>
+<tr>
+<td>大于等于</td>
+<td>{<code>&lt;key&gt;:{$gte:&lt;value&gt;}</code>}</td>
+<td>db.test.find({“age”:{$gte:20}}).pretty()</td>
+</tr>
+<tr>
+<td>不等于</td>
+<td>{<code>&lt;key&gt;:{$ne:&lt;value&gt;}</code>}</td>
+<td>db.test.find({“age”:{$ne:20}}).pretty()</td>
+</tr>
+</tbody>
+</table>
+<h3 id="改"><a href="#改" class="headerlink" title="改"></a>改</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">db.collection.update(</span><br><span class="line">   &lt;query&gt;,</span><br><span class="line">   &lt;update&gt;,</span><br><span class="line">   &#123;</span><br><span class="line">     upsert: &lt;boolean&gt;,</span><br><span class="line">     multi: &lt;boolean&gt;</span><br><span class="line">   &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>query : update的查询条件，同find操作里面的查询条件。</li>
+<li>update : update的对象和一些更新的操作符（如$,$inc…）等，对于更新操作符可以查看<a href="https://docs.mongodb.com/manual/reference/operator/update/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/reference/operator/update/</a></li>
+<li>upsert : 可选，这个参数的意思是，如果不存在update的记录，是否插入objNew,true为插入，默认是false，不插入。</li>
+<li>multi : 可选，mongodb 默认是false,只更新找到的第一条记录，如果这个参数为true,就把按条件查出来多条记录全部更新。</li>
+</ul>
+<p>例如把上面插入一条记录name=”test”的age变为50</p>
+<pre><code>db.test.update({&quot;name&quot;:&quot;test&quot;},{$set:{age:50}})
+
+db.test.findOne({&quot;name&quot;:&quot;test&quot;})
+{
+    &quot;_id&quot; : ObjectId(&quot;5b72f9069b0b40898aab3903&quot;),
+    &quot;name&quot; : &quot;test&quot;,
+    &quot;age&quot; : 50, // 原来是30
+    &quot;tags&quot; : [
+        &quot;mongodb&quot;,
+        &quot;database&quot;,
+        &quot;NoSQL&quot;
+    ],
+    &quot;likes&quot; : {
+        &quot;name&quot; : &quot;a&quot;,
+        &quot;age&quot; : 30
+    }
+}
+</code></pre><h4 id="删"><a href="#删" class="headerlink" title="删"></a>删</h4><pre><code>db.collection.remove(
+   &lt;query&gt;,
+   &lt;justOne&gt;
+)
+</code></pre><ul>
+<li>query :（可选）删除的文档的条件。</li>
+<li>justOne : （可选）如果设为 true 或 1，则只删除一个文档。</li>
+</ul>
+<p>删除掉上面name=”test”的记录</p>
+<pre><code>db.test.remove({&quot;name&quot;:&quot;test&quot;})
+
+db.test.findOne({&quot;name&quot;:&quot;test&quot;})
+null
+</code></pre><h4 id="删除集合"><a href="#删除集合" class="headerlink" title="删除集合"></a>删除集合</h4><pre><code>db.collection.drop()
+</code></pre><p>删除集合后在show collections里面就看不到这个集合了。</p>
+<h4 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h4><pre><code>db.dropDatabase()
+</code></pre><p>删除当前正在使用的数据库，删库需谨慎！！！删除以后在 show dbs里面就看不到了.</p>
+<p>对于Nodejs来说，最为流行的库是<a href="mongoosejs.com">Mongoose</a></p>
+
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+  
+    <a href="/2016/12/08/JSON.stringify()注意事项/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2018/08/17/Mongodb数据库介绍/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2018 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="noopener">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="noopener">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

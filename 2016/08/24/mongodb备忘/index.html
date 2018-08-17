@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>mongodb备忘 | jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  <meta name="description" content="要把工程从一个服务器迁移到另外一个服务器,因为这个工程使用的数据库是monogdb,所以刚才又重新安装了一边mongodb
+1.安装
+官方安装地址: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+按照他提供的方案步骤来,前两步没有问题,到第三步,
+sudo apt-get update
+最后显示,更新失败,试了好多次,都失败,突然想到很早以前装的时候也是这个问题
+https://github.com/alibaba/mirrors/issues/34">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="mongodb备忘"/>
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2016-08-24T07:41:08.000Z"><a href="/2016/08/24/mongodb备忘/">Wed, Aug 24 2016, 3:41:08 pm</a></time>
+
+  
+    <h1 class="title">mongodb备忘</h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/mongodb/">mongodb</a>, <a href="/tags/ubuntu/">ubuntu</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>要把工程从一个服务器迁移到另外一个服务器,因为这个工程使用的数据库是monogdb,所以刚才又重新安装了一边mongodb</p>
+<p>1.安装</p>
+<p>官方安装地址: <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/</a></p>
+<p>按照他提供的方案步骤来,前两步没有问题,到第三步,</p>
+<pre><code>sudo apt-get update
+</code></pre><p>最后显示,更新失败,试了好多次,都失败,突然想到很早以前装的时候也是这个问题</p>
+<pre><code>https://github.com/alibaba/mirrors/issues/34
+</code></pre><a id="more"></a>
+<p>搜索了下,可以使用清华大学的镜像源</p>
+<pre><code>https://mirror.tuna.tsinghua.edu.cn/help/mongodb/
+</code></pre><p>按照上面的步骤,正常安装成功了。</p>
+<ol start="2">
+<li>配置</li>
+</ol>
+<p>mongodb默认的数据库地址是</p>
+<p>   The MongoDB instance stores its data files in /var/lib/mongodb and its log files in /var/log/mongodb by default</p>
+<p>我后来启动的时候,默认的数据库地址是/data/db</p>
+<p>擦,我不想使用它默认的地址,我要自己定义,配置文件/etc/mongod.conf</p>
+<p>修改这个配置里面的</p>
+<pre><code>storage.dbPath: /data/mongodb/db
+systemLog.path:/data/mongodb/log/mongod.log
+</code></pre><p>重新启动,并没有什么卵用,我用的是</p>
+<pre><code>sudo service monogd start
+</code></pre><p>除非是</p>
+<pre><code>mongod --confg /etc/mongod.conf
+</code></pre><p>需要手动指定配置文件才行</p>
+<p>这下就尴尬了,我想用</p>
+<pre><code>sudo service monogd start
+sudo service monogd stop
+sudo service monogd restart
+</code></pre><p>这种方式来管理mongodb的运行</p>
+<p>所以自己写了下脚本</p>
+<p>在/etc/init.d/ 创建一个文件 mongodb</p>
+<pre><code>#!/bin/bash
+. /lib/lsb/init-functions
+PROGRAM=/usr/bin/mongod
+MONGOPID=`ps -ef | grep &apos;mongod&apos; | grep -v grep | awk &apos;{print $2}&apos;`
+
+RETVAL=0
+
+start() {
+     echo -n &quot;Starting mongodb &quot;
+     ulimit -n 3000
+     $PROGRAM --fork --config /etc/mongod.conf
+     RETVAL=$?
+     echo &quot;$PROGRAM.&quot;
+}
+stop() {
+      echo -n &quot;Stopping mongodb &quot;
+     if [ ! -z &quot;$MONGOPID&quot; ]; then
+        kill -15 $MONGOPID
+        RETVAL=$?
+     fi
+
+}
+
+case &quot;$1&quot; in
+    start)
+      start
+  ;;
+    stop)
+      stop
+  ;;
+    restart)
+      stop
+      start
+  ;;
+    *)
+      echo &quot;Usage: monogodb {start|stop|restart}&quot;
+      exit 1
+  ;;
+esac
+exit $RETVAL
+</code></pre><p>上面的基本上就是套路, PROGRAM指定monogd的地址,下面就是mongodb的启动,关闭</p>
+<pre><code>sudo chmod +x /etc/init.d/mongodb
+</code></pre><p>然后就可以使用     </p>
+<pre><code>sudo service monogdb start
+sudo service monogdb stop
+sudo service monogdb restart
+</code></pre><p>3.数据库的备份和恢复</p>
+<p>   3.1备份</p>
+<pre><code>mongodump -d my_mongodb
+</code></pre><p>   -d 数据库的名字</p>
+<p>   3.2恢复</p>
+<pre><code>mongorestore -d my_mongodb  my_mongodb_dump/*
+</code></pre><p>   -d 数据库的名字  最后是数据的位置</p>
+<p>   参考文章:<a href="http://blog.csdn.net/liuzhoulong/article/details/6849978" target="_blank" rel="noopener">http://blog.csdn.net/liuzhoulong/article/details/6849978</a></p>
+<p>4.其它一些问题:</p>
+<p>当安装完mongodb以后,打开mongodb的控制台</p>
+<pre><code>mongo
+</code></pre><p>显示如下的报错:</p>
+<pre><code>Failed global initialization: BadValue: Invalid or no user locale set. Please ensure LANG and/or LC_* environment variables are set correctly.
+</code></pre><p>解决方案:</p>
+<pre><code>export LC_ALL=C   
+</code></pre><p>把 export LC_ALL=C 添加到 ~/.bashrc 文件中 //对当前用户长久有效</p>
+<p>两个服务器之间拷贝文件:</p>
+<p>例如:A服务器 在/home/jiangli/ 下有一个data文件夹  需要把这个文件夹拷贝到B服务器的/home/jiangli目录下 使用scp命令</p>
+<pre><code>scp -r data/ xxxxx@www.xxx.com:/home/jiangli/
+</code></pre><p>然后输入B服务器上的xxxxx这个用户的密码即可</p>
+<p> scp命令参考:<a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html" target="_blank" rel="noopener">http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html</a></p>
+
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+    <a href="/2016/08/26/支付宝开发问题记录/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+  
+  
+    <a href="/2016/08/23/一种必须关注公众号才能参加活动的方案介绍/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2016/08/24/mongodb备忘/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2018 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="noopener">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="noopener">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用WebVirtMgr搭建虚拟机管理工具 | jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  <meta name="description" content="以前使用过kvm在linux系统上安装过虚拟机，原来的博客已经挂掉，可以参考下同事写的博客
+这种方式得人工敲命令，然后安装的时候再通过vnc执行安装步骤，这个过程就不再说明了。能不能换一种方式，类似现在的各种虚拟主机，只需要在页面上点击一些按钮，就安装出来一个台云主机。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="使用WebVirtMgr搭建虚拟机管理工具"/>
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-10-16T07:47:50.000Z"><a href="/2014/10/16/使用WebVirtMgr搭建虚拟机管理工具/">Thu, Oct 16 2014, 3:47:50 pm</a></time>
+
+  
+    <h1 class="title">使用WebVirtMgr搭建虚拟机管理工具</h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/linux/">linux</a>, <a href="/tags/WebVirtMgr/">WebVirtMgr</a>, <a href="/tags/centos/">centos</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>以前使用过kvm在linux系统上安装过虚拟机，原来的博客已经挂掉，可以参考下同事写的<a href="http://blog.csdn.net/marujunyy/article/details/8466286" target="_blank" rel="noopener">博客</a></p>
+<p>这种方式得人工敲命令，然后安装的时候再通过vnc执行安装步骤，这个过程就不再说明了。能不能换一种方式，类似现在的<br>各种虚拟主机，只需要在页面上点击一些按钮，就安装出来一个台云主机。</p>
+<a id="more"></a>
+<p>网上搜了下，找到了一个<a href="https://github.com/retspen/webvirtmgr" target="_blank" rel="noopener">WebVirtMgr</a>,可以实现类似的功能，通过按钮配置一台虚拟机，但是虚拟机的<br>系统安装还得自己操作，不过比以前的安装方式省心了不少。</p>
+<p>具体的安装过程就不赘述了，文档里面说的很清楚了。</p>
+<h5 id="Installation-Only-web-panel"><a href="#Installation-Only-web-panel" class="headerlink" title="Installation (Only web panel)"></a>Installation (Only web panel)</h5><p><a href="https://github.com/retspen/webvirtmgr/wiki/Install-WebVirtMgr" target="_blank" rel="noopener">Install WebVirtMgr</a></p>
+<h5 id="Setup-host-server-Server-for-VM’s"><a href="#Setup-host-server-Server-for-VM’s" class="headerlink" title="Setup host server (Server for VM’s)"></a>Setup host server (Server for VM’s)</h5><p><a href="https://github.com/retspen/webvirtmgr/wiki/Setup-Host-Server" target="_blank" rel="noopener">Setup Host Server</a></p>
+<p>我就说下，我安装过程中遇到的各种坑</p>
+<h6 id="1-程序没法启动"><a href="#1-程序没法启动" class="headerlink" title="1.程序没法启动"></a>1.程序没法启动</h6><p>我是按照文档上的安装的，宿主机是centos,最后程序的安装位置是在/var/www目录下，程序是通过supervisor来启动的，我已开始是在自己的home目录下，</p>
+<pre><code>sudo /etc/init.d/supervisord start
+</code></pre><p>然后通过浏览器访问，页面显示502，看日志，</p>
+<pre><code>cat /var/log/webvirtmgr.log
+</code></pre><p>以下是部分错误提示：</p>
+<pre><code>OSError: [Errno 13] Permission denied: &apos;/home/jiangli&apos;
+ERROR:gunicorn.error:Exception in worker process:
+Traceback (most recent call last):
+  File &quot;/usr/lib/python2.6/site-packages/gunicorn/arbiter.py&quot;, line 495, in spawn_worker
+    worker.init_process()
+  File &quot;/usr/lib/python2.6/site-packages/gunicorn/workers/base.py&quot;, line 106, in init_process
+    self.wsgi = self.app.wsgi()
+  File &quot;/usr/lib/python2.6/site-packages/gunicorn/app/base.py&quot;, line 114, in wsgi
+    self.callable = self.load()
+  File &quot;/usr/lib/python2.6/site-packages/gunicorn/app/djangoapp.py&quot;, line 135, in load
+    os.chdir(self.cfg.chdir)
+</code></pre><p>权限不正确,解决办法：</p>
+<pre><code>cd /var/www/webvirtmgr
+</code></pre><p>再执行</p>
+<pre><code>sudo /etc/init.d/supervisord start
+</code></pre><p>浏览器再次访问，ok，可以访问到了。</p>
+<h6 id="2-页面上的控制台打开无法连接服务器"><a href="#2-页面上的控制台打开无法连接服务器" class="headerlink" title="2.页面上的控制台打开无法连接服务器"></a>2.页面上的控制台打开无法连接服务器</h6><p>这个问题弄了一上午，才终于搞定。原来的安装方式是客户端需要安装vncviewer，才能看到安装页面，<br>    webvirtmgr使用了novnc，页面通过websocket进行通信，页面效果如下：</p>
+<p><img src="/img/62FD16AC-4F5E-4F94-A78A-2874B289C6DE.png" alt=""></p>
+<p>刚开始这个页面一直就是连接不上服务器，看console，显示ws不能正常连接，网上查了一遍又一遍还是没有结果，最后在一片文章上找了解决办法：</p>
+<p><a href="https://www.bountysource.com/issues/1336736-server-disconnected-code-1006" target="_blank" rel="noopener">https://www.bountysource.com/issues/1336736-server-disconnected-code-1006</a></p>
+<p>1.首先需要安装novnc</p>
+<pre><code>yum install novnc
+</code></pre><p>坑爹，安装文档里面竟然没有让安装这个软件</p>
+<p>2.打开6080防火墙</p>
+<pre><code>iptables -I INPUT -p tcp --dport 6080 -j ACCEPT; iptables -I OUTPUT -p tcp --dport 6080 -j ACCEPT; service iptables save
+</code></pre><p>最后再重启服务</p>
+<pre><code>sudo /etc/init.d/supervisord start
+</code></pre><p>浏览器再次访问，这下ok了。</p>
+<p>上面就是安装过程遇到的大坑。下面就体验下效果了。</p>
+
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+    <a href="/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+  
+  
+    <a href="/2014/10/08/ubuntu-server下配置UTF8中文的步骤/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2014/10/16/使用WebVirtMgr搭建虚拟机管理工具/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2018 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="noopener">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="noopener">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

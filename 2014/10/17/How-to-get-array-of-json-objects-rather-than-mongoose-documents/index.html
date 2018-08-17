@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>How to get array of json objects rather than mongoose documents | jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  <meta name="description" content="stackoverflow：How to get array of json objects rather than mongoose documents
+项目使用的是mongoose3.x版本，我查询直接用的是
+model.findOne(query,fields,opt,function(err,doc));
+每次需要给查询出来的结果，给客户端返回结果需要添加新的字段，有两个办法：">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="How to get array of json objects rather than mongoose documents"/>
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2014-10-17T08:50:04.000Z"><a href="/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/">Fri, Oct 17 2014, 4:50:04 pm</a></time>
+
+  
+    <h1 class="title">How to get array of json objects rather than mongoose documents</h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/mongoose/">mongoose</a>, <a href="/tags/mongodb/">mongodb</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>stackoverflow：<a href="http://stackoverflow.com/questions/12210870/how-to-get-array-of-json-objects-rather-than-mongoose-documents" target="_blank" rel="noopener">How to get array of json objects rather than mongoose documents</a></p>
+<p>项目使用的是mongoose3.x版本，我查询直接用的是</p>
+<pre><code>model.findOne(query,fields,opt,function(err,doc));
+</code></pre><p>每次需要给查询出来的结果，给客户端返回结果需要添加新的字段，有两个办法：</p>
+<a id="more"></a>
+<p>1.使用mongoose的toObject()方法：</p>
+<p>官方解释：Converts this document into a plain javascript object, ready for storage in MongoDB.</p>
+<pre><code>var mo = doc.toObject();
+mo.tag = sex;
+</code></pre><p>2.使用set方法：</p>
+<p>对于mongoose 3.x  在新建Schema的时候需要显示指定strict的值为false，例如：</p>
+<pre><code>var model = new Schema({..}, { strict: false });
+</code></pre><p>如果你使用的是mongoose 2.x，则在新建Schema的时候不需要显示指定strict的值，因为默认值是false</p>
+<pre><code>model.findOne(query,fields,opt,function(err,doc));
+doc.set(&apos;tag&apos;,&apos;sex&apos;);
+</code></pre><p>ps:mongoose 2.x 升级到3.x的坑比较大，升级需谨慎!!!</p>
+<p>看下set方法的api：Document#set(path, val, [type], [options])</p>
+<p>最后有个参数options,这里设置{ strict: false },可以改变model的模式</p>
+<pre><code>// changing strict mode behavior
+doc.set(path, value, { strict: false });
+</code></pre><p>关于option: strict解释，看下官方原话：</p>
+<p>option: strict</p>
+<p>The strict option, (enabled by default), ensures that values passed to<br>our model constructor that were not specified in our schema do not get saved to the db.</p>
+<p>如果strict为treu保证不在schema定义的field不会被写进库里。</p>
+
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+    <a href="/2014/10/31/Centos安装网络配置问题/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+  
+  
+    <a href="/2014/10/16/使用WebVirtMgr搭建虚拟机管理工具/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2018 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="noopener">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="noopener">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

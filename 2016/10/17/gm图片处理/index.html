@@ -1,0 +1,245 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>gm图片处理 | jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  <meta name="description" content="项目中需要对上传的图片做下处理,比如把原图做一个缩略图,加水印等功能,我使用了gm模块
+   模块地址:  http://aheckmann.github.io/gm/docs.html
+这个模块支持:
+GraphicsMagick and ImageMagick
+因为我机器上装的是ImageMagick,所以我用的是ImageMagick
+使用方式:
+var gm = require(&amp;apos;gm&amp;apos;); 
+var imageMagick = gm.subClass({ imageMagick: true });
+gm的文档写的比较清楚,需要什么命令查下项目地址,基本上都可以找到,不过上面的项目地址不是最新的,有些命令在文档上并没有找到,只能看下源码了">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="gm图片处理"/>
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2016-10-17T06:15:31.000Z"><a href="/2016/10/17/gm图片处理/">Mon, Oct 17 2016, 2:15:31 pm</a></time>
+
+  
+    <h1 class="title">gm图片处理</h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/nodejs/">nodejs</a>, <a href="/tags/gm/">gm</a>, <a href="/tags/imageMagick/">imageMagick</a>, <a href="/tags/图片旋转90度/">图片旋转90度</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>项目中需要对上传的图片做下处理,比如把原图做一个缩略图,加水印等功能,我使用了gm模块</p>
+<p>   模块地址:  <a href="http://aheckmann.github.io/gm/docs.html" target="_blank" rel="noopener">http://aheckmann.github.io/gm/docs.html</a></p>
+<p>这个模块支持:</p>
+<pre><code>GraphicsMagick and ImageMagick
+</code></pre><p>因为我机器上装的是ImageMagick,所以我用的是ImageMagick</p>
+<p>使用方式:</p>
+<pre><code>var gm = require(&apos;gm&apos;); 
+var imageMagick = gm.subClass({ imageMagick: true });
+</code></pre><p>gm的文档写的比较清楚,需要什么命令查下项目地址,基本上都可以找到,不过上面的项目地址不是最新的,有些命令在文档上并没有找到,只能看下源码了<br><a id="more"></a><br>图片添加水印的命令就没有,所以做下记录</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 图片水印</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addImagWatermark</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> icon = <span class="string">'./logo-2.jpg'</span>; <span class="comment">//水印地址</span></span><br><span class="line">    <span class="keyword">var</span> DIRECTION = &#123;</span><br><span class="line">    	NorthWest: <span class="string">'NorthWest'</span>,</span><br><span class="line">    	North: <span class="string">'North'</span>,</span><br><span class="line">    	NorthEast: <span class="string">'NorthEast'</span>,</span><br><span class="line">    	West: <span class="string">'West'</span>,</span><br><span class="line">    	Center: <span class="string">'Center'</span>,</span><br><span class="line">    	East: <span class="string">'East'</span>,</span><br><span class="line">    	SouthWest: <span class="string">'SouthWest'</span>,</span><br><span class="line">    	South: <span class="string">'South'</span>,</span><br><span class="line">    	SouthEast: <span class="string">'SouthEast'</span></span><br><span class="line">    &#125;;</span><br><span class="line">	<span class="keyword">var</span> writecreateStream = fs.createWriteStream(orignimg);</span><br><span class="line">	imageMagick(orignimg)</span><br><span class="line">	.composite(icon)    <span class="comment">//水印</span></span><br><span class="line">	.gravity(DIRECTION[<span class="string">'SouthEast'</span>]) <span class="comment">//水印位置</span></span><br><span class="line">	.geometry(<span class="string">'+120+90'</span>) <span class="comment">//水印坐标,这里的意思是右下角为原点  距离右边120px 下边90px</span></span><br><span class="line">	.dissolve(<span class="number">90</span>) <span class="comment">//透明度</span></span><br><span class="line">	.stream().pipe(writecreateStream);</span><br><span class="line">	writecreateStream.on(<span class="string">'finish'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'All writes are now finish.'</span>);</span><br><span class="line">	&#125;);</span><br><span class="line">	writecreateStream.on(<span class="string">'close'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">'All writes are now close.'</span>);</span><br><span class="line">	&#125;);</span><br><span class="line">	writecreateStream.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.error(<span class="string">'write error'</span>, error);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 文字水印</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addWordsWatermark</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	imageMagick(destimg)</span><br><span class="line">	.gravity(DIRECTION[<span class="string">'SouthEast'</span>])  <span class="comment">//水印的位置</span></span><br><span class="line">	.geometry(<span class="string">'+10+10'</span>) <span class="comment">//距离右下角右边10px下边10px</span></span><br><span class="line">	.stroke(<span class="string">"gray"</span>)<span class="comment">//文字颜色</span></span><br><span class="line">	.font(<span class="string">"font.ttf"</span>, <span class="number">20</span>) <span class="comment">//文字字体大小  这里的文字文件需要存在</span></span><br><span class="line">	.drawText(<span class="number">15</span>, <span class="number">10</span>, <span class="string">"hello world"</span>) <span class="comment">//15和10是位置信息   最后一个参数是文字信息</span></span><br><span class="line">	.write(destimg, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (err) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">console</span>.error(<span class="string">'err--------'</span>, err);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"Written composite image."</span>);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 裁剪缩放图片</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resizeAndCropImag</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        imageMagick(orignImgPath)  <span class="comment">//图片源地址可以是stream或者path</span></span><br><span class="line">		.gravity(DIRECTION[<span class="string">'Center'</span>])<span class="comment">//设置处理的原点,这里是以中心为原点</span></span><br><span class="line">		.crop(<span class="number">150</span>, <span class="number">150</span>) <span class="comment">//裁剪大小</span></span><br><span class="line">		.resize(<span class="number">50</span>, <span class="number">50</span>, <span class="string">'!'</span>)<span class="comment">//缩放大小 50*50 !强制缩放到50*50 不要按照比例</span></span><br><span class="line">		.stream().pipe(writecreateStream);</span><br><span class="line">				writecreateStream.on(<span class="string">'close'</span>, () =&gt; &#123;</span><br><span class="line">					thumbnailsize.width = IMAGEMINSIZE;</span><br><span class="line">					thumbnailsize.height = IMAGEMINSIZE;</span><br><span class="line">					<span class="keyword">return</span> callback(<span class="literal">null</span>,thumbnailsize);</span><br><span class="line">				&#125;);</span><br><span class="line">				writecreateStream.on(<span class="string">'error'</span>, (error) =&gt; &#123;</span><br><span class="line">					<span class="built_in">console</span>.error(<span class="string">'write error'</span>,error);</span><br><span class="line">					<span class="keyword">return</span> callback(error);</span><br><span class="line">				&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面是一些图片处理的实例</p>
+<p>在开发的过程中也遇到了一个问题,这个问题以前也遇到过,就是一个图片在电脑上预览的时候是正常的,但是在app里面查看,发现旋转了90度,造成这个问题的原因是因为图片的exif里面的<br>orientation造成的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">Format</span>: <span class="string">'JPEG (Joint Photographic Experts Group JFIF format)'</span>,</span><br><span class="line">  format: <span class="string">'JPEG'</span>,</span><br><span class="line">  <span class="string">'Mime type'</span>: <span class="string">'image/jpeg'</span>,</span><br><span class="line">  Class: <span class="string">'DirectClass'</span>,</span><br><span class="line">  Geometry: <span class="string">'1920x1080+0+0'</span>,</span><br><span class="line">  size: &#123; <span class="attr">width</span>: <span class="number">1920</span>, <span class="attr">height</span>: <span class="number">1080</span> &#125;,</span><br><span class="line">  Resolution: <span class="string">'72x72'</span>,</span><br><span class="line">  <span class="string">'Print size'</span>: <span class="string">'26.6667x15'</span>,</span><br><span class="line">  Units: <span class="string">'Undefined'</span>,</span><br><span class="line">  Type: <span class="string">'TrueColor'</span>,</span><br><span class="line">  Endianess: <span class="string">'Undefined'</span>,</span><br><span class="line">  Colorspace: <span class="string">'sRGB'</span>,</span><br><span class="line">  Depth: <span class="string">'8-bit'</span>,</span><br><span class="line">  depth: <span class="number">8</span>,</span><br><span class="line">  <span class="string">'Channel depth'</span>: &#123; <span class="attr">red</span>: <span class="string">'8-bit'</span>, <span class="attr">green</span>: <span class="string">'8-bit'</span>, <span class="attr">blue</span>: <span class="string">'8-bit'</span> &#125;,</span><br><span class="line">  <span class="string">'Channel statistics'</span>: </span><br><span class="line">   &#123; <span class="attr">Pixels</span>: <span class="string">'2073600'</span>,</span><br><span class="line">     Red: </span><br><span class="line">      &#123; <span class="attr">min</span>: <span class="string">'0 (0)'</span>,</span><br><span class="line">        max: <span class="string">'255 (1)'</span>,</span><br><span class="line">        mean: <span class="string">'59.4655 (0.233198)'</span>,</span><br><span class="line">        <span class="string">'standard deviation'</span>: <span class="string">'61.9419 (0.242909)'</span>,</span><br><span class="line">        kurtosis: <span class="string">'2.66796'</span>,</span><br><span class="line">        skewness: <span class="string">'1.83875'</span>,</span><br><span class="line">        entropy: <span class="string">'0.85667'</span> &#125;,</span><br><span class="line">     Green: </span><br><span class="line">      &#123; <span class="attr">min</span>: <span class="string">'1 (0.00392157)'</span>,</span><br><span class="line">        max: <span class="string">'255 (1)'</span>,</span><br><span class="line">        mean: <span class="string">'58.7454 (0.230374)'</span>,</span><br><span class="line">        <span class="string">'standard deviation'</span>: <span class="string">'58.8431 (0.230757)'</span>,</span><br><span class="line">        kurtosis: <span class="string">'3.55934'</span>,</span><br><span class="line">        skewness: <span class="string">'2.01144'</span>,</span><br><span class="line">        entropy: <span class="string">'0.859977'</span> &#125;,</span><br><span class="line">     Blue: </span><br><span class="line">      &#123; <span class="attr">min</span>: <span class="string">'0 (0)'</span>,</span><br><span class="line">        max: <span class="string">'255 (1)'</span>,</span><br><span class="line">        mean: <span class="string">'56.8535 (0.222955)'</span>,</span><br><span class="line">        <span class="string">'standard deviation'</span>: <span class="string">'57.2232 (0.224405)'</span>,</span><br><span class="line">        kurtosis: <span class="string">'3.98003'</span>,</span><br><span class="line">        skewness: <span class="string">'2.08816'</span>,</span><br><span class="line">        entropy: <span class="string">'0.85872'</span> &#125; &#125;,</span><br><span class="line">  <span class="string">'Image statistics'</span>: </span><br><span class="line">   &#123; <span class="attr">Overall</span>: </span><br><span class="line">      &#123; <span class="attr">min</span>: <span class="string">'0 (0)'</span>,</span><br><span class="line">        max: <span class="string">'255 (1)'</span>,</span><br><span class="line">        mean: <span class="string">'58.3548 (0.228842)'</span>,</span><br><span class="line">        <span class="string">'standard deviation'</span>: <span class="string">'59.3683 (0.232817)'</span>,</span><br><span class="line">        kurtosis: <span class="string">'3.36539'</span>,</span><br><span class="line">        skewness: <span class="string">'1.9756'</span>,</span><br><span class="line">        entropy: <span class="string">'0.858456'</span> &#125; &#125;,</span><br><span class="line">  <span class="string">'Rendering intent'</span>: <span class="string">'Perceptual'</span>,</span><br><span class="line">  Gamma: <span class="string">'0.454545'</span>,</span><br><span class="line">  Chromaticity: </span><br><span class="line">   &#123; <span class="string">'red primary'</span>: <span class="string">'(0.64,0.33)'</span>,</span><br><span class="line">     <span class="string">'green primary'</span>: <span class="string">'(0.3,0.6)'</span>,</span><br><span class="line">     <span class="string">'blue primary'</span>: <span class="string">'(0.15,0.06)'</span>,</span><br><span class="line">     <span class="string">'white point'</span>: <span class="string">'(0.3127,0.329)'</span> &#125;,</span><br><span class="line">  <span class="string">'Background color'</span>: <span class="string">'white'</span>,</span><br><span class="line">  <span class="string">'Border color'</span>: <span class="string">'srgb(223,223,223)'</span>,</span><br><span class="line">  <span class="string">'Matte color'</span>: <span class="string">'grey74'</span>,</span><br><span class="line">  <span class="string">'Transparent color'</span>: <span class="string">'black'</span>,</span><br><span class="line">  Interlace: <span class="string">'None'</span>,</span><br><span class="line">  Intensity: <span class="string">'Undefined'</span>,</span><br><span class="line">  Compose: <span class="string">'Over'</span>,</span><br><span class="line">  <span class="string">'Page geometry'</span>: <span class="string">'1920x1080+0+0'</span>,</span><br><span class="line">  Dispose: <span class="string">'Undefined'</span>,</span><br><span class="line">  Iterations: <span class="string">'0'</span>,</span><br><span class="line">  Compression: <span class="string">'JPEG'</span>,</span><br><span class="line">  Quality: <span class="string">'78'</span>,</span><br><span class="line">  Orientation: <span class="string">'RightTop'</span>,</span><br><span class="line">  Properties: </span><br><span class="line">   &#123; <span class="string">'date:create'</span>: <span class="string">'2016-10-17T10:09:47+08:00'</span>,</span><br><span class="line">     <span class="string">'date:modify'</span>: <span class="string">'2016-10-17T09:46:34+08:00'</span>,</span><br><span class="line">     <span class="string">'exif:ColorSpace'</span>: <span class="string">'1'</span>,</span><br><span class="line">     <span class="string">'exif:ExifImageLength'</span>: <span class="string">'1080'</span>,</span><br><span class="line">     <span class="string">'exif:ExifImageWidth'</span>: <span class="string">'1920'</span>,</span><br><span class="line">     <span class="string">'exif:ExifOffset'</span>: <span class="string">'38'</span>,</span><br><span class="line">     <span class="string">'exif:Orientation'</span>: <span class="string">'6'</span>,</span><br><span class="line">     <span class="string">'jpeg:colorspace'</span>: <span class="string">'2'</span>,</span><br><span class="line">     <span class="string">'jpeg:sampling-factor'</span>: <span class="string">'2x2,1x1,1x1'</span>,</span><br><span class="line">     signature: <span class="string">'5336e20b319346abfebb86749f6c6c27213324b226d11e63027d2db45a34c649'</span> &#125;,</span><br><span class="line">  Profiles: </span><br><span class="line">   &#123; <span class="string">'Profile-8bim'</span>: <span class="string">'40 bytes'</span>,</span><br><span class="line">     <span class="string">'Profile-exif'</span>: <span class="string">'86 bytes'</span>,</span><br><span class="line">     <span class="string">'Profile-iptc'</span>: <span class="string">'0 bytes'</span> &#125;,</span><br><span class="line">  Artifacts: </span><br><span class="line">   &#123; <span class="attr">filename</span>: <span class="string">'/data/dist/lib/57ea5e684c9fecec0001b381.png'</span>,</span><br><span class="line">     verbose: <span class="string">'true'</span> &#125;,</span><br><span class="line">  Tainted: <span class="string">'False'</span>,</span><br><span class="line">  Filesize: <span class="string">'161KB'</span>,</span><br><span class="line">  <span class="string">'Number pixels'</span>: <span class="string">'2.074M'</span>,</span><br><span class="line">  <span class="string">'Pixels per second'</span>: <span class="string">'691.2GB'</span>,</span><br><span class="line">  <span class="string">'User time'</span>: <span class="string">'0.000u'</span>,</span><br><span class="line">  <span class="string">'Elapsed time'</span>: <span class="string">'0:01.000'</span>,</span><br><span class="line">  Version: <span class="string">'ImageMagick 6.9.1-1 Q16 x86_64 2015-04-15 http://www.imagemagick.org'</span>,</span><br><span class="line">  path: <span class="string">'/data/dist/lib/57ea5e684c9fecec0001b381.png'</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>这里可以使用gm提供的autoOrient的方法来做下处理:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   imageMagick(originPath).autoOrient().write(targetPath, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(err) <span class="keyword">return</span> callback(err);</span><br><span class="line">	 callback(<span class="literal">null</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这样子处理下,图片就可以正确显示了</p>
+<p>看下autoOrient的方法:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">proto</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> exifTransforms = &#123;</span><br><span class="line">      topleft:     <span class="string">''</span></span><br><span class="line">    , <span class="attr">topright</span>:    [<span class="string">'-flop'</span>]</span><br><span class="line">    , <span class="attr">bottomright</span>: [<span class="string">'-rotate'</span>, <span class="number">180</span>]</span><br><span class="line">    , <span class="attr">bottomleft</span>:  [<span class="string">'-flip'</span>]</span><br><span class="line">    , <span class="attr">lefttop</span>:     [<span class="string">'-flip'</span>, <span class="string">'-rotate'</span>, <span class="number">90</span>]</span><br><span class="line">    , <span class="attr">righttop</span>:    [<span class="string">'-rotate'</span>, <span class="number">90</span>]</span><br><span class="line">    , <span class="attr">rightbottom</span>: [<span class="string">'-flop'</span>, <span class="string">'-rotate'</span>, <span class="number">90</span>]</span><br><span class="line">    , <span class="attr">leftbottom</span>:  [<span class="string">'-rotate'</span>, <span class="number">270</span>]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  proto.autoOrient = <span class="function"><span class="keyword">function</span> <span class="title">autoOrient</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Always strip EXIF data since we can't</span></span><br><span class="line">    <span class="comment">// change/edit it.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// imagemagick has a native -auto-orient option</span></span><br><span class="line">    <span class="comment">// so does graphicsmagick, but in 1.3.18.</span></span><br><span class="line">    <span class="comment">// nativeAutoOrient option enables this if you know you have &gt;= 1.3.18</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._options.nativeAutoOrient || <span class="keyword">this</span>._options.imageMagick) &#123;</span><br><span class="line">      <span class="keyword">this</span>.out(<span class="string">'-auto-orient'</span>);</span><br><span class="line">      <span class="keyword">this</span>.strip();</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.preprocessor(<span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.orientation(&#123;<span class="attr">bufferStream</span>: <span class="literal">true</span>&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">err, orientation</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> transforms = exifTransforms[orientation.toLowerCase()];</span><br><span class="line">        <span class="keyword">if</span> (transforms) &#123;</span><br><span class="line"></span><br><span class="line">          <span class="comment">// remove any existing transforms that might conflict</span></span><br><span class="line">          <span class="keyword">var</span> index = <span class="keyword">this</span>._out.indexOf(transforms[<span class="number">0</span>]);</span><br><span class="line">          <span class="keyword">if</span> (~index) &#123;</span><br><span class="line">            <span class="keyword">this</span>._out.splice(index, transforms.length);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="comment">// repage to fix coordinates</span></span><br><span class="line">          <span class="keyword">this</span>._out.unshift.apply(<span class="keyword">this</span>._out, transforms.concat(<span class="string">'-page'</span>, <span class="string">'+0+0'</span>));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.strip();</span><br><span class="line"></span><br><span class="line">        callback();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大概可以看出来当等于RightTop的时候,会旋转90度,除了这种情况,剩下的几种会有其它的处理方式。</p>
+<p>其它的参考:<br>    <a href="http://sylvana.net/jpegcrop/exif_orientation.html" target="_blank" rel="noopener">http://sylvana.net/jpegcrop/exif_orientation.html</a><br>    <a href="http://www.cnblogs.com/itlover2013/p/4553862.html" target="_blank" rel="noopener">http://www.cnblogs.com/itlover2013/p/4553862.html</a></p>
+
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+    <a href="/2016/12/08/JSON.stringify()注意事项/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+  
+  
+    <a href="/2016/08/30/express设置跨域/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2016/10/17/gm图片处理/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2018 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="noopener">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="noopener">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>webpack jquery + jquery-ui | jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  <meta name="description" content="参考文章:
+   http://webpack.github.io/docs/usage-with-bower.html
+   https://github.com/webpack/webpack-with-common-libs
+基于项目：
+  https://github.com/MarshalW/react-proto/tree/m5.4
+  改项目中要用到jquery + jquery-ui，以前的方式是
+  1.使用bower install安装所需的库，主要是jQuery和jQuery UI
+  2.将jQuery UI等库全局的方式加入到html页面上，类似这样：">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="webpack jquery + jquery-ui"/>
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2015-09-16T01:47:00.000Z"><a href="/2015/09/16/webpack-jquery-jquery-ui/">Wed, Sep 16 2015, 9:47:00 am</a></time>
+
+  
+    <h1 class="title">webpack jquery + jquery-ui</h1>
+  
+
+
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>参考文章:</p>
+<p>   <a href="http://webpack.github.io/docs/usage-with-bower.html" target="_blank" rel="noopener">http://webpack.github.io/docs/usage-with-bower.html</a></p>
+<p>   <a href="https://github.com/webpack/webpack-with-common-libs" target="_blank" rel="noopener">https://github.com/webpack/webpack-with-common-libs</a></p>
+<p>基于项目：</p>
+<p>  <a href="https://github.com/MarshalW/react-proto/tree/m5.4" target="_blank" rel="noopener">https://github.com/MarshalW/react-proto/tree/m5.4</a></p>
+<p>  改项目中要用到jquery + jquery-ui，以前的方式是</p>
+<p>  1.使用bower install安装所需的库，主要是jQuery和jQuery UI</p>
+<p>  2.将jQuery UI等库全局的方式加入到html页面上，类似这样：</p>
+<a id="more"></a>
+<pre><code>&lt;head&gt;
+  &lt;title&gt;react原型&lt;/title&gt;
+  &lt;!-- jquery --&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;/bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+  &lt;!-- jquery-ui --&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;/bower_components/jquery-ui/jquery-ui.min.js&quot;&gt;&lt;/script&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css&quot;&gt;
+  &lt;!-- bootstrap --&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/bower_components/bootstrap/dist/css/bootstrap.min.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/bower_components/bootstrap/dist/css/bootstrap-theme.min.css&quot;&gt;
+  &lt;script src=&quot;/bower_components/bootstrap/dist/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;    
+&lt;/head&gt;
+</code></pre><p>  缺点是，hot-load方式调试的时候，每做一次改动，浏览器重新加载的速度较慢，要好几秒钟</p>
+<p>  webpack提供了使用bower的方式：</p>
+<p>  webpack.config.js 加入如下配置：</p>
+<pre><code>module.exports = {
+  devtool: &apos;eval&apos;,
+  entry: [
+    &apos;webpack-dev-server/client?http://localhost:3000&apos;,
+    &apos;webpack/hot/only-dev-server&apos;,
+    &apos;./scripts/index&apos;
+  ],
+  output: {
+    path: path.join(__dirname, &apos;build&apos;),
+    filename: &apos;bundle.js&apos;,
+    publicPath: &apos;/static/&apos;
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.ResolverPlugin(
+        new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(&quot;bower.json&quot;, [&quot;main&quot;])
+    ),
+    new webpack.ProvidePlugin({
+      jQuery: &quot;jquery&quot;,
+      $: &quot;jquery&quot;
+    })
+  ],
+  resolve: {
+     extensions: [&apos;&apos;, &apos;.js&apos;, &apos;.jsx&apos;],
+      root: [path.join(__dirname, &quot;bower_components&quot;)],
+    alias: {
+        &quot;jquery&quot;: &quot;jquery&quot;,
+        &quot;jquery-ui&quot;: &quot;jquery-ui/jquery-ui.js&quot;,
+
+    }
+  },
+  module: {
+    loaders: [{
+        test: /\.jsx?$/,
+        loaders: [&apos;react-hot&apos;, &apos;babel&apos;],
+        include: path.join(__dirname, &apos;scripts&apos;)
+      },
+      {
+        test:/\.css$/,
+        loader:&apos;style!css&apos;
+      }
+      // TODO 加入正确的css loader配置
+    ]
+  }
+};
+</code></pre><ul>
+<li><p>让webpack查找bower_components folder</p>
+<pre><code> resolve: {
+   root: [path.join(__dirname, &quot;bower_components&quot;)]
+}, 
+</code></pre></li>
+<li><p>让webpack使用bower.json中的main字段</p>
+<p>  plugins: [</p>
+<pre><code>    new webpack.ResolverPlugin(
+        new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(&quot;bower.json&quot;, [&quot;main&quot;])
+    )
+]
+</code></pre><p>tips：不过这个文档中说，优先通过npm安装所需要的库</p>
+<h2 id="Prefer-modules-from-npm-over-bower"><a href="#Prefer-modules-from-npm-over-bower" class="headerlink" title="Prefer modules from npm over bower"></a>Prefer modules from npm over bower</h2><p>In many cases modules from npm are better than the same module from bower. Bower mostly contain only concatenated/bundled files which are:</p>
+<p>1.More difficult to handle for webpack</p>
+<p>2.More difficult to optimize for webpack</p>
+<p>3.Sometimes only useable without a module system</p>
+<p>4.So prefer to use the CommonJs-style module and let webpack build it.</p>
+</li>
+</ul>
+<ul>
+<li><p>全局声明jQuery，这样可以在项目中直接用$或者jQuery</p>
+<pre><code>new webpack.ProvidePlugin({
+     jQuery: &quot;jquery&quot;,
+     $: &quot;jquery&quot;
+})
+</code></pre></li>
+<li><p>给JQuery-ui起别名：</p>
+</li>
+</ul>
+<pre><code>alias: {
+         &quot;jquery&quot;: &quot;jquery&quot;,
+         &quot;jquery-ui&quot;: &quot;jquery-ui/jquery-ui.js&quot;,
+
+}
+</code></pre><p>   这里需要注意的地方是<em>jquery-ui/jquery-ui.js</em>，需要指定到具体要执行的某个文件。</p>
+<p>   以上是webpack的配置文件，项目中的某个js文件要用到jquery-ui，可以这样子写：</p>
+<pre><code>import &apos;jquery-ui&apos;;   //引入jquery-ui
+
+$(&apos;#canvas&apos;).draggable();   //使某个元素可以拖动
+</code></pre><p>   以上就是webpack中使用jQuery+jQuery-ui的方法.</p>
+<p>   补充：</p>
+<p>   上面的方式只是加载js文件，所需要的样式还是需要手动去加载下的</p>
+<p>   例如：</p>
+<pre><code>require(&quot;jquery-ui/themes/base/jquery-ui.css&quot;);  
+</code></pre><p>   加载相应的css文件。</p>
+<p>   这里还有一个问题，因为这些样式里面有图片，需要一个图片加载模块来实现</p>
+<p>   <a href="https://www.npmjs.com/package/image-webpack-loader" target="_blank" rel="noopener">https://www.npmjs.com/package/image-webpack-loader</a></p>
+<p>   这里我用的是image-webpack-loader这个模块。</p>
+<pre><code>loaders: [
+    {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+            &apos;file?hash=sha512&amp;digest=hex&amp;name=[hash].[ext]&apos;,
+            &apos;image-webpack?bypassOnDebug&amp;optimizationLevel=7&amp;interlaced=false&apos;
+        ]
+    }
+]
+</code></pre><p>   然后再编译下，访问页面，就会在页面上看到<style></style>样式。</p>
+
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+    <a href="/2016/07/18/react-native的flexbox备忘/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+  
+  
+    <a href="/2015/03/17/使用nodejs解析优酷，奇艺视频源地址/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2015/09/16/webpack-jquery-jquery-ui/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2018 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="noopener">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="noopener">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

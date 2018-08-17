@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>一种必须关注公众号才能参加活动的方案介绍 | jiangli&#39;s blog</title>
+  <meta name="author" content="jiangli">
+  
+  <meta name="description" content="到现在公司的微信公众号已经做了大概4个活动了吧以此来吸引粉丝,为了拉来更多的粉丝,领导要求参加活动的用户必须关注我们的公众号才行
+研究了下微信公众平台提供的文档,没有提供相应的接口来判断用户是否关注了公众号
+我们的公众号类型是订阅号,所以不具有使用微信登录接口的功能,所以借助微信提供的接口来实现这个功能的方案行不通了。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="一种必须关注公众号才能参加活动的方案介绍"/>
+  <meta property="og:site_name" content="jiangli&#39;s blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jiangli&#39;s blog" type="application/atom+xml">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://apps.bdimg.com/libs/fontawesome/4.0.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <nav id="main-nav">
+  <ul class='container'>
+    
+      <li><a href="/">主页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+  </header>
+  <div id="content" class="container">
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+      <time datetime="2016-08-23T06:16:44.000Z"><a href="/2016/08/23/一种必须关注公众号才能参加活动的方案介绍/">Tue, Aug 23 2016, 2:16:44 pm</a></time>
+
+  
+    <h1 class="title">一种必须关注公众号才能参加活动的方案介绍</h1>
+  
+
+
+
+  
+  <div class="tags">
+  	<i class="fa fa-tag"></i>
+    <a href="/tags/nodejs/">nodejs</a>, <a href="/tags/微信/">微信</a>, <a href="/tags/关注公众号/">关注公众号</a>, <a href="/tags/wechat/">wechat</a>
+  </div>
+
+<div class="clear"></div>
+      
+    </header>
+    <div class="entry">
+      
+        <p>到现在公司的微信公众号已经做了大概4个活动了吧以此来吸引粉丝,为了拉来更多的粉丝,领导要求参加活动的用户必须关注我们的公众号才行</p>
+<p>研究了下微信公众平台提供的文档,没有提供相应的接口来判断用户是否关注了公众号</p>
+<p>我们的公众号类型是订阅号,所以不具有使用微信登录接口的功能,所以借助微信提供的接口来实现这个功能的方案行不通了。</p>
+<a id="more"></a>
+<p>经过一番研究,实现了一个方案,目前看来效果还是可以的,下面简单介绍下</p>
+<p>使用微信的开发者模式,自己的后台把微信的消息接收过来</p>
+<p>步骤:</p>
+<p>1.用户在微信公众号回复关键字,比如:’活动’,或者点击菜单’参加活动’</p>
+<p>2.自己的后台收到用户发来的消息 后台可以获得用户的openid,这个openid就是我们整个方案的关键</p>
+<p>这个openid对于一个公众号来说是唯一的,我们用这个openid来判断用户,如果以前没有记录过这个用户opendid,</p>
+<p>就在数据库里面插入一条记录,如果有的话,就返回</p>
+<p>3.经过步骤2的操作,我记录下来了用户的opendid,然后需要给你用户一个反馈</p>
+<p>  因为我用的是nodejs,我用的是wechat这个模块</p>
+<p>  项目地址: <a href="https://github.com/node-webot/wechat" target="_blank" rel="noopener">https://github.com/node-webot/wechat</a></p>
+<p>  返回客户端消息:</p>
+<pre><code>res.reply([
+      {
+          title: &apos;参加活动&apos;,
+          description: &apos;参加活动&apos;,
+          picurl: &apos;http://www.xxx.com/image.png&apos;,
+          url: &apos;http://www.xxx.com/cacheIndex?openid=&apos; + openid
+      }
+]);  
+</code></pre><p>  上面的返回结果中的url是返回给用户后,用户点击后跳转的页面</p>
+<p>  这里我们定义的这个地址后面的定义了一个参数,openid就是这个用户的在微信对于我们这个公众号的里面的唯一id</p>
+<p>  当然这里你可以不实用opendid,你可以使用自己逻辑中的唯一id,只要能确定用户的唯一性即可,例如userid</p>
+<p>4.当用户点击公众号返回的消息,比如  <a href="http://www.xxx.com/cacheIndex?openid=xxxxxx" target="_blank" rel="noopener">http://www.xxx.com/cacheIndex?openid=xxxxxx</a></p>
+<p>  我们的工程处理这个响应:</p>
+<pre><code>exports.cacheIndex = function(req, res, next){
+
+  var openid = req.query.openid;
+  var shareid = &apos;&apos;; 
+
+  if(openid){
+  //todo 判断opendid是否正确 如果正确的话,将openid 种再浏览器的cookie里面去
+      res.cookie(&apos;openid&apos;, openid,
+          {path: &apos;/&apos;, maxAge: 1000 * 60 * 60 * 24 * 365, signed: true, httpOnly: true}); //cookie 有效期30天
+  }
+  var cookie_shareid = req.cookies.shareid; 
+
+  if(!!cookie_shareid){
+      //todo 到分享页面上去
+  }else{
+      res.redirect(&apos;personal&apos;); //到我的页面上去
+  }
+}  
+</code></pre><p>  上面代码是处理这个响应的,主要就是获取到openid,然后判断openid的值是不是正确的,如果正确,把opendid种在浏览器的cookie里面去</p>
+<p>  因为我们的活动主要是为了拉粉丝,一个人参与过后,需要分享给别人,让别人帮助他,他才能获取更高的积分或者奖励</p>
+<p>  所以当一个没有关注过我们公众号的用户访问别人分享的页面,他这时是没有办法参加的,所以js记录下这个分享页面的id,然后在他重复上面的步骤</p>
+<p>  参与活动的时候,在这个方法里面,判断cookie里面是否有分享页面的id,如果有的话,验证完opendi后,会直接跳转到用户刚才访问的分享页面上去</p>
+<p>  到此,一个必须关注公众号才能参加活动的流程已经完成,下面就是用户关注以后,参与活动的逻辑了,和本文没有关系了</p>
+<p>  这种方案的缺点是用户必须在微信公众号里面回复关键字,或者点击菜单,才能实现。</p>
+
+      
+    </div>
+    <footer>
+      
+          
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <span class="jiathis_txt">分享到：</span>
+  <a class="jiathis_button_weixin">微信</a>
+  <a class="jiathis_button_tsina">新浪微博</a>
+  <a class="jiathis_button_renren">人人网</a>
+  <a class="jiathis_button_qzone">QQ空间</a>
+  <a class="jiathis_button_douban">豆瓣</a>
+  <a class="jiathis_button_pocket">Pocket</a>
+  <a href="http://www.jiathis.com/share?uid=901656" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=901656" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          <div class="clearfix"></div>
+          <nav id="pagination">
+  
+    <a href="/2016/08/24/mongodb备忘/" class="alignleft prev"><i class="fa fa-long-arrow-left"></i>Next</a>
+  
+  
+    <a href="/2016/07/18/react-native的flexbox备忘/" class="alignright next">Prev<i class="fa fa-long-arrow-right"></i></a>
+  
+  <div class="clearfix"></div>
+</nav>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread" data-thread-key="/2016/08/23/一种必须关注公众号才能参加活动的方案介绍/"></div>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+
+
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div>
+  
+  &copy; 2018 jiangli
+  
+</div>
+Powered by <a href="http://zespia.tw/hexo/" title="Hexo" target="_blank" rel="noopener">Hexo</a> and <a href="http://pages.github.com/" title="GitHub Pages" target="_blank" rel="noopener">GitHub Pages</a>
+
+<div class="clearfix"></div></footer>
+  
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#main-nav").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#main-nav").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+  (function($){
+    $('.fancybox').fancybox({
+      'titlePosition': 'inside'
+    });
+  })(jQuery);
+  </script>
+
+
+
+    
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"nuonuo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('.title').hover(
+      function() {      
+        $(this).stop().animate(
+          {'marginLeft': '10px'}, 200
+        );   
+      }, 
+      function() {       
+        $(this).stop().animate({'marginLeft': '0px'}, 200);      
+      
+    });   
+
+  });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>jiangli&#39;s blog</title>
+  <icon>https://www.gravatar.com/avatar/e874dbe7c896d3395b5c778569b297e4</icon>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://jiangli373.github.io/"/>
+  <updated>2018-08-17T04:56:54.000Z</updated>
+  <id>http://jiangli373.github.io/</id>
+  
+  <author>
+    <name>jiangli</name>
+    <email>715015723@qq.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://jiangli373.github.io/2018/08/17/Mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://jiangli373.github.io/2018/08/17/Mongodb数据库介绍/</id>
+    <published>2018-08-17T04:53:08.000Z</published>
+    <updated>2018-08-17T04:56:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>title: Mongodb数据库介绍<br>date: 2018-08-17 12:53:08<br>tags:</p><ul><li>MongoDB</li></ul><h3 id="什么是MongoDB？"><a href="#什么是MongoDB？" class="headerlink" title="什么是MongoDB？"></a>什么是MongoDB？</h3><p>官网地址：</p><p><a href="https://www.mongodb.com/" target="_blank" rel="noopener">https://www.mongodb.com/</a></p><p>MongoDB 是由C++语言编写的编写的非关系型数据库，是一个基于分布式文件存储的开源数据库系统。</p><p>主要特点</p><ul><li>MongoDB 是一个面向文档存储的数据库，操作起来比较简单和容易。</li><li>MongoDB使用了BSON存储数据和网络数据交换,BSON是一种类json的一种二进制形式的存储格式，简称Binary JSON，它和JSON一样，支持内嵌的文档对象和数组对象</li><li>可以在MongoDB记录中设置任何属性的索引 (如：FirstName=”Sameer”,Address=”8 Gandhi Road”)来实现更快的排序。</li><li>Mongo支持丰富的查询表达式。查询指令使用JSON形式的标记，可轻易查询文档中内嵌的对象及数组。</li><li>MongoDb 使用update()命令可以实现替换完成的文档（数据）或者一些指定的数据字段 。</li><li>GridFS是MongoDB中的一个内置功能，可以用于存放大量小文件。</li><li>MongoDB支持各种编程语言:Nodejs，RUBY，PYTHON，JAVA，C++，PHP，C#等多种语言。</li><li>MongoDB安装简单。</li></ul><a id="more"></a><h3 id="MongoDB基本概念"><a href="#MongoDB基本概念" class="headerlink" title="MongoDB基本概念"></a>MongoDB基本概念</h3><ul><li>文档：是MongoDB中数据的基本单元，非常类似于关系型数据库系统中的行（但是比行要复杂很多）</li><li>集合：就是一组文档，如果说MongoDB中的文档类似于关系型数据库中的行，那么集合就如同表</li><li>MongoDB的单个计算机可以容纳多个独立的数据库，每一个数据库都有自己的集合和权限</li><li>MongoDB自带简洁但功能强大的JavaScript shell，这个工具对于管理MongoDB实例和操作数据库作用非常大</li><li>每一个文档都有一个特殊的键”_id”,它在文档所处的集合中是唯一的，相当于关系数据库中的表的主键</li></ul><h3 id="MOngoDB常用数据类型"><a href="#MOngoDB常用数据类型" class="headerlink" title="MOngoDB常用数据类型"></a>MOngoDB常用数据类型</h3><table><thead><tr><th>数据类型</th><th>描述</th></tr></thead><tbody><tr><td>String</td><td>字符串。存储数据常用的数据类型</td></tr><tr><td>Integer</td><td>整型数值。用于存储数值</td></tr><tr><td>Boolean</td><td>布尔值。用于存储布尔值（真/假)</td></tr><tr><td>Double</td><td>双精度浮点值。用于存储浮点值</td></tr><tr><td>Array</td><td>用于将数组或列表或多个值存储为一个键</td></tr><tr><td>Timestamp</td><td>时间戳。记录文档修改或添加的具体时间</td></tr><tr><td>Object</td><td>用于内嵌文档</td></tr><tr><td>Null</td><td>用于创建空值</td></tr><tr><td>Object ID</td><td>对象 ID。用于创建文档的 ID</td></tr><tr><td>Binary Data</td><td>二进制数据。用于存储二进制数据</td></tr><tr><td>Date</td><td>日期时间。用 UNIX 时间格式来存储当前日期或时间。你可以指定自己的日期时间：创建 Date 对象，传入年月日信息</td></tr></tbody></table><h3 id="与关系型数据-Mysql-Oracle-对比"><a href="#与关系型数据-Mysql-Oracle-对比" class="headerlink" title="与关系型数据(Mysql,Oracle)对比"></a>与关系型数据(Mysql,Oracle)对比</h3><p><img src="../img/4807654-f1d2cdcfb07fad5a.png" alt=""></p><h3 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h3><p>macOs</p><p><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/</a></p><p>Linux</p><p><a href="https://docs.mongodb.com/manual/administration/install-on-linux/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/administration/install-on-linux/</a></p><p>windows</p><p><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/</a></p><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>启动</p><pre><code>`path to binary`/mongod --dbpath `path to data directory`/data</code></pre><p>如果没有配置MongoDB的环境变量，<code>path to binary</code>就是MongoDB的安装目录下的bin目录</p><p>–dbpath 数据库数据存放位置</p><p>数据库操作基本上就是增，删，改，查这4个操作</p><p>下面分别介绍下。</p><p>我们这里使用MongoDB提供的shell来操作MongoDB数据库。</p><p>通过 shell 连接 MongoDB 服务：</p><pre><code>$ ./mongoMongoDB shell version v3.4.5connecting to: mongodb://127.0.0.1:27017MongoDB server version: 3.4.5</code></pre><p>可以通过 </p><pre><code>show dbs</code></pre><p>查看安装的全部数据列表，然后可以通过</p><pre><code>use dbName</code></pre><p> 来切换数据库。</p><p>默认使用的是test数据库，我们在这个数据上操作</p><h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><pre><code>db.COLLECTION_NAME.insert(document)</code></pre><p>COLLECTION_NAME是集合的名称，MongoDB可以不需要先创建集合，就可以直接插入数据，</p><p>document是文档内容</p><pre><code>db.test.insert({name:&apos;test&apos;,&apos;age&apos;:23, &apos;tags&apos;: [&apos;mongodb&apos;, &apos;database&apos;, &apos;NoSQL&apos;], &apos;likes&apos;:{name:&apos;a&apos;,age:30}})</code></pre><p>插入了一个文档</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"name"</span>:<span class="string">"test"</span>,</span><br><span class="line"><span class="string">"age"</span>:<span class="number">23</span>, </span><br><span class="line"><span class="string">"tags"</span>: [<span class="string">"mongodb"</span>, <span class="string">"database"</span>, <span class="string">"NoSQL"</span>], </span><br><span class="line"><span class="string">"likes"</span>:&#123;</span><br><span class="line"><span class="string">"name"</span>:<span class="string">"a"</span>,<span class="attr">age</span>:<span class="number">30</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="查"><a href="#查" class="headerlink" title="查"></a>查</h4><p>有两种方式</p><pre><code>db.COLLECTION_NAME.findOne(query, projection)db.COLLECTION_NAME.find(query, projection)</code></pre><ul><li>query ：可选，使用查询操作符指定查询条件</li><li>projection ：可选，使用投影操作符指定返回的键。查询时返回文档中所有键值， 只需省略该参数即可（默认省略）</li></ul><p>findOne只返回一个文档; find返回全部文档</p><p>查看刚才插入的那条记录</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">db.test.findOne()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"_id"</span> : ObjectId(<span class="string">"5b72f9069b0b40898aab3903"</span>),</span><br><span class="line"><span class="string">"name"</span> : <span class="string">"test"</span>,</span><br><span class="line"><span class="string">"age"</span> : <span class="number">23</span>,</span><br><span class="line"><span class="string">"tags"</span> : [</span><br><span class="line"><span class="string">"mongodb"</span>,</span><br><span class="line"><span class="string">"database"</span>,</span><br><span class="line"><span class="string">"NoSQL"</span></span><br><span class="line">],</span><br><span class="line"><span class="string">"likes"</span> : &#123;</span><br><span class="line"><span class="string">"name"</span> : <span class="string">"a"</span>,</span><br><span class="line"><span class="string">"age"</span> : <span class="number">30</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">db.test.find().pretty()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"_id"</span> : ObjectId(<span class="string">"5b72f9069b0b40898aab3903"</span>),</span><br><span class="line"><span class="string">"name"</span> : <span class="string">"test"</span>,</span><br><span class="line"><span class="string">"age"</span> : <span class="number">23</span>,</span><br><span class="line"><span class="string">"tags"</span> : [</span><br><span class="line"><span class="string">"mongodb"</span>,</span><br><span class="line"><span class="string">"database"</span>,</span><br><span class="line"><span class="string">"NoSQL"</span></span><br><span class="line">],</span><br><span class="line"><span class="string">"likes"</span> : &#123;</span><br><span class="line"><span class="string">"name"</span> : <span class="string">"a"</span>,</span><br><span class="line"><span class="string">"age"</span> : <span class="number">30</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"_id"</span> : ObjectId(<span class="string">"5b72fa959b0b40898aab3904"</span>),</span><br><span class="line"><span class="string">"name"</span> : <span class="string">"test2"</span>,</span><br><span class="line"><span class="string">"age"</span> : <span class="number">24</span>,</span><br><span class="line"><span class="string">"tags"</span> : [</span><br><span class="line"><span class="string">"mongodb"</span>,</span><br><span class="line"><span class="string">"database"</span>,</span><br><span class="line"><span class="string">"NoSQL"</span></span><br><span class="line">],</span><br><span class="line"><span class="string">"likes"</span> : &#123;</span><br><span class="line"><span class="string">"name"</span> : <span class="string">"b"</span>,</span><br><span class="line"><span class="string">"age"</span> : <span class="number">31</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>MongoDB AND 条件</p><p>MongoDB 的 find() 方法可以传入多个键(key)，每个键(key)以逗号隔开，即常规 SQL 的 AND 条件。</p><pre><code>db.test.find({key1:value1, key2:value2}).pretty()</code></pre><p>MongoDB OR 条件</p><p>MongoDB OR 条件语句使用了关键字 $or,语法格式如下</p><pre><code>db.col.find({$or: [{key1:value1}, {key2:value2}]}).pretty()</code></pre><p>MongoDB比较运算符</p><table><thead><tr><th>数据操作</th><th>格式</th><th>范例</th></tr></thead><tbody><tr><td>等于</td><td>{<code>&lt;key&gt;:&lt;value&gt;</code>}</td><td>db.test.find({“name”:”test”}).pretty()</td></tr><tr><td>小于</td><td>{<code>&lt;key&gt;:{$lt:&lt;value&gt;}</code>}</td><td>db.test.find({“age”:{$lt:20}}).pretty()</td></tr><tr><td>小于等于</td><td>{<code>&lt;key&gt;:{$lte:&lt;value&gt;}</code>}</td><td>db.test.find({“age”:{$lte:20}}).pretty()</td></tr><tr><td>大于</td><td>{<code>&lt;key&gt;:{$gt:&lt;value&gt;}</code>}</td><td>db.test.find({“age”:{$gt:20}}).pretty()</td></tr><tr><td>大于等于</td><td>{<code>&lt;key&gt;:{$gte:&lt;value&gt;}</code>}</td><td>db.test.find({“age”:{$gte:20}}).pretty()</td></tr><tr><td>不等于</td><td>{<code>&lt;key&gt;:{$ne:&lt;value&gt;}</code>}</td><td>db.test.find({“age”:{$ne:20}}).pretty()</td></tr></tbody></table><h3 id="改"><a href="#改" class="headerlink" title="改"></a>改</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">db.collection.update(</span><br><span class="line">   &lt;query&gt;,</span><br><span class="line">   &lt;update&gt;,</span><br><span class="line">   &#123;</span><br><span class="line">     upsert: &lt;boolean&gt;,</span><br><span class="line">     multi: &lt;boolean&gt;</span><br><span class="line">   &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure><ul><li>query : update的查询条件，同find操作里面的查询条件。</li><li>update : update的对象和一些更新的操作符（如$,$inc…）等，对于更新操作符可以查看<a href="https://docs.mongodb.com/manual/reference/operator/update/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/reference/operator/update/</a></li><li>upsert : 可选，这个参数的意思是，如果不存在update的记录，是否插入objNew,true为插入，默认是false，不插入。</li><li>multi : 可选，mongodb 默认是false,只更新找到的第一条记录，如果这个参数为true,就把按条件查出来多条记录全部更新。</li></ul><p>例如把上面插入一条记录name=”test”的age变为50</p><pre><code>db.test.update({&quot;name&quot;:&quot;test&quot;},{$set:{age:50}})db.test.findOne({&quot;name&quot;:&quot;test&quot;}){    &quot;_id&quot; : ObjectId(&quot;5b72f9069b0b40898aab3903&quot;),    &quot;name&quot; : &quot;test&quot;,    &quot;age&quot; : 50, // 原来是30    &quot;tags&quot; : [        &quot;mongodb&quot;,        &quot;database&quot;,        &quot;NoSQL&quot;    ],    &quot;likes&quot; : {        &quot;name&quot; : &quot;a&quot;,        &quot;age&quot; : 30    }}</code></pre><h4 id="删"><a href="#删" class="headerlink" title="删"></a>删</h4><pre><code>db.collection.remove(   &lt;query&gt;,   &lt;justOne&gt;)</code></pre><ul><li>query :（可选）删除的文档的条件。</li><li>justOne : （可选）如果设为 true 或 1，则只删除一个文档。</li></ul><p>删除掉上面name=”test”的记录</p><pre><code>db.test.remove({&quot;name&quot;:&quot;test&quot;})db.test.findOne({&quot;name&quot;:&quot;test&quot;})null</code></pre><h4 id="删除集合"><a href="#删除集合" class="headerlink" title="删除集合"></a>删除集合</h4><pre><code>db.collection.drop()</code></pre><p>删除集合后在show collections里面就看不到这个集合了。</p><h4 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h4><pre><code>db.dropDatabase()</code></pre><p>删除当前正在使用的数据库，删库需谨慎！！！删除以后在 show dbs里面就看不到了.</p><p>对于Nodejs来说，最为流行的库是<a href="mongoosejs.com">Mongoose</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;title: Mongodb数据库介绍&lt;br&gt;date: 2018-08-17 12:53:08&lt;br&gt;tags:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MongoDB&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;什么是MongoDB？&quot;&gt;&lt;a href=&quot;#什么是MongoDB？&quot; class=&quot;headerlink&quot; title=&quot;什么是MongoDB？&quot;&gt;&lt;/a&gt;什么是MongoDB？&lt;/h3&gt;&lt;p&gt;官网地址：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.mongodb.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.mongodb.com/
+&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;MongoDB 是由C++语言编写的编写的非关系型数据库，是一个基于分布式文件存储的开源数据库系统。&lt;/p&gt;
+&lt;p&gt;主要特点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MongoDB 是一个面向文档存储的数据库，操作起来比较简单和容易。&lt;/li&gt;
+&lt;li&gt;MongoDB使用了BSON存储数据和网络数据交换,BSON是一种类json的一种二进制形式的存储格式，简称Binary JSON，它和JSON一样，支持内嵌的文档对象和数组对象&lt;/li&gt;
+&lt;li&gt;可以在MongoDB记录中设置任何属性的索引 (如：FirstName=”Sameer”,Address=”8 Gandhi Road”)来实现更快的排序。&lt;/li&gt;
+&lt;li&gt;Mongo支持丰富的查询表达式。查询指令使用JSON形式的标记，可轻易查询文档中内嵌的对象及数组。&lt;/li&gt;
+&lt;li&gt;MongoDb 使用update()命令可以实现替换完成的文档（数据）或者一些指定的数据字段 。&lt;/li&gt;
+&lt;li&gt;GridFS是MongoDB中的一个内置功能，可以用于存放大量小文件。&lt;/li&gt;
+&lt;li&gt;MongoDB支持各种编程语言:Nodejs，RUBY，PYTHON，JAVA，C++，PHP，C#等多种语言。&lt;/li&gt;
+&lt;li&gt;MongoDB安装简单。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>JSON.stringify()注意事项</title>
+    <link href="http://jiangli373.github.io/2016/12/08/JSON.stringify()%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/"/>
+    <id>http://jiangli373.github.io/2016/12/08/JSON.stringify()注意事项/</id>
+    <published>2016-12-08T07:19:46.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>JSON.stringify() 方法可以将任意的 JavaScript 值序列化成 JSON 字符串</p><p>但是里面几点需要注意</p><p>关于序列化，有下面五点注意事项：</p><ul><li><p>非数组对象的属性不能保证以特定的顺序出现在序列化后的字符串中。</p></li><li><p>布尔值、数字、字符串的包装对象在序列化过程中会自动转换成对应的原始值。</p><a id="more"></a></li><li><p>undefined、任意的函数以及 symbol 值，在序列化过程中会被忽略（出现在非数组对象的属性值中时）或者被转换成 null（出现在数组中时）。</p></li><li><p>所有以 symbol 为属性键的属性都会被完全忽略掉，即便 replacer 参数中强制指定包含了它们。</p></li><li><p>不可枚举的属性会被忽略</p></li></ul><h3 id="toJSON-方法"><a href="#toJSON-方法" class="headerlink" title="toJSON 方法"></a>toJSON 方法</h3><p>如果一个被序列化的对象拥有 toJSON 方法，那么该 toJSON 方法就会覆盖该对象默认的序列化行为：不是那个对象被序列化，而是调用 toJSON 方法后的返回值会被序列化，例如：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">  foo: &apos;foo&apos;,</span><br><span class="line">  toJSON: function () &#123;</span><br><span class="line">    return &apos;bar&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">JSON.stringify(obj);      // &apos;&quot;bar&quot;&apos;</span><br><span class="line">JSON.stringify(&#123;x: obj&#125;); // &apos;&#123;&quot;x&quot;:&quot;bar&quot;&#125;&apos;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;JSON.stringify() 方法可以将任意的 JavaScript 值序列化成 JSON 字符串&lt;/p&gt;
+&lt;p&gt;但是里面几点需要注意&lt;/p&gt;
+&lt;p&gt;关于序列化，有下面五点注意事项：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;非数组对象的属性不能保证以特定的顺序出现在序列化后的字符串中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;布尔值、数字、字符串的包装对象在序列化过程中会自动转换成对应的原始值。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="javascript" scheme="http://jiangli373.github.io/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>gm图片处理</title>
+    <link href="http://jiangli373.github.io/2016/10/17/gm%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86/"/>
+    <id>http://jiangli373.github.io/2016/10/17/gm图片处理/</id>
+    <published>2016-10-17T06:15:31.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>项目中需要对上传的图片做下处理,比如把原图做一个缩略图,加水印等功能,我使用了gm模块</p><p>   模块地址:  <a href="http://aheckmann.github.io/gm/docs.html" target="_blank" rel="noopener">http://aheckmann.github.io/gm/docs.html</a></p><p>这个模块支持:</p><pre><code>GraphicsMagick and ImageMagick</code></pre><p>因为我机器上装的是ImageMagick,所以我用的是ImageMagick</p><p>使用方式:</p><pre><code>var gm = require(&apos;gm&apos;); var imageMagick = gm.subClass({ imageMagick: true });</code></pre><p>gm的文档写的比较清楚,需要什么命令查下项目地址,基本上都可以找到,不过上面的项目地址不是最新的,有些命令在文档上并没有找到,只能看下源码了<br><a id="more"></a><br>图片添加水印的命令就没有,所以做下记录</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 图片水印</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addImagWatermark</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> icon = <span class="string">'./logo-2.jpg'</span>; <span class="comment">//水印地址</span></span><br><span class="line">    <span class="keyword">var</span> DIRECTION = &#123;</span><br><span class="line">    NorthWest: <span class="string">'NorthWest'</span>,</span><br><span class="line">    North: <span class="string">'North'</span>,</span><br><span class="line">    NorthEast: <span class="string">'NorthEast'</span>,</span><br><span class="line">    West: <span class="string">'West'</span>,</span><br><span class="line">    Center: <span class="string">'Center'</span>,</span><br><span class="line">    East: <span class="string">'East'</span>,</span><br><span class="line">    SouthWest: <span class="string">'SouthWest'</span>,</span><br><span class="line">    South: <span class="string">'South'</span>,</span><br><span class="line">    SouthEast: <span class="string">'SouthEast'</span></span><br><span class="line">    &#125;;</span><br><span class="line"><span class="keyword">var</span> writecreateStream = fs.createWriteStream(orignimg);</span><br><span class="line">imageMagick(orignimg)</span><br><span class="line">.composite(icon)    <span class="comment">//水印</span></span><br><span class="line">.gravity(DIRECTION[<span class="string">'SouthEast'</span>]) <span class="comment">//水印位置</span></span><br><span class="line">.geometry(<span class="string">'+120+90'</span>) <span class="comment">//水印坐标,这里的意思是右下角为原点  距离右边120px 下边90px</span></span><br><span class="line">.dissolve(<span class="number">90</span>) <span class="comment">//透明度</span></span><br><span class="line">.stream().pipe(writecreateStream);</span><br><span class="line">writecreateStream.on(<span class="string">'finish'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'All writes are now finish.'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">writecreateStream.on(<span class="string">'close'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'All writes are now close.'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">writecreateStream.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.error(<span class="string">'write error'</span>, error);</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 文字水印</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addWordsWatermark</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">imageMagick(destimg)</span><br><span class="line">.gravity(DIRECTION[<span class="string">'SouthEast'</span>])  <span class="comment">//水印的位置</span></span><br><span class="line">.geometry(<span class="string">'+10+10'</span>) <span class="comment">//距离右下角右边10px下边10px</span></span><br><span class="line">.stroke(<span class="string">"gray"</span>)<span class="comment">//文字颜色</span></span><br><span class="line">.font(<span class="string">"font.ttf"</span>, <span class="number">20</span>) <span class="comment">//文字字体大小  这里的文字文件需要存在</span></span><br><span class="line">.drawText(<span class="number">15</span>, <span class="number">10</span>, <span class="string">"hello world"</span>) <span class="comment">//15和10是位置信息   最后一个参数是文字信息</span></span><br><span class="line">.write(destimg, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (err) &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">console</span>.error(<span class="string">'err--------'</span>, err);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Written composite image."</span>);</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 裁剪缩放图片</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resizeAndCropImag</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        imageMagick(orignImgPath)  <span class="comment">//图片源地址可以是stream或者path</span></span><br><span class="line">.gravity(DIRECTION[<span class="string">'Center'</span>])<span class="comment">//设置处理的原点,这里是以中心为原点</span></span><br><span class="line">.crop(<span class="number">150</span>, <span class="number">150</span>) <span class="comment">//裁剪大小</span></span><br><span class="line">.resize(<span class="number">50</span>, <span class="number">50</span>, <span class="string">'!'</span>)<span class="comment">//缩放大小 50*50 !强制缩放到50*50 不要按照比例</span></span><br><span class="line">.stream().pipe(writecreateStream);</span><br><span class="line">writecreateStream.on(<span class="string">'close'</span>, () =&gt; &#123;</span><br><span class="line">thumbnailsize.width = IMAGEMINSIZE;</span><br><span class="line">thumbnailsize.height = IMAGEMINSIZE;</span><br><span class="line"><span class="keyword">return</span> callback(<span class="literal">null</span>,thumbnailsize);</span><br><span class="line">&#125;);</span><br><span class="line">writecreateStream.on(<span class="string">'error'</span>, (error) =&gt; &#123;</span><br><span class="line"><span class="built_in">console</span>.error(<span class="string">'write error'</span>,error);</span><br><span class="line"><span class="keyword">return</span> callback(error);</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面是一些图片处理的实例</p><p>在开发的过程中也遇到了一个问题,这个问题以前也遇到过,就是一个图片在电脑上预览的时候是正常的,但是在app里面查看,发现旋转了90度,造成这个问题的原因是因为图片的exif里面的<br>orientation造成的。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">Format</span>: <span class="string">'JPEG (Joint Photographic Experts Group JFIF format)'</span>,</span><br><span class="line">  format: <span class="string">'JPEG'</span>,</span><br><span class="line">  <span class="string">'Mime type'</span>: <span class="string">'image/jpeg'</span>,</span><br><span class="line">  Class: <span class="string">'DirectClass'</span>,</span><br><span class="line">  Geometry: <span class="string">'1920x1080+0+0'</span>,</span><br><span class="line">  size: &#123; <span class="attr">width</span>: <span class="number">1920</span>, <span class="attr">height</span>: <span class="number">1080</span> &#125;,</span><br><span class="line">  Resolution: <span class="string">'72x72'</span>,</span><br><span class="line">  <span class="string">'Print size'</span>: <span class="string">'26.6667x15'</span>,</span><br><span class="line">  Units: <span class="string">'Undefined'</span>,</span><br><span class="line">  Type: <span class="string">'TrueColor'</span>,</span><br><span class="line">  Endianess: <span class="string">'Undefined'</span>,</span><br><span class="line">  Colorspace: <span class="string">'sRGB'</span>,</span><br><span class="line">  Depth: <span class="string">'8-bit'</span>,</span><br><span class="line">  depth: <span class="number">8</span>,</span><br><span class="line">  <span class="string">'Channel depth'</span>: &#123; <span class="attr">red</span>: <span class="string">'8-bit'</span>, <span class="attr">green</span>: <span class="string">'8-bit'</span>, <span class="attr">blue</span>: <span class="string">'8-bit'</span> &#125;,</span><br><span class="line">  <span class="string">'Channel statistics'</span>: </span><br><span class="line">   &#123; <span class="attr">Pixels</span>: <span class="string">'2073600'</span>,</span><br><span class="line">     Red: </span><br><span class="line">      &#123; <span class="attr">min</span>: <span class="string">'0 (0)'</span>,</span><br><span class="line">        max: <span class="string">'255 (1)'</span>,</span><br><span class="line">        mean: <span class="string">'59.4655 (0.233198)'</span>,</span><br><span class="line">        <span class="string">'standard deviation'</span>: <span class="string">'61.9419 (0.242909)'</span>,</span><br><span class="line">        kurtosis: <span class="string">'2.66796'</span>,</span><br><span class="line">        skewness: <span class="string">'1.83875'</span>,</span><br><span class="line">        entropy: <span class="string">'0.85667'</span> &#125;,</span><br><span class="line">     Green: </span><br><span class="line">      &#123; <span class="attr">min</span>: <span class="string">'1 (0.00392157)'</span>,</span><br><span class="line">        max: <span class="string">'255 (1)'</span>,</span><br><span class="line">        mean: <span class="string">'58.7454 (0.230374)'</span>,</span><br><span class="line">        <span class="string">'standard deviation'</span>: <span class="string">'58.8431 (0.230757)'</span>,</span><br><span class="line">        kurtosis: <span class="string">'3.55934'</span>,</span><br><span class="line">        skewness: <span class="string">'2.01144'</span>,</span><br><span class="line">        entropy: <span class="string">'0.859977'</span> &#125;,</span><br><span class="line">     Blue: </span><br><span class="line">      &#123; <span class="attr">min</span>: <span class="string">'0 (0)'</span>,</span><br><span class="line">        max: <span class="string">'255 (1)'</span>,</span><br><span class="line">        mean: <span class="string">'56.8535 (0.222955)'</span>,</span><br><span class="line">        <span class="string">'standard deviation'</span>: <span class="string">'57.2232 (0.224405)'</span>,</span><br><span class="line">        kurtosis: <span class="string">'3.98003'</span>,</span><br><span class="line">        skewness: <span class="string">'2.08816'</span>,</span><br><span class="line">        entropy: <span class="string">'0.85872'</span> &#125; &#125;,</span><br><span class="line">  <span class="string">'Image statistics'</span>: </span><br><span class="line">   &#123; <span class="attr">Overall</span>: </span><br><span class="line">      &#123; <span class="attr">min</span>: <span class="string">'0 (0)'</span>,</span><br><span class="line">        max: <span class="string">'255 (1)'</span>,</span><br><span class="line">        mean: <span class="string">'58.3548 (0.228842)'</span>,</span><br><span class="line">        <span class="string">'standard deviation'</span>: <span class="string">'59.3683 (0.232817)'</span>,</span><br><span class="line">        kurtosis: <span class="string">'3.36539'</span>,</span><br><span class="line">        skewness: <span class="string">'1.9756'</span>,</span><br><span class="line">        entropy: <span class="string">'0.858456'</span> &#125; &#125;,</span><br><span class="line">  <span class="string">'Rendering intent'</span>: <span class="string">'Perceptual'</span>,</span><br><span class="line">  Gamma: <span class="string">'0.454545'</span>,</span><br><span class="line">  Chromaticity: </span><br><span class="line">   &#123; <span class="string">'red primary'</span>: <span class="string">'(0.64,0.33)'</span>,</span><br><span class="line">     <span class="string">'green primary'</span>: <span class="string">'(0.3,0.6)'</span>,</span><br><span class="line">     <span class="string">'blue primary'</span>: <span class="string">'(0.15,0.06)'</span>,</span><br><span class="line">     <span class="string">'white point'</span>: <span class="string">'(0.3127,0.329)'</span> &#125;,</span><br><span class="line">  <span class="string">'Background color'</span>: <span class="string">'white'</span>,</span><br><span class="line">  <span class="string">'Border color'</span>: <span class="string">'srgb(223,223,223)'</span>,</span><br><span class="line">  <span class="string">'Matte color'</span>: <span class="string">'grey74'</span>,</span><br><span class="line">  <span class="string">'Transparent color'</span>: <span class="string">'black'</span>,</span><br><span class="line">  Interlace: <span class="string">'None'</span>,</span><br><span class="line">  Intensity: <span class="string">'Undefined'</span>,</span><br><span class="line">  Compose: <span class="string">'Over'</span>,</span><br><span class="line">  <span class="string">'Page geometry'</span>: <span class="string">'1920x1080+0+0'</span>,</span><br><span class="line">  Dispose: <span class="string">'Undefined'</span>,</span><br><span class="line">  Iterations: <span class="string">'0'</span>,</span><br><span class="line">  Compression: <span class="string">'JPEG'</span>,</span><br><span class="line">  Quality: <span class="string">'78'</span>,</span><br><span class="line">  Orientation: <span class="string">'RightTop'</span>,</span><br><span class="line">  Properties: </span><br><span class="line">   &#123; <span class="string">'date:create'</span>: <span class="string">'2016-10-17T10:09:47+08:00'</span>,</span><br><span class="line">     <span class="string">'date:modify'</span>: <span class="string">'2016-10-17T09:46:34+08:00'</span>,</span><br><span class="line">     <span class="string">'exif:ColorSpace'</span>: <span class="string">'1'</span>,</span><br><span class="line">     <span class="string">'exif:ExifImageLength'</span>: <span class="string">'1080'</span>,</span><br><span class="line">     <span class="string">'exif:ExifImageWidth'</span>: <span class="string">'1920'</span>,</span><br><span class="line">     <span class="string">'exif:ExifOffset'</span>: <span class="string">'38'</span>,</span><br><span class="line">     <span class="string">'exif:Orientation'</span>: <span class="string">'6'</span>,</span><br><span class="line">     <span class="string">'jpeg:colorspace'</span>: <span class="string">'2'</span>,</span><br><span class="line">     <span class="string">'jpeg:sampling-factor'</span>: <span class="string">'2x2,1x1,1x1'</span>,</span><br><span class="line">     signature: <span class="string">'5336e20b319346abfebb86749f6c6c27213324b226d11e63027d2db45a34c649'</span> &#125;,</span><br><span class="line">  Profiles: </span><br><span class="line">   &#123; <span class="string">'Profile-8bim'</span>: <span class="string">'40 bytes'</span>,</span><br><span class="line">     <span class="string">'Profile-exif'</span>: <span class="string">'86 bytes'</span>,</span><br><span class="line">     <span class="string">'Profile-iptc'</span>: <span class="string">'0 bytes'</span> &#125;,</span><br><span class="line">  Artifacts: </span><br><span class="line">   &#123; <span class="attr">filename</span>: <span class="string">'/data/dist/lib/57ea5e684c9fecec0001b381.png'</span>,</span><br><span class="line">     verbose: <span class="string">'true'</span> &#125;,</span><br><span class="line">  Tainted: <span class="string">'False'</span>,</span><br><span class="line">  Filesize: <span class="string">'161KB'</span>,</span><br><span class="line">  <span class="string">'Number pixels'</span>: <span class="string">'2.074M'</span>,</span><br><span class="line">  <span class="string">'Pixels per second'</span>: <span class="string">'691.2GB'</span>,</span><br><span class="line">  <span class="string">'User time'</span>: <span class="string">'0.000u'</span>,</span><br><span class="line">  <span class="string">'Elapsed time'</span>: <span class="string">'0:01.000'</span>,</span><br><span class="line">  Version: <span class="string">'ImageMagick 6.9.1-1 Q16 x86_64 2015-04-15 http://www.imagemagick.org'</span>,</span><br><span class="line">  path: <span class="string">'/data/dist/lib/57ea5e684c9fecec0001b381.png'</span> &#125;</span><br></pre></td></tr></table></figure><p>这里可以使用gm提供的autoOrient的方法来做下处理:</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   imageMagick(originPath).autoOrient().write(targetPath, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span>(err) <span class="keyword">return</span> callback(err);</span><br><span class="line"> callback(<span class="literal">null</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>这样子处理下,图片就可以正确显示了</p><p>看下autoOrient的方法:</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">proto</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> exifTransforms = &#123;</span><br><span class="line">      topleft:     <span class="string">''</span></span><br><span class="line">    , <span class="attr">topright</span>:    [<span class="string">'-flop'</span>]</span><br><span class="line">    , <span class="attr">bottomright</span>: [<span class="string">'-rotate'</span>, <span class="number">180</span>]</span><br><span class="line">    , <span class="attr">bottomleft</span>:  [<span class="string">'-flip'</span>]</span><br><span class="line">    , <span class="attr">lefttop</span>:     [<span class="string">'-flip'</span>, <span class="string">'-rotate'</span>, <span class="number">90</span>]</span><br><span class="line">    , <span class="attr">righttop</span>:    [<span class="string">'-rotate'</span>, <span class="number">90</span>]</span><br><span class="line">    , <span class="attr">rightbottom</span>: [<span class="string">'-flop'</span>, <span class="string">'-rotate'</span>, <span class="number">90</span>]</span><br><span class="line">    , <span class="attr">leftbottom</span>:  [<span class="string">'-rotate'</span>, <span class="number">270</span>]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  proto.autoOrient = <span class="function"><span class="keyword">function</span> <span class="title">autoOrient</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Always strip EXIF data since we can't</span></span><br><span class="line">    <span class="comment">// change/edit it.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// imagemagick has a native -auto-orient option</span></span><br><span class="line">    <span class="comment">// so does graphicsmagick, but in 1.3.18.</span></span><br><span class="line">    <span class="comment">// nativeAutoOrient option enables this if you know you have &gt;= 1.3.18</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._options.nativeAutoOrient || <span class="keyword">this</span>._options.imageMagick) &#123;</span><br><span class="line">      <span class="keyword">this</span>.out(<span class="string">'-auto-orient'</span>);</span><br><span class="line">      <span class="keyword">this</span>.strip();</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.preprocessor(<span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.orientation(&#123;<span class="attr">bufferStream</span>: <span class="literal">true</span>&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">err, orientation</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> callback(err);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> transforms = exifTransforms[orientation.toLowerCase()];</span><br><span class="line">        <span class="keyword">if</span> (transforms) &#123;</span><br><span class="line"></span><br><span class="line">          <span class="comment">// remove any existing transforms that might conflict</span></span><br><span class="line">          <span class="keyword">var</span> index = <span class="keyword">this</span>._out.indexOf(transforms[<span class="number">0</span>]);</span><br><span class="line">          <span class="keyword">if</span> (~index) &#123;</span><br><span class="line">            <span class="keyword">this</span>._out.splice(index, transforms.length);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="comment">// repage to fix coordinates</span></span><br><span class="line">          <span class="keyword">this</span>._out.unshift.apply(<span class="keyword">this</span>._out, transforms.concat(<span class="string">'-page'</span>, <span class="string">'+0+0'</span>));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.strip();</span><br><span class="line"></span><br><span class="line">        callback();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>大概可以看出来当等于RightTop的时候,会旋转90度,除了这种情况,剩下的几种会有其它的处理方式。</p><p>其它的参考:<br>    <a href="http://sylvana.net/jpegcrop/exif_orientation.html" target="_blank" rel="noopener">http://sylvana.net/jpegcrop/exif_orientation.html</a><br>    <a href="http://www.cnblogs.com/itlover2013/p/4553862.html" target="_blank" rel="noopener">http://www.cnblogs.com/itlover2013/p/4553862.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;项目中需要对上传的图片做下处理,比如把原图做一个缩略图,加水印等功能,我使用了gm模块&lt;/p&gt;
+&lt;p&gt;   模块地址:  &lt;a href=&quot;http://aheckmann.github.io/gm/docs.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://aheckmann.github.io/gm/docs.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这个模块支持:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;GraphicsMagick and ImageMagick
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;因为我机器上装的是ImageMagick,所以我用的是ImageMagick&lt;/p&gt;
+&lt;p&gt;使用方式:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var gm = require(&amp;apos;gm&amp;apos;); 
+var imageMagick = gm.subClass({ imageMagick: true });
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;gm的文档写的比较清楚,需要什么命令查下项目地址,基本上都可以找到,不过上面的项目地址不是最新的,有些命令在文档上并没有找到,只能看下源码了&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="nodejs" scheme="http://jiangli373.github.io/tags/nodejs/"/>
+    
+      <category term="gm" scheme="http://jiangli373.github.io/tags/gm/"/>
+    
+      <category term="imageMagick" scheme="http://jiangli373.github.io/tags/imageMagick/"/>
+    
+      <category term="图片旋转90度" scheme="http://jiangli373.github.io/tags/%E5%9B%BE%E7%89%87%E6%97%8B%E8%BD%AC90%E5%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>express设置跨域</title>
+    <link href="http://jiangli373.github.io/2016/08/30/express%E8%AE%BE%E7%BD%AE%E8%B7%A8%E5%9F%9F/"/>
+    <id>http://jiangli373.github.io/2016/08/30/express设置跨域/</id>
+    <published>2016-08-30T05:46:09.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天碰到一个问题,服务器需要开启跨域,给浏览器提供接口,网上搜索了下,有了如下方案:</p><p>项目使用的是express来做的,具体代码如下:</p><pre><code>app.all(&apos;*&apos;,function (req, res, next) {    res.header(&apos;Access-Control-Allow-Origin&apos;, &apos;*&apos;);    res.header(&apos;Access-Control-Allow-Headers&apos;, &apos;Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild&apos;);    res.header(&apos;Access-Control-Allow-Methods&apos;, &apos;PUT, POST, GET, DELETE, OPTIONS&apos;);    if (req.method == &apos;OPTIONS&apos;) {        res.send(200); /让options请求快速返回/    }    else {        next();    }});</code></pre><p>将上述代码放在路由处理以前,这样就可以了。</p><p>对于浏览器来说,当请求的接口的地址与当前页面的地址不一样的话,就会产生跨域的问题,当请求的时候,会先发一个options请求,如果这个请求通过了,再执行真正的请求</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天碰到一个问题,服务器需要开启跨域,给浏览器提供接口,网上搜索了下,有了如下方案:&lt;/p&gt;
+&lt;p&gt;项目使用的是express来做的,具体代码如下:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;app.all(&amp;apos;*&amp;apos;,function (req, res, next)
+      
+    
+    </summary>
+    
+    
+      <category term="express" scheme="http://jiangli373.github.io/tags/express/"/>
+    
+      <category term="跨域" scheme="http://jiangli373.github.io/tags/%E8%B7%A8%E5%9F%9F/"/>
+    
+      <category term="nodejs" scheme="http://jiangli373.github.io/tags/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>支付宝开发问题记录</title>
+    <link href="http://jiangli373.github.io/2016/08/26/%E6%94%AF%E4%BB%98%E5%AE%9D%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    <id>http://jiangli373.github.io/2016/08/26/支付宝开发问题记录/</id>
+    <published>2016-08-26T03:13:04.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>项目中要有支付功能,所以就用到了支付宝支付,然后查看它的文档,已经迷在里面了</p><p>我要用到即使到账,手机网站支付,快捷登录</p><p>文档地址:</p><p><a href="https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.fV5JA2&amp;treeId=193&amp;articleId=105333&amp;docType=1" target="_blank" rel="noopener">https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.fV5JA2&amp;treeId=193&amp;articleId=105333&amp;docType=1</a></p><p>我用的是历史接口 有相应的demo</p><a id="more"></a><p>需要注意的是,历史接口需要用到是的合作伙伴密钥,如下图所示:</p><p><img src="/img/LB1TpuAKXXXXXaMXVXXXXXXXXXX.png" alt=""></p><p>现在支付宝开发者平台用的新的接口,需要使用开发平台密钥:</p><p><img src="/img/WechatIMG3.jpeg" alt=""></p><p>具体的关于新的接口使用已经开发平台介绍可以看下:</p><p><a href="https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.Meh5T3&amp;treeId=200&amp;articleId=105304&amp;docType=1" target="_blank" rel="noopener">https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.Meh5T3&amp;treeId=200&amp;articleId=105304&amp;docType=1</a></p><p>因为我用的历史接口,所以这里具体的流程也不清楚。</p><p>开发的时候用到哪个服务就需要进行签约。</p><p>好像是有两种方式签约,一种是自助式签约,一种是人工签约。</p><p>下面这个地址是服务列表</p><p><a href="https://b.alipay.com/order/productSet.htm" target="_blank" rel="noopener">https://b.alipay.com/order/productSet.htm</a></p><p>从这个列表进去,进行签约,具体的签约流程比较简单,可以参考如下的地址</p><p><a href="https://cshall.alipay.com/support/help_detail.htm?help_id=396831" target="_blank" rel="noopener">https://cshall.alipay.com/support/help_detail.htm?help_id=396831</a></p><p>这个应该是自助式签约,比较方便。</p><p>另外一个地址</p><p><a href="https://b.alipay.com/signing/productSet.htm" target="_blank" rel="noopener">https://b.alipay.com/signing/productSet.htm</a></p><p>这个也是服务的列表,从这个列表进去进行签约就比较蛋疼了</p><p>操作步骤如下:</p><p>1.</p><p><img src="/img/QQ20160826-0.png" alt=""></p><p>2.点击’立即签约’到下一步:</p><p><img src="/img/QQ20160826-1.png" alt=""></p><p>3.如果已经实名认证了,点击填写到下一步:</p><p><img src="/img/QQ20160826-2.png" alt=""></p><p>4.这个页面就比较头痛了,需要上传一个网络文化经营许可证,这个证貌似特别难办,我们公司至今没有办下来,所以下面的步骤我也没有办法演示了。</p><p>所以从上面来看,自助式签约很方便,不用上传这个网络文化经营许可证,不知道是不是支付宝忘记了,还是怎么回事。不保证后面支付宝升级,自助式签约也需要上传这个证了。</p><p>上面差不多就是使用支付宝支付需要做的准备工作了,下面开发就比较好弄了,支付宝提供了一些服务的demo,只不过只有java,php,.net版本的,因为我用的是nodejs,没办法直接使用,网上搜索了下nodejs版本</p><p><a href="https://github.com/lodengo/alipay" target="_blank" rel="noopener">https://github.com/lodengo/alipay</a></p><p>这个项目已经最后一次更新已经是两年前了，然后运行的时候有问题，后来就在他的基础参考支付宝提供的最新版的php版本提炼出来的，修改了一些bug</p><p>自己做了一个demo</p><p>地址:</p><p><a href="https://github.com/jiangli373/AlipaySdk" target="_blank" rel="noopener">https://github.com/jiangli373/AlipaySdk</a></p><p>项目的名字应该叫做AlipayDemo,当时想做成sdk,谁知最后做成了一个demo</p><p>目前集成了</p><p>1.即时到帐的接口</p><p>2.支付宝快捷登录</p><p>3.支付宝手机支付</p><p>接入即时到帐需要先在支付宝进行签约，签约成功以后才能使用这个接口</p><p>即时到账文档说明：<a href="https://doc.open.alipay.com/doc2/detail.htm?spm=a219a.7629140.0.0.6fcylX&amp;treeId=62&amp;articleId=104743&amp;docType=1" target="_blank" rel="noopener">https://doc.open.alipay.com/doc2/detail.htm?spm=a219a.7629140.0.0.6fcylX&amp;treeId=62&amp;articleId=104743&amp;docType=1</a></p><p>运行步骤：</p><p>1.git clone <a href="https://github.com/jiangli373/AlipaySdk" target="_blank" rel="noopener">https://github.com/jiangli373/AlipaySdk</a></p><p>2.npm install </p><p>3.cp alipay_config.default.js alipay_config.js</p><p>4.修改alipay_config.js 添加相关信息：</p><pre><code>var config = {    partner:&apos;&apos; //合作身份者id，以2088开头的16位纯数字    ,key:&apos;&apos;//安全检验码，以数字和字母组成的32位字符    ,seller_email:&apos;&apos; //卖家支付宝帐户 必填    ,host:&apos;http://localhost:3000/&apos;    ,cacert:&apos;cacert.pem&apos;//ca证书路径地址，用于curl中ssl校验    ,transport:&apos;http&apos; //访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http    ,input_charset:&apos;utf-8&apos;//字符编码格式 目前支持 gbk 或 utf-8    ,is_anti_phishing_key:false //是否防止钓鱼  登录使用   如果已申请开通防钓鱼时间戳验证，这里需要设置为true};</code></pre><p>项目说明：</p><p>app.js 中 require(‘./useAlipay’).route(app); # 设置了支付宝通知路由</p><p>useAlipay.js包装了下Alipay对象，可以在工程中调用   </p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;项目中要有支付功能,所以就用到了支付宝支付,然后查看它的文档,已经迷在里面了&lt;/p&gt;
+&lt;p&gt;我要用到即使到账,手机网站支付,快捷登录&lt;/p&gt;
+&lt;p&gt;文档地址:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.fV5JA2&amp;amp;treeId=193&amp;amp;articleId=105333&amp;amp;docType=1&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.fV5JA2&amp;amp;treeId=193&amp;amp;articleId=105333&amp;amp;docType=1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;我用的是历史接口 有相应的demo&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="nodejs" scheme="http://jiangli373.github.io/tags/nodejs/"/>
+    
+      <category term="alipay" scheme="http://jiangli373.github.io/tags/alipay/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mongodb备忘</title>
+    <link href="http://jiangli373.github.io/2016/08/24/mongodb%E5%A4%87%E5%BF%98/"/>
+    <id>http://jiangli373.github.io/2016/08/24/mongodb备忘/</id>
+    <published>2016-08-24T07:41:08.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>要把工程从一个服务器迁移到另外一个服务器,因为这个工程使用的数据库是monogdb,所以刚才又重新安装了一边mongodb</p><p>1.安装</p><p>官方安装地址: <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="noopener">https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/</a></p><p>按照他提供的方案步骤来,前两步没有问题,到第三步,</p><pre><code>sudo apt-get update</code></pre><p>最后显示,更新失败,试了好多次,都失败,突然想到很早以前装的时候也是这个问题</p><pre><code>https://github.com/alibaba/mirrors/issues/34</code></pre><a id="more"></a><p>搜索了下,可以使用清华大学的镜像源</p><pre><code>https://mirror.tuna.tsinghua.edu.cn/help/mongodb/</code></pre><p>按照上面的步骤,正常安装成功了。</p><ol start="2"><li>配置</li></ol><p>mongodb默认的数据库地址是</p><p>   The MongoDB instance stores its data files in /var/lib/mongodb and its log files in /var/log/mongodb by default</p><p>我后来启动的时候,默认的数据库地址是/data/db</p><p>擦,我不想使用它默认的地址,我要自己定义,配置文件/etc/mongod.conf</p><p>修改这个配置里面的</p><pre><code>storage.dbPath: /data/mongodb/dbsystemLog.path:/data/mongodb/log/mongod.log</code></pre><p>重新启动,并没有什么卵用,我用的是</p><pre><code>sudo service monogd start</code></pre><p>除非是</p><pre><code>mongod --confg /etc/mongod.conf</code></pre><p>需要手动指定配置文件才行</p><p>这下就尴尬了,我想用</p><pre><code>sudo service monogd startsudo service monogd stopsudo service monogd restart</code></pre><p>这种方式来管理mongodb的运行</p><p>所以自己写了下脚本</p><p>在/etc/init.d/ 创建一个文件 mongodb</p><pre><code>#!/bin/bash. /lib/lsb/init-functionsPROGRAM=/usr/bin/mongodMONGOPID=`ps -ef | grep &apos;mongod&apos; | grep -v grep | awk &apos;{print $2}&apos;`RETVAL=0start() {     echo -n &quot;Starting mongodb &quot;     ulimit -n 3000     $PROGRAM --fork --config /etc/mongod.conf     RETVAL=$?     echo &quot;$PROGRAM.&quot;}stop() {      echo -n &quot;Stopping mongodb &quot;     if [ ! -z &quot;$MONGOPID&quot; ]; then        kill -15 $MONGOPID        RETVAL=$?     fi}case &quot;$1&quot; in    start)      start  ;;    stop)      stop  ;;    restart)      stop      start  ;;    *)      echo &quot;Usage: monogodb {start|stop|restart}&quot;      exit 1  ;;esacexit $RETVAL</code></pre><p>上面的基本上就是套路, PROGRAM指定monogd的地址,下面就是mongodb的启动,关闭</p><pre><code>sudo chmod +x /etc/init.d/mongodb</code></pre><p>然后就可以使用     </p><pre><code>sudo service monogdb startsudo service monogdb stopsudo service monogdb restart</code></pre><p>3.数据库的备份和恢复</p><p>   3.1备份</p><pre><code>mongodump -d my_mongodb</code></pre><p>   -d 数据库的名字</p><p>   3.2恢复</p><pre><code>mongorestore -d my_mongodb  my_mongodb_dump/*</code></pre><p>   -d 数据库的名字  最后是数据的位置</p><p>   参考文章:<a href="http://blog.csdn.net/liuzhoulong/article/details/6849978" target="_blank" rel="noopener">http://blog.csdn.net/liuzhoulong/article/details/6849978</a></p><p>4.其它一些问题:</p><p>当安装完mongodb以后,打开mongodb的控制台</p><pre><code>mongo</code></pre><p>显示如下的报错:</p><pre><code>Failed global initialization: BadValue: Invalid or no user locale set. Please ensure LANG and/or LC_* environment variables are set correctly.</code></pre><p>解决方案:</p><pre><code>export LC_ALL=C   </code></pre><p>把 export LC_ALL=C 添加到 ~/.bashrc 文件中 //对当前用户长久有效</p><p>两个服务器之间拷贝文件:</p><p>例如:A服务器 在/home/jiangli/ 下有一个data文件夹  需要把这个文件夹拷贝到B服务器的/home/jiangli目录下 使用scp命令</p><pre><code>scp -r data/ xxxxx@www.xxx.com:/home/jiangli/</code></pre><p>然后输入B服务器上的xxxxx这个用户的密码即可</p><p> scp命令参考:<a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html" target="_blank" rel="noopener">http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;要把工程从一个服务器迁移到另外一个服务器,因为这个工程使用的数据库是monogdb,所以刚才又重新安装了一边mongodb&lt;/p&gt;
+&lt;p&gt;1.安装&lt;/p&gt;
+&lt;p&gt;官方安装地址: &lt;a href=&quot;https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;按照他提供的方案步骤来,前两步没有问题,到第三步,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get update
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;最后显示,更新失败,试了好多次,都失败,突然想到很早以前装的时候也是这个问题&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;https://github.com/alibaba/mirrors/issues/34
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="mongodb" scheme="http://jiangli373.github.io/tags/mongodb/"/>
+    
+      <category term="ubuntu" scheme="http://jiangli373.github.io/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一种必须关注公众号才能参加活动的方案介绍</title>
+    <link href="http://jiangli373.github.io/2016/08/23/%E4%B8%80%E7%A7%8D%E5%BF%85%E9%A1%BB%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E6%89%8D%E8%83%BD%E5%8F%82%E5%8A%A0%E6%B4%BB%E5%8A%A8%E7%9A%84%E6%96%B9%E6%A1%88%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://jiangli373.github.io/2016/08/23/一种必须关注公众号才能参加活动的方案介绍/</id>
+    <published>2016-08-23T06:16:44.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>到现在公司的微信公众号已经做了大概4个活动了吧以此来吸引粉丝,为了拉来更多的粉丝,领导要求参加活动的用户必须关注我们的公众号才行</p><p>研究了下微信公众平台提供的文档,没有提供相应的接口来判断用户是否关注了公众号</p><p>我们的公众号类型是订阅号,所以不具有使用微信登录接口的功能,所以借助微信提供的接口来实现这个功能的方案行不通了。</p><a id="more"></a><p>经过一番研究,实现了一个方案,目前看来效果还是可以的,下面简单介绍下</p><p>使用微信的开发者模式,自己的后台把微信的消息接收过来</p><p>步骤:</p><p>1.用户在微信公众号回复关键字,比如:’活动’,或者点击菜单’参加活动’</p><p>2.自己的后台收到用户发来的消息 后台可以获得用户的openid,这个openid就是我们整个方案的关键</p><p>这个openid对于一个公众号来说是唯一的,我们用这个openid来判断用户,如果以前没有记录过这个用户opendid,</p><p>就在数据库里面插入一条记录,如果有的话,就返回</p><p>3.经过步骤2的操作,我记录下来了用户的opendid,然后需要给你用户一个反馈</p><p>  因为我用的是nodejs,我用的是wechat这个模块</p><p>  项目地址: <a href="https://github.com/node-webot/wechat" target="_blank" rel="noopener">https://github.com/node-webot/wechat</a></p><p>  返回客户端消息:</p><pre><code>res.reply([      {          title: &apos;参加活动&apos;,          description: &apos;参加活动&apos;,          picurl: &apos;http://www.xxx.com/image.png&apos;,          url: &apos;http://www.xxx.com/cacheIndex?openid=&apos; + openid      }]);  </code></pre><p>  上面的返回结果中的url是返回给用户后,用户点击后跳转的页面</p><p>  这里我们定义的这个地址后面的定义了一个参数,openid就是这个用户的在微信对于我们这个公众号的里面的唯一id</p><p>  当然这里你可以不实用opendid,你可以使用自己逻辑中的唯一id,只要能确定用户的唯一性即可,例如userid</p><p>4.当用户点击公众号返回的消息,比如  <a href="http://www.xxx.com/cacheIndex?openid=xxxxxx" target="_blank" rel="noopener">http://www.xxx.com/cacheIndex?openid=xxxxxx</a></p><p>  我们的工程处理这个响应:</p><pre><code>exports.cacheIndex = function(req, res, next){  var openid = req.query.openid;  var shareid = &apos;&apos;;   if(openid){  //todo 判断opendid是否正确 如果正确的话,将openid 种再浏览器的cookie里面去      res.cookie(&apos;openid&apos;, openid,          {path: &apos;/&apos;, maxAge: 1000 * 60 * 60 * 24 * 365, signed: true, httpOnly: true}); //cookie 有效期30天  }  var cookie_shareid = req.cookies.shareid;   if(!!cookie_shareid){      //todo 到分享页面上去  }else{      res.redirect(&apos;personal&apos;); //到我的页面上去  }}  </code></pre><p>  上面代码是处理这个响应的,主要就是获取到openid,然后判断openid的值是不是正确的,如果正确,把opendid种在浏览器的cookie里面去</p><p>  因为我们的活动主要是为了拉粉丝,一个人参与过后,需要分享给别人,让别人帮助他,他才能获取更高的积分或者奖励</p><p>  所以当一个没有关注过我们公众号的用户访问别人分享的页面,他这时是没有办法参加的,所以js记录下这个分享页面的id,然后在他重复上面的步骤</p><p>  参与活动的时候,在这个方法里面,判断cookie里面是否有分享页面的id,如果有的话,验证完opendi后,会直接跳转到用户刚才访问的分享页面上去</p><p>  到此,一个必须关注公众号才能参加活动的流程已经完成,下面就是用户关注以后,参与活动的逻辑了,和本文没有关系了</p><p>  这种方案的缺点是用户必须在微信公众号里面回复关键字,或者点击菜单,才能实现。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;到现在公司的微信公众号已经做了大概4个活动了吧以此来吸引粉丝,为了拉来更多的粉丝,领导要求参加活动的用户必须关注我们的公众号才行&lt;/p&gt;
+&lt;p&gt;研究了下微信公众平台提供的文档,没有提供相应的接口来判断用户是否关注了公众号&lt;/p&gt;
+&lt;p&gt;我们的公众号类型是订阅号,所以不具有使用微信登录接口的功能,所以借助微信提供的接口来实现这个功能的方案行不通了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="nodejs" scheme="http://jiangli373.github.io/tags/nodejs/"/>
+    
+      <category term="微信" scheme="http://jiangli373.github.io/tags/%E5%BE%AE%E4%BF%A1/"/>
+    
+      <category term="关注公众号" scheme="http://jiangli373.github.io/tags/%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7/"/>
+    
+      <category term="wechat" scheme="http://jiangli373.github.io/tags/wechat/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>react-native flexbox备忘</title>
+    <link href="http://jiangli373.github.io/2016/07/18/react-native%E7%9A%84flexbox%E5%A4%87%E5%BF%98/"/>
+    <id>http://jiangli373.github.io/2016/07/18/react-native的flexbox备忘/</id>
+    <published>2016-07-18T05:31:09.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>前段时间尝试react-native，然后布局用的基本上都是flex</p><p>这里做下备忘</p><a id="more"></a><p>flex的flexDirection 主轴方向  默认是column</p><p>alignItems指向的是主轴的方向 的对齐方式</p><p>如果flex的</p><pre><code>flexDirection:&apos;column&apos;alignItems      垂直方向的对其方式justifyContent  水平方向的对其方式</code></pre><p>如果flex的</p><pre><code>flexDirection:&apos;row&apos;alignItems      水平方向的对其方式justifyContent  垂直方向的对其方式</code></pre><p>附一个flexDirection的参考值</p><p><img src="/img/BBFEA04D-B420-4727-A403-CD2591AAED01.png" alt=""></p><p>参考文章：<a href="https://segmentfault.com/a/1190000002658374" target="_blank" rel="noopener">https://segmentfault.com/a/1190000002658374</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间尝试react-native，然后布局用的基本上都是flex&lt;/p&gt;
+&lt;p&gt;这里做下备忘&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="flex" scheme="http://jiangli373.github.io/tags/flex/"/>
+    
+      <category term="react-native" scheme="http://jiangli373.github.io/tags/react-native/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>webpack jquery + jquery-ui</title>
+    <link href="http://jiangli373.github.io/2015/09/16/webpack-jquery-jquery-ui/"/>
+    <id>http://jiangli373.github.io/2015/09/16/webpack-jquery-jquery-ui/</id>
+    <published>2015-09-16T01:47:00.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考文章:</p><p>   <a href="http://webpack.github.io/docs/usage-with-bower.html" target="_blank" rel="noopener">http://webpack.github.io/docs/usage-with-bower.html</a></p><p>   <a href="https://github.com/webpack/webpack-with-common-libs" target="_blank" rel="noopener">https://github.com/webpack/webpack-with-common-libs</a></p><p>基于项目：</p><p>  <a href="https://github.com/MarshalW/react-proto/tree/m5.4" target="_blank" rel="noopener">https://github.com/MarshalW/react-proto/tree/m5.4</a></p><p>  改项目中要用到jquery + jquery-ui，以前的方式是</p><p>  1.使用bower install安装所需的库，主要是jQuery和jQuery UI</p><p>  2.将jQuery UI等库全局的方式加入到html页面上，类似这样：</p><a id="more"></a><pre><code>&lt;head&gt;  &lt;title&gt;react原型&lt;/title&gt;  &lt;!-- jquery --&gt;  &lt;script type=&quot;text/javascript&quot; src=&quot;/bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;  &lt;!-- jquery-ui --&gt;  &lt;script type=&quot;text/javascript&quot; src=&quot;/bower_components/jquery-ui/jquery-ui.min.js&quot;&gt;&lt;/script&gt;  &lt;link rel=&quot;stylesheet&quot; href=&quot;/bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css&quot;&gt;  &lt;!-- bootstrap --&gt;  &lt;link rel=&quot;stylesheet&quot; href=&quot;/bower_components/bootstrap/dist/css/bootstrap.min.css&quot;&gt;  &lt;link rel=&quot;stylesheet&quot; href=&quot;/bower_components/bootstrap/dist/css/bootstrap-theme.min.css&quot;&gt;  &lt;script src=&quot;/bower_components/bootstrap/dist/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;    &lt;/head&gt;</code></pre><p>  缺点是，hot-load方式调试的时候，每做一次改动，浏览器重新加载的速度较慢，要好几秒钟</p><p>  webpack提供了使用bower的方式：</p><p>  webpack.config.js 加入如下配置：</p><pre><code>module.exports = {  devtool: &apos;eval&apos;,  entry: [    &apos;webpack-dev-server/client?http://localhost:3000&apos;,    &apos;webpack/hot/only-dev-server&apos;,    &apos;./scripts/index&apos;  ],  output: {    path: path.join(__dirname, &apos;build&apos;),    filename: &apos;bundle.js&apos;,    publicPath: &apos;/static/&apos;  },  plugins: [    new webpack.HotModuleReplacementPlugin(),    new webpack.NoErrorsPlugin(),    new webpack.ResolverPlugin(        new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(&quot;bower.json&quot;, [&quot;main&quot;])    ),    new webpack.ProvidePlugin({      jQuery: &quot;jquery&quot;,      $: &quot;jquery&quot;    })  ],  resolve: {     extensions: [&apos;&apos;, &apos;.js&apos;, &apos;.jsx&apos;],      root: [path.join(__dirname, &quot;bower_components&quot;)],    alias: {        &quot;jquery&quot;: &quot;jquery&quot;,        &quot;jquery-ui&quot;: &quot;jquery-ui/jquery-ui.js&quot;,    }  },  module: {    loaders: [{        test: /\.jsx?$/,        loaders: [&apos;react-hot&apos;, &apos;babel&apos;],        include: path.join(__dirname, &apos;scripts&apos;)      },      {        test:/\.css$/,        loader:&apos;style!css&apos;      }      // TODO 加入正确的css loader配置    ]  }};</code></pre><ul><li><p>让webpack查找bower_components folder</p><pre><code> resolve: {   root: [path.join(__dirname, &quot;bower_components&quot;)]}, </code></pre></li><li><p>让webpack使用bower.json中的main字段</p><p>  plugins: [</p><pre><code>    new webpack.ResolverPlugin(        new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(&quot;bower.json&quot;, [&quot;main&quot;])    )]</code></pre><p>tips：不过这个文档中说，优先通过npm安装所需要的库</p><h2 id="Prefer-modules-from-npm-over-bower"><a href="#Prefer-modules-from-npm-over-bower" class="headerlink" title="Prefer modules from npm over bower"></a>Prefer modules from npm over bower</h2><p>In many cases modules from npm are better than the same module from bower. Bower mostly contain only concatenated/bundled files which are:</p><p>1.More difficult to handle for webpack</p><p>2.More difficult to optimize for webpack</p><p>3.Sometimes only useable without a module system</p><p>4.So prefer to use the CommonJs-style module and let webpack build it.</p></li></ul><ul><li><p>全局声明jQuery，这样可以在项目中直接用$或者jQuery</p><pre><code>new webpack.ProvidePlugin({     jQuery: &quot;jquery&quot;,     $: &quot;jquery&quot;})</code></pre></li><li><p>给JQuery-ui起别名：</p></li></ul><pre><code>alias: {         &quot;jquery&quot;: &quot;jquery&quot;,         &quot;jquery-ui&quot;: &quot;jquery-ui/jquery-ui.js&quot;,}</code></pre><p>   这里需要注意的地方是<em>jquery-ui/jquery-ui.js</em>，需要指定到具体要执行的某个文件。</p><p>   以上是webpack的配置文件，项目中的某个js文件要用到jquery-ui，可以这样子写：</p><pre><code>import &apos;jquery-ui&apos;;   //引入jquery-ui$(&apos;#canvas&apos;).draggable();   //使某个元素可以拖动</code></pre><p>   以上就是webpack中使用jQuery+jQuery-ui的方法.</p><p>   补充：</p><p>   上面的方式只是加载js文件，所需要的样式还是需要手动去加载下的</p><p>   例如：</p><pre><code>require(&quot;jquery-ui/themes/base/jquery-ui.css&quot;);  </code></pre><p>   加载相应的css文件。</p><p>   这里还有一个问题，因为这些样式里面有图片，需要一个图片加载模块来实现</p><p>   <a href="https://www.npmjs.com/package/image-webpack-loader" target="_blank" rel="noopener">https://www.npmjs.com/package/image-webpack-loader</a></p><p>   这里我用的是image-webpack-loader这个模块。</p><pre><code>loaders: [    {        test: /\.(jpe?g|png|gif|svg)$/i,        loaders: [            &apos;file?hash=sha512&amp;digest=hex&amp;name=[hash].[ext]&apos;,            &apos;image-webpack?bypassOnDebug&amp;optimizationLevel=7&amp;interlaced=false&apos;        ]    }]</code></pre><p>   然后再编译下，访问页面，就会在页面上看到<style></style>样式。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;参考文章:&lt;/p&gt;
+&lt;p&gt;   &lt;a href=&quot;http://webpack.github.io/docs/usage-with-bower.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://webpack.github.io/docs/usage-with-bower.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;   &lt;a href=&quot;https://github.com/webpack/webpack-with-common-libs&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/webpack/webpack-with-common-libs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;基于项目：&lt;/p&gt;
+&lt;p&gt;  &lt;a href=&quot;https://github.com/MarshalW/react-proto/tree/m5.4&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/MarshalW/react-proto/tree/m5.4&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;  改项目中要用到jquery + jquery-ui，以前的方式是&lt;/p&gt;
+&lt;p&gt;  1.使用bower install安装所需的库，主要是jQuery和jQuery UI&lt;/p&gt;
+&lt;p&gt;  2.将jQuery UI等库全局的方式加入到html页面上，类似这样：&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>使用nodejs解析优酷，奇艺视频源地址</title>
+    <link href="http://jiangli373.github.io/2015/03/17/%E4%BD%BF%E7%94%A8nodejs%E8%A7%A3%E6%9E%90%E4%BC%98%E9%85%B7%EF%BC%8C%E5%A5%87%E8%89%BA%E8%A7%86%E9%A2%91%E6%BA%90%E5%9C%B0%E5%9D%80/"/>
+    <id>http://jiangli373.github.io/2015/03/17/使用nodejs解析优酷，奇艺视频源地址/</id>
+    <published>2015-03-17T08:51:40.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://github.com/jiangli373/nodeParseVideo" target="_blank" rel="noopener">项目地址</a></p><p>这个项目通过一个优酷或者爱奇艺的视频地址，最终可以得到视频的下载地址</p><p>这个项目的想法是来源：<a href="https://github.com/keygle/parseVideo" target="_blank" rel="noopener">https://github.com/keygle/parseVideo</a></p><p>因为自己要用到优酷和奇艺，所以就测试了这两个，测试结果是优酷的可以使用，爱奇艺的已经失效。</p><p>经过研究爱奇艺的视频页面的http请求，以及反编译视频播放器，找到它的下载地址，自己做了一个pr，现在该项目作者已经merge了。</p><a id="more"></a><p>这是一个php工程，所以自己用node把这个工程里面解析优酷和爱奇艺的方法重写了下</p><p>说明：</p><pre><code>var video = require(&apos;./index&apos;);video(&apos;http://www.iqiyi.com/v_19rrnbyreg.html&apos;,&apos;MP4&apos;,function(err,data){    console.log(data);});</code></pre><p>第一个参数是视频地址（必填），第二参数是返回的视频格式（选填，只针对爱奇艺），第三个参数回掉函数（必填）</p><p>最终取到的爱奇艺的flv格式地址如下：</p><pre><code>http://data.video.qiyi.com/f3060e76a71fedac773d327734e723f2/videos/v0/20141023/7b/b5/96c5fa7650168e97c445f976b0b5b68f.f4v?ran=1000&amp;qyid=08ca8cb480c0384cb5d3db068161f44f&amp;qypid=321778500_11&amp;retry=1</code></pre><p>是这样的，下载地址需要请求上面这个地址得到：</p><pre><code>{    &quot;t&quot;: &quot;CT|ShangHai-101.81.48.14&quot;,    &quot;s&quot;: &quot;1&quot;,    &quot;z&quot;: &quot;hengyang3_ct&quot;,    &quot;h&quot;: &quot;0&quot;,    &quot;l&quot;: &quot;http://220.170.79.37/videos/v0/20141221/38/e6/4be4e1cad4374d3447be144397366ff8.f4v?key=8f5bdcd17a8765c&amp;ran=1000&amp;qyid=08ca8cb480c0384cb5d3db068161f44f&amp;qypid=335764500_11&amp;retry=1&amp;uuid=6551300e-5497c256-36&quot;,    &quot;e&quot;: &quot;0&quot;}</code></pre><p>返回结果中的l是真正的下载地址，而这个地址失效时间非常短，故返回的是上面的地址，如果最终取到的下载地址失效，再次请求返回的这个地址即可.</p><p>ps:爱奇艺的结果不是很稳定，有时解析出来的地址无法播放，解决办法只能多解析几次，测试发现有时取到的视频的ip地址是不通了，估计是奇艺的服务器的问题</p><p>分析优酷的下载地址可以参考<a href="http://www.cnblogs.com/keygle/p/3829653.html" target="_blank" rel="noopener">这篇文章</a></p><p>这里说下分析爱奇艺的思路：</p><p>1.分析mp4或者m3u8，方法都一样，只是有一个参数不一样</p><p>  因为pc上播放的视频都是flv格式的，所以你只能用移动设备做这个工作了，用iphone真机或者模拟器，配合safari使用，可以在safari上面调试页面，随便选一个视频页面，找到页面上的</p><pre><code>&lt;script&gt;eval(function(p,a,c,k,e,d){e=function(c){return(c&lt;a?&quot;&quot;:e(parseInt(c/a)))+((c=c%a)&gt;35?String.fromCharCode(c+29):c.toString(36))};if(!&apos;&apos;.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return&apos;\\w+&apos;};c=1;};while(c--)if(k[c])p=p.replace(new RegExp(&apos;\\b&apos;+e(c)+&apos;\\b&apos;,&apos;g&apos;),k[c]);return p;}(&apos;z 1h(e,n,t,a,r,o){z i(e,n){F((e&gt;&gt;1)+(n&gt;&gt;1)&lt;&lt;1)+(1&amp;e)+(1&amp;n)}z c(e,n,t,a){e&gt;0&amp;&amp;5&gt;e?t&gt;=0?p&lt;&lt;6&gt;n?(a=[a[3],i(a[1],(x=i(i(a[0],[a[1]&amp;a[2]|~a[1]&amp;a[3],a[3]&amp;a[1]|~a[3]&amp;a[2],a[1]^a[2]^a[3],a[2]^(a[1]|~a[3])][y=t&gt;&gt;4]),i(j(m(t+1))*N|0,B[[t,5*t+1,3*t+5,7*t][y]%16+(n++&gt;&gt;&gt;6)])))&lt;&lt;(y=[7,12,17,22,5,9,14,20,4,11,16,23,6,10,15,21][4*y+t%4])|x&gt;&gt;&gt;1f-y),a[1],a[2]],P&amp;n?c(e,n,P&amp;n,a):(A=[i(a[0],A[0]),i(a[1],A[1]),i(a[2],A[2]),i(a[3],A[3])],c(e,n+1U,P&amp;n,A))):(B=[],p=&quot;&quot;):C?c(12,n,0,&quot;1X&quot;):c(13,n,0,&quot;24&quot;):e&gt;6&amp;&amp;10&gt;e?(e=X(1c(a)),t&lt;e.K?(B[n&gt;&gt;2]|=e.19(t++)&lt;&lt;8*(n%4),c(9,++n,t,M)):(d(1Y.2a(26))&amp;&amp;(B[n&gt;&gt;2]|=1&lt;&lt;(n%4&lt;&lt;3)+7),B[p=(n+8&gt;&gt;6&lt;&lt;4)+14]=n&lt;&lt;3,c(3,0,0,A))):e&gt;11&amp;&amp;15&gt;e&amp;&amp;(t&lt;(a.K&lt;&lt;1)/5?(B[n&gt;&gt;2]|=(2n(a.2m(10*(t&gt;&gt;2),10),10)&gt;&gt;(3-(3&amp;t)&lt;&lt;3)&amp;1r^(a.K&lt;&lt;1)/5-t++)&lt;&lt;((3&amp;n++)&lt;&lt;3),c(14,n,t,a)):c(7,n,0,M))}z d(e){F&quot;1o&quot;!=1k G[e]}q u=18.1j,h=18.1w,s=G.1F;(1b===s||-1b===s)&amp;&amp;(u=u&gt;h?h:u);q f=G.1d;u=H.V(u/f);q w=H.V(G.1G/f),b=H.V(G.1J/f),v=u-b-w,g=L(w+&quot;N&quot;+v),l=&quot;&quot;,N=1n,j=H.1l,m=H.1m,p=&quot;&quot;;d(&quot;1H&quot;)&amp;&amp;(p=Q.1I,p&amp;&amp;p.1L(&quot;1M.1K&quot;)&gt;=0||(l+=L(&quot;1z&quot;))),l+=d(&quot;1A&quot;)?(l?&quot;N&quot;:&quot;&quot;)+L(&quot;1x&quot;):&quot;&quot;;q C=n,M=e,T=7,k={},R=(1C 1B).1E();k.J=(n?o+&quot;&quot;+r:R-T)+&quot;&quot;,M=O(L(M)),k.J=O(L(C?k.J+a+&quot;&quot;+t:k.J));q x,y,A=[x=1D,y=-1y,~x,~y],B=[],D=z(){1a(p=X(1c(k.J)),y=0;y&lt;p.K;)B[y&gt;&gt;2]|=p.19(y)&lt;&lt;8*(y++%4);1a(c(1,y,-1,B),x=0;1f&gt;x;)p+=(A[x&gt;&gt;3]&gt;&gt;4*(1^7&amp;x++)&amp;15).Y(16);F p},E=z(){q e=&quot;z%1t%28%29%20%1v%20%1s%1p%1q%20%1u&quot;,n=&quot;1N&quot;;F&quot;2c&quot;2f Q.2g.2h&amp;&amp;(n=O(2e.2b.Y())===e?&quot;2j&quot;:&quot;2d&quot;),n};Z(n){q I={};F I.1g=D,I.1i=E,I.d=R,I}q S=D();Z(S.K&gt;4){q U=&quot;&quot;;U+=Q.2i+&quot;;&quot;+G.1d+&quot;;&amp;2o=&quot;+R,U=2l(U);q W={};F W.1T=&quot;1S&quot;,W.1V=S,W.1P=U,l&amp;&amp;(W.1W=l),g&amp;&amp;(W.25=g),W.t=R-7,W.1e=E(),W}}z 1Z(e,n,t,a){q r=1h(&quot;&quot;,!0,a,t,n,e),o=&quot;27&quot;,i={};F i.1Q=&quot;1R&quot;,i.1O=r.1g(o,!0),i.2k=r.d-7,i.1e=r.1i(),i}&apos;,62,149,&apos;||||||||||||||||||||||||||var|||||||||function||||||return|window|Math||cache|length|btoa||_|escape|63|document|||||round||atob|toString|if|||||||||screen|charCodeAt|for|90|unescape|devicePixelRatio|__jsT|32|md|weorjjigh|jc|height|typeof|abs|sin|4294967296|undefined|20code|5D|255|5Bnative|20javaEnabled|7D|7B|width|BOL|271733879|UCW|_0|Date|new|1732584193|getTime|orientation|screenTop|ucweb|referrer|outerHeight|com|indexOf|baidu|null|__sigC|__refI|__cliT|h5|d846d0c32d664d32b6b54ea48997a589|src|960|sc|qd_jsin|1330848328159996040014666388890612187513113019274921193194001265062984|String|weorjjighly|||||03603482862038069294069554231005389970290678182205184924421910467011111731869494|qd_wsz|81|jfakmkafklw23321f4ea32459|||fromCharCode|javaEnabled|WebkitAppearance|sijsc|navigator|in|documentElement|style|URL|sgve|__ctmM|encodeURIComponent|substr|parseInt|tim&apos;.split(&apos;|&apos;),0,{}));/*v20150304*/&lt;/script&gt;</code></pre><p>这段js是客户端加密的一个方法，它的作用是生成请求视频信息的参数，虽然它是结果混淆了，我们可以反混淆把这段js解析出来，整个解析的过程，这个函数很重要，其余只要监视网络请求，就可以获得最终的视频请求url。具体可以查看我的github</p><p>2.分析flv</p><p>  我的做法是反编译爱奇艺的flash播放器，然后配合http请求，分析反编译后的代码，找到加密方法。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://github.com/jiangli373/nodeParseVideo&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;项目地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这个项目通过一个优酷或者爱奇艺的视频地址，最终可以得到视频的下载地址&lt;/p&gt;
+&lt;p&gt;这个项目的想法是来源：&lt;a href=&quot;https://github.com/keygle/parseVideo&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/keygle/parseVideo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;因为自己要用到优酷和奇艺，所以就测试了这两个，测试结果是优酷的可以使用，爱奇艺的已经失效。&lt;/p&gt;
+&lt;p&gt;经过研究爱奇艺的视频页面的http请求，以及反编译视频播放器，找到它的下载地址，自己做了一个pr，现在该项目作者已经merge了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="nodejs" scheme="http://jiangli373.github.io/tags/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>What Mongoose Never Explain to You (on Case Sentivity)</title>
+    <link href="http://jiangli373.github.io/2015/03/17/What-Mongoose-Never-Explain-to-You-on-Case-Sentivity/"/>
+    <id>http://jiangli373.github.io/2015/03/17/What-Mongoose-Never-Explain-to-You-on-Case-Sentivity/</id>
+    <published>2015-03-17T08:08:38.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>原文地址:<a href="http://samwize.com/2014/03/07/what-mongoose-never-explain-to-you-on-case-sentivity/" target="_blank" rel="noopener">http://samwize.com/2014/03/07/what-mongoose-never-explain-to-you-on-case-sentivity/</a></p><p>Mongoose is the most popular library for using Mongodb on Node.js.</p><p>I took some time to learn about the case sentivity and model name renaming it does behind the curtain.</p><p>Let’s assume the model I have is ‘Campaign’.</p><ul><li>mongodb collection name is case sensitive (‘Campaigns’ is different from ‘campaigns’)</li><li>mongodb best practises is to have all lower case for collection name (‘campaigns’ is preferred)</li><li>mongoose model name should be singular and upper case (‘Campaign’)</li><li>mongoose will lowercase and pluralize with an ’s’ so that it can access the collection (‘Campaign’ &gt;&gt; ‘campaigns’)</li></ul><p>Knowing this is especially useful if you are dealing with existing collections.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;原文地址:&lt;a href=&quot;http://samwize.com/2014/03/07/what-mongoose-never-explain-to-you-on-case-sentivity/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://
+      
+    
+    </summary>
+    
+    
+      <category term="mongodb" scheme="http://jiangli373.github.io/tags/mongodb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mongoose的lean的用法</title>
+    <link href="http://jiangli373.github.io/2014/11/21/mongoose%E7%9A%84lean%E7%9A%84%E7%94%A8%E6%B3%95/"/>
+    <id>http://jiangli373.github.io/2014/11/21/mongoose的lean的用法/</id>
+    <published>2014-11-21T03:42:09.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>项目中遇到一个问题，我使用find方法查询出来的结果，想通过JSON.stringify()将其序列化，发现没法操作，然后在stackoverflow找到了一个答案：</p><pre><code>http://stackoverflow.com/questions/9952649/convert-mongoose-docs-to-json</code></pre><p>这里使用到了lean方法</p><a id="more"></a><p>官方解释：</p><pre><code>Documents returned from queries with the lean option enabled are plain javascript objects,not MongooseDocuments. They have no save method, getters/setters or other Mongoose magic applied.</code></pre><p>使用该方法，查询出来的数据是一个javascript对象，不是一个mongoose文档，不再具有save，getters/setters和其它mongoose提供的方法。</p><p>Example:</p><pre><code>new Query().lean() // truenew Query().lean(true)new Query().lean(false)Model.find().lean().exec(function (err, docs) {  docs[0] instanceof mongoose.Document // false});http://mongoosejs.com/docs/api.html#query_Query-lean</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;项目中遇到一个问题，我使用find方法查询出来的结果，想通过JSON.stringify()将其序列化，发现没法操作，然后在stackoverflow找到了一个答案：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;http://stackoverflow.com/questions/9952649/convert-mongoose-docs-to-json
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里使用到了lean方法&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="mongoose" scheme="http://jiangli373.github.io/tags/mongoose/"/>
+    
+      <category term="mongodb" scheme="http://jiangli373.github.io/tags/mongodb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Centos安装网络配置问题</title>
+    <link href="http://jiangli373.github.io/2014/10/31/Centos%E5%AE%89%E8%A3%85%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE%E9%97%AE%E9%A2%98/"/>
+    <id>http://jiangli373.github.io/2014/10/31/Centos安装网络配置问题/</id>
+    <published>2014-10-31T05:09:13.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天装了下centos，以前安装的都是ubuntu，安装完成以后，网络没有问题，但是今天装完centos以后，发现没<br>有办法上网</p><p>命令    ifconfig</p><p><img src="/img/9BB2257E-B81D-447A-867D-32E2F60612B5.png" alt=""></p><p>发现没有eth0，网上收了下，找到解决办法，这里记录下：</p><a id="more"></a><p>解决方案：</p><p> 修改下列文件 </p><pre><code>vi /etc/rc.d/rc.loacl最后加入ifup eth0</code></pre><p>重启电脑后执行命令ifconfig这时候就会显示出eth0和lo共2部分信息，再次ping就可以ping通了</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天装了下centos，以前安装的都是ubuntu，安装完成以后，网络没有问题，但是今天装完centos以后，发现没&lt;br&gt;有办法上网&lt;/p&gt;
+&lt;p&gt;命令    ifconfig&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/9BB2257E-B81D-447A-867D-32E2F60612B5.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;发现没有eth0，网上收了下，找到解决办法，这里记录下：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Centos" scheme="http://jiangli373.github.io/tags/Centos/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How to get array of json objects rather than mongoose documents</title>
+    <link href="http://jiangli373.github.io/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/"/>
+    <id>http://jiangli373.github.io/2014/10/17/How-to-get-array-of-json-objects-rather-than-mongoose-documents/</id>
+    <published>2014-10-17T08:50:04.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>stackoverflow：<a href="http://stackoverflow.com/questions/12210870/how-to-get-array-of-json-objects-rather-than-mongoose-documents" target="_blank" rel="noopener">How to get array of json objects rather than mongoose documents</a></p><p>项目使用的是mongoose3.x版本，我查询直接用的是</p><pre><code>model.findOne(query,fields,opt,function(err,doc));</code></pre><p>每次需要给查询出来的结果，给客户端返回结果需要添加新的字段，有两个办法：</p><a id="more"></a><p>1.使用mongoose的toObject()方法：</p><p>官方解释：Converts this document into a plain javascript object, ready for storage in MongoDB.</p><pre><code>var mo = doc.toObject();mo.tag = sex;</code></pre><p>2.使用set方法：</p><p>对于mongoose 3.x  在新建Schema的时候需要显示指定strict的值为false，例如：</p><pre><code>var model = new Schema({..}, { strict: false });</code></pre><p>如果你使用的是mongoose 2.x，则在新建Schema的时候不需要显示指定strict的值，因为默认值是false</p><pre><code>model.findOne(query,fields,opt,function(err,doc));doc.set(&apos;tag&apos;,&apos;sex&apos;);</code></pre><p>ps:mongoose 2.x 升级到3.x的坑比较大，升级需谨慎!!!</p><p>看下set方法的api：Document#set(path, val, [type], [options])</p><p>最后有个参数options,这里设置{ strict: false },可以改变model的模式</p><pre><code>// changing strict mode behaviordoc.set(path, value, { strict: false });</code></pre><p>关于option: strict解释，看下官方原话：</p><p>option: strict</p><p>The strict option, (enabled by default), ensures that values passed to<br>our model constructor that were not specified in our schema do not get saved to the db.</p><p>如果strict为treu保证不在schema定义的field不会被写进库里。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;stackoverflow：&lt;a href=&quot;http://stackoverflow.com/questions/12210870/how-to-get-array-of-json-objects-rather-than-mongoose-documents&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;How to get array of json objects rather than mongoose documents&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;项目使用的是mongoose3.x版本，我查询直接用的是&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;model.findOne(query,fields,opt,function(err,doc));
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;每次需要给查询出来的结果，给客户端返回结果需要添加新的字段，有两个办法：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="mongoose" scheme="http://jiangli373.github.io/tags/mongoose/"/>
+    
+      <category term="mongodb" scheme="http://jiangli373.github.io/tags/mongodb/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用WebVirtMgr搭建虚拟机管理工具</title>
+    <link href="http://jiangli373.github.io/2014/10/16/%E4%BD%BF%E7%94%A8WebVirtMgr%E6%90%AD%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
+    <id>http://jiangli373.github.io/2014/10/16/使用WebVirtMgr搭建虚拟机管理工具/</id>
+    <published>2014-10-16T07:47:50.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>以前使用过kvm在linux系统上安装过虚拟机，原来的博客已经挂掉，可以参考下同事写的<a href="http://blog.csdn.net/marujunyy/article/details/8466286" target="_blank" rel="noopener">博客</a></p><p>这种方式得人工敲命令，然后安装的时候再通过vnc执行安装步骤，这个过程就不再说明了。能不能换一种方式，类似现在的<br>各种虚拟主机，只需要在页面上点击一些按钮，就安装出来一个台云主机。</p><a id="more"></a><p>网上搜了下，找到了一个<a href="https://github.com/retspen/webvirtmgr" target="_blank" rel="noopener">WebVirtMgr</a>,可以实现类似的功能，通过按钮配置一台虚拟机，但是虚拟机的<br>系统安装还得自己操作，不过比以前的安装方式省心了不少。</p><p>具体的安装过程就不赘述了，文档里面说的很清楚了。</p><h5 id="Installation-Only-web-panel"><a href="#Installation-Only-web-panel" class="headerlink" title="Installation (Only web panel)"></a>Installation (Only web panel)</h5><p><a href="https://github.com/retspen/webvirtmgr/wiki/Install-WebVirtMgr" target="_blank" rel="noopener">Install WebVirtMgr</a></p><h5 id="Setup-host-server-Server-for-VM’s"><a href="#Setup-host-server-Server-for-VM’s" class="headerlink" title="Setup host server (Server for VM’s)"></a>Setup host server (Server for VM’s)</h5><p><a href="https://github.com/retspen/webvirtmgr/wiki/Setup-Host-Server" target="_blank" rel="noopener">Setup Host Server</a></p><p>我就说下，我安装过程中遇到的各种坑</p><h6 id="1-程序没法启动"><a href="#1-程序没法启动" class="headerlink" title="1.程序没法启动"></a>1.程序没法启动</h6><p>我是按照文档上的安装的，宿主机是centos,最后程序的安装位置是在/var/www目录下，程序是通过supervisor来启动的，我已开始是在自己的home目录下，</p><pre><code>sudo /etc/init.d/supervisord start</code></pre><p>然后通过浏览器访问，页面显示502，看日志，</p><pre><code>cat /var/log/webvirtmgr.log</code></pre><p>以下是部分错误提示：</p><pre><code>OSError: [Errno 13] Permission denied: &apos;/home/jiangli&apos;ERROR:gunicorn.error:Exception in worker process:Traceback (most recent call last):  File &quot;/usr/lib/python2.6/site-packages/gunicorn/arbiter.py&quot;, line 495, in spawn_worker    worker.init_process()  File &quot;/usr/lib/python2.6/site-packages/gunicorn/workers/base.py&quot;, line 106, in init_process    self.wsgi = self.app.wsgi()  File &quot;/usr/lib/python2.6/site-packages/gunicorn/app/base.py&quot;, line 114, in wsgi    self.callable = self.load()  File &quot;/usr/lib/python2.6/site-packages/gunicorn/app/djangoapp.py&quot;, line 135, in load    os.chdir(self.cfg.chdir)</code></pre><p>权限不正确,解决办法：</p><pre><code>cd /var/www/webvirtmgr</code></pre><p>再执行</p><pre><code>sudo /etc/init.d/supervisord start</code></pre><p>浏览器再次访问，ok，可以访问到了。</p><h6 id="2-页面上的控制台打开无法连接服务器"><a href="#2-页面上的控制台打开无法连接服务器" class="headerlink" title="2.页面上的控制台打开无法连接服务器"></a>2.页面上的控制台打开无法连接服务器</h6><p>这个问题弄了一上午，才终于搞定。原来的安装方式是客户端需要安装vncviewer，才能看到安装页面，<br>    webvirtmgr使用了novnc，页面通过websocket进行通信，页面效果如下：</p><p><img src="/img/62FD16AC-4F5E-4F94-A78A-2874B289C6DE.png" alt=""></p><p>刚开始这个页面一直就是连接不上服务器，看console，显示ws不能正常连接，网上查了一遍又一遍还是没有结果，最后在一片文章上找了解决办法：</p><p><a href="https://www.bountysource.com/issues/1336736-server-disconnected-code-1006" target="_blank" rel="noopener">https://www.bountysource.com/issues/1336736-server-disconnected-code-1006</a></p><p>1.首先需要安装novnc</p><pre><code>yum install novnc</code></pre><p>坑爹，安装文档里面竟然没有让安装这个软件</p><p>2.打开6080防火墙</p><pre><code>iptables -I INPUT -p tcp --dport 6080 -j ACCEPT; iptables -I OUTPUT -p tcp --dport 6080 -j ACCEPT; service iptables save</code></pre><p>最后再重启服务</p><pre><code>sudo /etc/init.d/supervisord start</code></pre><p>浏览器再次访问，这下ok了。</p><p>上面就是安装过程遇到的大坑。下面就体验下效果了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;以前使用过kvm在linux系统上安装过虚拟机，原来的博客已经挂掉，可以参考下同事写的&lt;a href=&quot;http://blog.csdn.net/marujunyy/article/details/8466286&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;博客&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这种方式得人工敲命令，然后安装的时候再通过vnc执行安装步骤，这个过程就不再说明了。能不能换一种方式，类似现在的&lt;br&gt;各种虚拟主机，只需要在页面上点击一些按钮，就安装出来一个台云主机。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="http://jiangli373.github.io/tags/linux/"/>
+    
+      <category term="WebVirtMgr" scheme="http://jiangli373.github.io/tags/WebVirtMgr/"/>
+    
+      <category term="centos" scheme="http://jiangli373.github.io/tags/centos/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu server下配置UTF8中文的步骤</title>
+    <link href="http://jiangli373.github.io/2014/10/08/ubuntu-server%E4%B8%8B%E9%85%8D%E7%BD%AEUTF8%E4%B8%AD%E6%96%87%E7%9A%84%E6%AD%A5%E9%AA%A4/"/>
+    <id>http://jiangli373.github.io/2014/10/08/ubuntu-server下配置UTF8中文的步骤/</id>
+    <published>2014-10-08T08:25:05.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>第一步，安装中文包：  </p><pre><code>sudo apt-get install language-pack-zh-hant-base language-pack-zh-hans-base</code></pre><a id="more"></a><p>第二步，配置相关环境变量：</p><pre><code>sudo vi /etc/environmentLANG=&quot;zh_CN.UTF-8&quot;LANGUAGE=&quot;zh_CN:zh:en_US:en&quot;</code></pre><p>第三步，重新配置本地配置</p><pre><code>sudo dpkg-reconfigure locales</code></pre><p><img src="/img/a1ef5986d8f139c455081c4debad6c85.png" alt="">    </p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;第一步，安装中文包：  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install language-pack-zh-hant-base language-pack-zh-hans-base
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="ubuntu" scheme="http://jiangli373.github.io/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>eclipse 配置 resin</title>
+    <link href="http://jiangli373.github.io/2014/10/08/eclipse-%E9%85%8D%E7%BD%AE-resin/"/>
+    <id>http://jiangli373.github.io/2014/10/08/eclipse-配置-resin/</id>
+    <published>2014-10-08T08:23:11.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/img/ada15855603b4a29a86ab1d21f2bf4a3.png" alt=""></p><a id="more"></a><p><img src="/img/4d938ed2fbb59cacdf0997dbe33ea326.png" alt=""></p><p><img src="/img/a4316595ef8d2d4bc90d8c014d3ec5fc.png" alt=""></p><pre><code>--root-directory D:\ylb_pro\xjb_web_1-5.git\web-conf D:\ylb_pro\xjb_web_1-5.git\web\resin.xml-Xss1m -Xmx256m</code></pre><p><img src="/img/7af9be138d8615976c952ebf63a8f438.png" alt=""></p><p><img src="/img/183560d224f24335ba1d1b5223418b5a.png" alt=""></p><p><img src="/img/7cbf3701f9e58de929aeb707d3d79afe.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/img/ada15855603b4a29a86ab1d21f2bf4a3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="eclipse" scheme="http://jiangli373.github.io/tags/eclipse/"/>
+    
+      <category term="resin" scheme="http://jiangli373.github.io/tags/resin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu server设置静态ip</title>
+    <link href="http://jiangli373.github.io/2014/10/08/ubuntu-server%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/"/>
+    <id>http://jiangli373.github.io/2014/10/08/ubuntu-server设置静态ip/</id>
+    <published>2014-10-08T08:18:36.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>ubuntu的网络配置信息放在/etc/network/interfaces 中</p><pre><code>sudo vi /etc/network/interfaces</code></pre><p>如果配置动态获取ip，则在上述文件中加入以下内容：(注：服务器通常不用动态IP)</p><pre><code>auto eth0iface eth0 inet dhcp</code></pre><a id="more"></a><p>如果配置静态ip，则添加如下内容：</p><pre><code>auto eth0iface eth0 inet staticaddress 192.168.1.150netmask 255.255.255.0gateway 192.168.1.1</code></pre><p>修改完成后，需要重新启动网络</p><pre><code>sudo /etc/init.d/networking restart</code></pre><ul><li>Running /etc/init.d/networking restart is deprecated because it may not enable again some interfaces</li><li>Reconfiguring network interfaces… </li></ul><p>然后需要重新登录服务器。 </p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ubuntu的网络配置信息放在/etc/network/interfaces 中&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo vi /etc/network/interfaces
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果配置动态获取ip，则在上述文件中加入以下内容：(注：服务器通常不用动态IP)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;auto eth0
+iface eth0 inet dhcp
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="ubuntu" scheme="http://jiangli373.github.io/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu server安装mongodb</title>
+    <link href="http://jiangli373.github.io/2014/10/08/ubuntu-server%E5%AE%89%E8%A3%85mongodb/"/>
+    <id>http://jiangli373.github.io/2014/10/08/ubuntu-server安装mongodb/</id>
+    <published>2014-10-08T08:17:28.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.配置Package Management System</p><pre><code>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10</code></pre><a id="more"></a><p>2.使用下面的命令创建mongodb的源</p><pre><code>echo &apos;deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen&apos; | sudo tee /etc/apt/sources.list.d/mongodb.list</code></pre><p>3.更新ubuntu的版本库</p><pre><code>sudo apt-get update</code></pre><p>4.安装mongodb</p><pre><code>sudo apt-get install mongodb-10gen</code></pre><p>5.启动mongodb</p><pre><code>sudo service mongodb start</code></pre><p>6.停止mongodb</p><pre><code>sudo service mongodb stop</code></pre><p>7.重启mongodb</p><pre><code>sudo service mongodb restart</code></pre><p>附：官方安装地址：<a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="noopener">http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1.配置Package Management System&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="mongodb" scheme="http://jiangli373.github.io/tags/mongodb/"/>
+    
+      <category term="ubuntu" scheme="http://jiangli373.github.io/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu server安装node.js</title>
+    <link href="http://jiangli373.github.io/2014/10/08/ubuntu-server%E5%AE%89%E8%A3%85node-js/"/>
+    <id>http://jiangli373.github.io/2014/10/08/ubuntu-server安装node-js/</id>
+    <published>2014-10-08T08:16:22.000Z</published>
+    <updated>2018-08-17T04:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.安装node.js环境  </p><pre><code>sudo apt-get install g++ curl libssl-dev apache2-utils要确保安装了git  sudo apt-get -y install git-core</code></pre><a id="more"></a><p>2.通过git下载源代码：</p><pre><code>git clone git://github.com/joyent/node.git</code></pre><p>3.进入到node目录下，编译安装</p><pre><code>./configuremakesudo make install</code></pre><p>注：如果没有安装make的话，需要先安装make sudo apt-get install make</p><p>4.编译成功后，可以通过node -v查看当前版本号</p><p>5.安装npm</p><pre><code>curl -k https://npmjs.org/install.sh | sudo sh</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1.安装node.js环境  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install g++ curl libssl-dev apache2-utils
+
+要确保安装了git  
+
+sudo apt-get -y install git-core
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="ubuntu" scheme="http://jiangli373.github.io/tags/ubuntu/"/>
+    
+      <category term="node.js" scheme="http://jiangli373.github.io/tags/node-js/"/>
+    
+  </entry>
+  
+</feed>
