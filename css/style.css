@@ -453,6 +453,23 @@ article footer .tags {
 .comment-link .fa {
   margin-right: 5px;
 }
+table {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  border-left: none;
+  word-break: normal;
+}
+table td,
+table th {
+  padding: 8px;
+  border: 1px solid #ddd;
+  line-height: 20px;
+  vertical-align: middle;
+}
+table tr:nth-of-type(2n) {
+  background-color: rgba(181,181,181,0.1);
+}
 #comment {
   background: #fff;
   margin-bottom: 50px;
