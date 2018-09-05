@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jiangli373.github.io/"/>
-  <updated>2018-08-17T05:08:25.000Z</updated>
+  <updated>2018-09-05T04:10:20.000Z</updated>
   <id>http://jiangli373.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mongodb副本集配置</title>
+    <link href="http://jiangli373.github.io/2018/09/05/%E5%89%AF%E6%9C%AC%E9%9B%86%E9%85%8D%E7%BD%AE/"/>
+    <id>http://jiangli373.github.io/2018/09/05/副本集配置/</id>
+    <published>2018-09-05T03:37:00.000Z</published>
+    <updated>2018-09-05T04:10:20.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>测试配置MongoDB副本集，首先找3台测试服务器，或者一台服务器上，跑3个MongoDB实例也可以。我这里以3台服务器来做实验。</p><p>3台服务器IP</p><p>192.168.56.8<br>192.168.56.9<br>192.168.56.10</p><p>每台服务器上的MongoDB启动使用<code>--replSet test</code> 或者在mongodb.conf里面配置</p><p>例如：</p><p>mongodb.conf</p><p>  dbpath=/export/data/mongodb # 数据存放位置<br>  logpath=/export/data/mongodb/mongod.log # 日志存放位置<br>  replSet=jdcmofe       #副本集名称<br>  fork=true # 以后台模式运行</p><p>然后每台服务器按照这个命令启动</p><p>  mongod -f mongodb.conf</p><p>然后在任意一台服务器上执行如下操作:</p><p>我这里是在192.168.56.8服务器上操作</p><p>使用mongo shell登录mongodb，执行如下操作</p><p>  config={<br>    _id:”test”,<br>    members:[<br>      {_id:0,host:”192.168.56.8:27017”},<br>      {_id:1,host:”192.168.56.9:27017”},<br>      {_id:2,host:”192.168.56.10:27017”}<br>      ]<br>  };</p><p>_id是副本集名称</p><p>members是3台服务器的Ip</p><p>然后执行</p><p>  rs.initiate(config)</p><p>  rs.status() // 查看集群节点</p><h3 id="测试副本集的数据复制功能"><a href="#测试副本集的数据复制功能" class="headerlink" title="测试副本集的数据复制功能"></a>测试副本集的数据复制功能</h3><p>此时在我的机器上192.168.56.8是主节点，使用mongo shell登录mongodb</p><p>  use test  #切换到test数据库</p><p>  db.testdb.insert({“age”:1});       #插入数据</p><p>我们用副本节点登录shell，我这里是192.168.56.9</p><p>  use test<br>  show collections</p><p>此时会报错</p><p>  [thread1] Error: listCollections failed: {<br>  “ok” : 0,<br>  “errmsg” : “not master and slaveOk=false”,<br>  “code” : 13435,<br>  “codeName” : “NotMasterNoSlaveOk”<br>  }</p><p>因为mongodb默认是从主节点读写数据的，副本节点上不允许读，需要设置副本节点可以读。</p><p>  test:SECONDARY&gt; rs.slaveOk();</p><p>此时就可以读取数据了</p><p>  test:SECONDARY&gt; db.test.find();</p><p>控制台输出</p><p>  { “_id” : ObjectId(“59676d711881041abab44477”), “age” : 1 }</p><p>所以，数据复制的功能是可用的。</p><h2 id="MongoDB权限设置"><a href="#MongoDB权限设置" class="headerlink" title="MongoDB权限设置"></a>MongoDB权限设置</h2><p>默认MongoDB启动是不带权限校验的，所以都是在裸奔，需要加上权限校验。</p><p>首先使用mongo shell登录MongoDB数据库</p><p>  use admin;</p><p>  db.createUser(<br>    {<br>      user: “jiangli”,<br>      pwd: “123”,<br>      roles: [ { role: “userAdminAnyDatabase”, db: “admin” } ]<br>    }<br>  )</p><p>然后重新启动MongoDB</p><p>  mongod -f mongodb.conf –auth</p><p>–auth表示打开权限校验</p><p>我们刚才是在给admin数据库创建了用户，如果想给特定的数据库创建特定的用户可以按照下面的步骤</p><p>mongo shell登录数据库</p><p>  use admin<br>  db.auth(‘jiangli’, ‘123’)</p><p>  #切换到目标数据库上，比如test<br>  use test;<br>  db.createUser({user:”second”,pwd:”second”,roles: [ { role: “readWrite”, db: “test” } ]})</p><p>打开权限校验以后，副本集的启动也需要修改下。</p><p>Replica Set要使用keyFile的校验方式</p><p>首先在192.168.56.8服务器上生成key</p><p>  openssl rand -base64 756 &gt; <path-to-keyfile><br>  chmod 400 <path-to-keyfile></path-to-keyfile></path-to-keyfile></p><p>然后把生成key拷贝到其它两台服务器上去，然后更改下读取权限</p><p>  chmod 400 <path-to-keyfile></path-to-keyfile></p><p>然后重启MongoDB数据库</p><p>  mongod -f mongodb.conf –auth –keyFile=/export/data/mongodb/test-key</p><p>ps:</p><p>程序连接开启副本集，权限校验的MongoDB数据库方法</p><p>使用mongoose</p><p>方法一：</p><p>  const mongoose = require(‘mongoose’);<br>  mongoose.connect(<br>  ‘second:<a href="mailto:second@192.168.56.8" target="_blank" rel="noopener">second@192.168.56.8</a>:27017,192.168.56.9:27017,192.168.56.10:27017/test?replicaSet=test’</p><p>方法二:</p><p>如果你的数据库密码里面包含@ %等字符，如果使用方法一的方式，会报</p><p>  URIError: URI malformed<br>    at decodeURIComponent (<anonymous>)</anonymous></p><p>使用这种方式解决</p><p>  mongoose.connect(‘192.168.56.8:27017,192.168.56.9:27017,192.168.56.10:27017/test?replicaSet=test’,{user:’second’,pass:’second’,useMongoClient:true})</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;测试配置MongoDB副本集，首先找3台测试服务器，或者一台服务器上，跑3个MongoDB实例也可以。我这里以3台服务器来做实验。&lt;/p&gt;
+&lt;p&gt;3台服务器IP&lt;/p&gt;
+&lt;p&gt;192.168.56.8&lt;br&gt;192.168.56.9&lt;br&gt;192.168.56.10&lt;/p&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="MongoDB" scheme="http://jiangli373.github.io/tags/MongoDB/"/>
+    
+  </entry>
   
   <entry>
     <title>Mongodb数据库介绍</title>
@@ -504,34 +529,6 @@ iface eth0 inet dhcp
       <category term="mongodb" scheme="http://jiangli373.github.io/tags/mongodb/"/>
     
       <category term="ubuntu" scheme="http://jiangli373.github.io/tags/ubuntu/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ubuntu server安装node.js</title>
-    <link href="http://jiangli373.github.io/2014/10/08/ubuntu-server%E5%AE%89%E8%A3%85node-js/"/>
-    <id>http://jiangli373.github.io/2014/10/08/ubuntu-server安装node-js/</id>
-    <published>2014-10-08T08:16:22.000Z</published>
-    <updated>2018-08-17T04:52:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>1.安装node.js环境  </p><pre><code>sudo apt-get install g++ curl libssl-dev apache2-utils要确保安装了git  sudo apt-get -y install git-core</code></pre><a id="more"></a><p>2.通过git下载源代码：</p><pre><code>git clone git://github.com/joyent/node.git</code></pre><p>3.进入到node目录下，编译安装</p><pre><code>./configuremakesudo make install</code></pre><p>注：如果没有安装make的话，需要先安装make sudo apt-get install make</p><p>4.编译成功后，可以通过node -v查看当前版本号</p><p>5.安装npm</p><pre><code>curl -k https://npmjs.org/install.sh | sudo sh</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;1.安装node.js环境  &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;sudo apt-get install g++ curl libssl-dev apache2-utils
-
-要确保安装了git  
-
-sudo apt-get -y install git-core
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-    
-      <category term="ubuntu" scheme="http://jiangli373.github.io/tags/ubuntu/"/>
-    
-      <category term="node.js" scheme="http://jiangli373.github.io/tags/node-js/"/>
     
   </entry>
   
